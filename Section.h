@@ -3,11 +3,17 @@
 
 class Section
 {
-	protected:
-
 	public:
-		Section();
+		Section(const Section& sec);
 		~Section();
+		bool isOpen();
+		Section& getNext();
+
+	protected:
+		Section* next;
+		bool open;
+
+	
 		
 
 };

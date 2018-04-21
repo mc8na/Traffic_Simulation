@@ -3,7 +3,11 @@
 
 #include "Truck.h"
 
-Truck::Truck() : Vehicle() {}
+Truck::Truck() : Vehicle() 
+{
+	frontMid = NULL;
+	backMid = NULL;
+}
 
 Truck::~Truck() {}
 

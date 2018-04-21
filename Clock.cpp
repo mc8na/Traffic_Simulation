@@ -1,5 +1,5 @@
-#ifndef __CLOCK_H__
-#define __CLOCK_H__
+#ifndef __CLOCK_CPP__
+#define __CLOCK_CPP__
 
 #include "Clock.h"
 

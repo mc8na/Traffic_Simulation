@@ -3,7 +3,10 @@
 
 #include "SUV.h"
 
-SUV::SUV() : Vehicle() {}
+SUV::SUV() : Vehicle() 
+{
+	mid = NULL;
+}
 
 SUV::~SUV() {}
 

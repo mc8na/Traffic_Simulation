@@ -1,13 +1,16 @@
 #ifndef __SUV_H__
 #define __SUV_H__
 
+#include "Vehicle.h"
+
 class SUV : public Vehicle
 {
 	public:
-
-	protected:
 		SUV();
 		~SUV();
+
+	protected:
+		Section mid;
 };
 
 #endif

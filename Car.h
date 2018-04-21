@@ -1,13 +1,16 @@
 #ifndef __CAR_H__
 #define __CAR_H__
 
+#include "Vehicle.h"
+
 class Car : public Vehicle
 {
 	public:
-
-	protected:
 		Car();
 		~Car();
+
+	protected:
+		
 };
 
 #endif

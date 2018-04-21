@@ -3,13 +3,20 @@
 
 class TrafficLight
 {
-	protected:
-
 	public:
-		TrafficLight();
+		enum Color {RED, YELLOW, GREEN};
+		TrafficLight(Color col, int red, int green);
 		~TrafficLight();
-		
+		void advanceTick();
+		Color getColor();
 
+	protected:
+		Color color;
+		int lengthRed;
+		int lengthYellow;
+		int lengthGreen;
+
+	
 };
 
 #endif

@@ -4,6 +4,8 @@
 class Clock
 {
 	protected:
+		TrafficLight NS;
+		TrafficLight EW;
 
 	public:
 		Clock();
