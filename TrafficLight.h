@@ -5,6 +5,7 @@ class TrafficLight
 {
 	public:
 		enum Color {RED, YELLOW, GREEN};
+		TrafficLight();
 		TrafficLight(Color col, int red, int green);
 		~TrafficLight();
 		void advanceTick();

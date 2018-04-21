@@ -7,6 +7,9 @@
 #include <vector>
 #include <list>
 
+class Section;
+class Vehicle;
+
 class Lane
 {
 	public:

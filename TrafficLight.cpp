@@ -3,6 +3,8 @@
 
 #include "TrafficLight.h"
 
+TrafficLight::TrafficLight() {}
+
 TrafficLight::TrafficLight(Color col, int red, int green)
 {
 	color = col;

@@ -5,8 +5,7 @@
 
 Truck::Truck() : Vehicle() 
 {
-	frontMid = NULL;
-	backMid = NULL;
+	
 }
 
 Truck::~Truck() {}

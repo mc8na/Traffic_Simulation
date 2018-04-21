@@ -5,7 +5,7 @@
 
 SUV::SUV() : Vehicle() 
 {
-	mid = NULL;
+	
 }
 
 SUV::~SUV() {}

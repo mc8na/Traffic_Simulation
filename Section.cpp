@@ -19,7 +19,7 @@ bool Section::isOpen()
 
 Section& Section::getNext()
 {
-	return next;
+	return *next;
 }
 
 #endif
