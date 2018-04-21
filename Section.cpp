@@ -3,6 +3,8 @@
 
 #include "Section.h"
 
+Section::Section() {}
+
 Section::Section(const Section& sec)
 {
 	open = true;

@@ -9,9 +9,10 @@ class Vehicle
 	protected:
 		Section front;
 		Section back;
-		Lane::Direction direction;
+		Lane::Direction vDirection;
 
 	public:
+		Vehicle();
 		Vehicle(const Section& sec, Lane::Direction dir);
 		~Vehicle();
 		void proceed();

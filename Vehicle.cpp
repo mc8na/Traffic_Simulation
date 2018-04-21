@@ -3,19 +3,21 @@
 
 #include "Vehicle.h"
 
+Vehicle::Vehicle() {}
+
 Vehicle::Vehicle(const Section& sec, Lane::Direction dir)
 {
-	direction = dir;
+	vDirection = dir;
 }
 
-void proceed()
+void Vehicle::proceed()
 {
 
 }
 
-Lane::Direction getDirection()
+Lane::Direction Vehicle::getDirection()
 {
-	return direction;
+	return vDirection;
 }
 
 Vehicle::~Vehicle(){}

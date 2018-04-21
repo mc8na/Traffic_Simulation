@@ -7,7 +7,7 @@
 
 Lane::Lane(Direction dir, IntSection one, IntSection two, int numSections)
 {
-	direction = dir;
+	lDirection = dir;
 	 
 }
 

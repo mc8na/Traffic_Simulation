@@ -4,6 +4,7 @@
 class Section
 {
 	public:
+		Section();
 		Section(const Section& sec);
 		~Section();
 		bool isOpen();

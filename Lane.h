@@ -16,9 +16,9 @@ class Lane
 		void advance();
 
 	protected:
-		std::vector<Section::Section> sections;
-		Direction direction;
-		std::list<Vehicle::Vehicle> vehicles;
+		std::vector<Section> sections;
+		Direction lDirection;
+		std::list<Vehicle> vehicles;
 };
 
 #endif
