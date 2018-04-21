@@ -5,7 +5,7 @@
 
 TrafficLight::TrafficLight() {}
 
-TrafficLight::TrafficLight(Color col, int red, int green)
+TrafficLight::TrafficLight(TrafficLight::Color col, int red, int green)
 {
 	color = col;
 	lengthRed = red;
@@ -20,7 +20,7 @@ void TrafficLight::advanceTick()
 
 }
 
-Color TrafficLight::getColor()
+TrafficLight::Color TrafficLight::getColor()
 {
 	return color;
 }
