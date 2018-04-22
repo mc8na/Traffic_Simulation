@@ -2,7 +2,7 @@
 #define __TRUCK_CPP__
 
 //#include "Intersection.h"
-#include "Truck.h"
+#include "Lane.h"
 
 Truck::Truck() : Vehicle() 
 {
