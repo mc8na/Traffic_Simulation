@@ -1,7 +1,8 @@
 #ifndef __TRUCK_H__
 #define __TRUCK_H__
 
-#include "Vehicle.h"
+#include "Lane.h"
+//#include "Vehicle.h"
 
 class Truck : public Vehicle
 {

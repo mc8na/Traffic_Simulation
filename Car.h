@@ -1,7 +1,8 @@
 #ifndef __CAR_H__
 #define __CAR_H__
 
-#include "Vehicle.h"
+#include "Lane.h"
+//#include "Vehicle.h"
 
 class Car : public Vehicle
 {
@@ -9,8 +10,7 @@ class Car : public Vehicle
 		Car();
 		~Car();
 
-	protected:
-		
+	protected:		
 };
 
 #endif

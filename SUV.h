@@ -1,7 +1,8 @@
 #ifndef __SUV_H__
 #define __SUV_H__
 
-#include "Vehicle.h"
+#include "Lane.h"
+//#include "Vehicle.h"
 
 class SUV : public Vehicle
 {

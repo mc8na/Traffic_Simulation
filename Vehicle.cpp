@@ -2,7 +2,8 @@
 #define __VEHICLE_CPP__
 
 //#include "Intersection.h"
-#include "Vehicle.h"
+//#include "Vehicle.h"
+#include "Lane.h"
 
 Vehicle::Vehicle() {}
 
