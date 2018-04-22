@@ -43,6 +43,7 @@ class Car : public Vehicle
 {
 	public:
 		Car();
+		Car(const Section& sec, Lane::Direction dir);
 		~Car();
 
 	protected:		
@@ -52,6 +53,7 @@ class SUV : public Vehicle
 {
 	public:
 		SUV();
+		SUV(const Section& sec, Lane::Direction dir);
 		~SUV();
 
 	protected:
@@ -62,6 +64,7 @@ class Truck : public Vehicle
 {
 	public:
 		Truck();
+		Truck(const Section& sec, Lane::Direction dir);
 		~Truck();
 
 	protected:
