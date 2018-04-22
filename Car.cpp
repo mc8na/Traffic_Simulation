@@ -6,6 +6,8 @@
 
 Car::Car() : Vehicle() {}
 
+Car::Car(const Section& sec, Lane::Direction dir) : Vehicle(sec, dir) {}
+
 Car::~Car() {}
 
 #endif

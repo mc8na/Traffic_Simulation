@@ -9,6 +9,7 @@ Section::Section() {}
 Section::Section(const Section& sec)
 {
 	open = true;
+	*next = sec;
 }
 
 Section::~Section(){}

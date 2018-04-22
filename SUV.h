@@ -8,6 +8,7 @@ class SUV : public Vehicle
 {
 	public:
 		SUV();
+		SUV(const Section& sec, Lane::Direction dir);
 		~SUV();
 
 	protected:

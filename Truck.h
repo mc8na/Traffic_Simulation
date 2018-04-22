@@ -8,6 +8,7 @@ class Truck : public Vehicle
 {
 	public:
 		Truck();
+		Truck(const Section& sec, Lane::Direction dir);
 		~Truck();
 
 	protected:

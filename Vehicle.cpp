@@ -10,6 +10,7 @@ Vehicle::Vehicle() {}
 Vehicle::Vehicle(const Section& sec, Lane::Direction dir)
 {
 	vDirection = dir;
+	front = sec;
 }
 
 void Vehicle::proceed()

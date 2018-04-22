@@ -4,10 +4,9 @@
 //#include "Intersection.h"
 #include "Truck.h"
 
-Truck::Truck() : Vehicle() 
-{
-	
-}
+Truck::Truck() : Vehicle() {}
+
+Truck::Truck(const Section& sec, Lane::Direction dir) : Vehicle(sec, dir) {}
 
 Truck::~Truck() {}
 
