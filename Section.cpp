@@ -1,6 +1,7 @@
 #ifndef __SECTION_CPP__
 #define __SECTION_CPP__
 
+//#include "Intersection.h"
 #include "Section.h"
 
 Section::Section() {}

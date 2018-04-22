@@ -1,6 +1,7 @@
 #ifndef __VEHICLE_CPP__
 #define __VEHICLE_CPP__
 
+//#include "Intersection.h"
 #include "Vehicle.h"
 
 Vehicle::Vehicle() {}

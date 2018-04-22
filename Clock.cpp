@@ -1,6 +1,7 @@
 #ifndef __CLOCK_CPP__
 #define __CLOCK_CPP__
 
+//#include "Intersection.h"
 #include "Clock.h"
 
 Clock::Clock()

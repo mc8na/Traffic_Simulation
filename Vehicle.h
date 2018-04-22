@@ -6,11 +6,6 @@
 
 class Vehicle
 {
-	protected:
-		Section front;
-		Section back;
-		Lane::Direction vDirection;
-
 	public:
 		Vehicle();
 		Vehicle(const Section& sec, Lane::Direction dir);
@@ -18,6 +13,10 @@ class Vehicle
 		void proceed();
 		Lane::Direction getDirection();
 
+	protected:
+		Section front;
+		Section back;
+		Lane::Direction vDirection;
 };
 
 #endif

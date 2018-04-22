@@ -1,5 +1,5 @@
 EXECS = test
-OBJS = Vehicle.o Clock.o Car.o SUV.o Truck.o Section.o IntSection.o TrafficLight.o Lane.o test.o
+OBJS = Vehicle.o Lane.o Clock.o Car.o SUV.o Truck.o Section.o IntSection.o TrafficLight.o
 
 CC = g++
 CCFLAGS = -Wall -Wno-deprecated -Werror=return-type -g
