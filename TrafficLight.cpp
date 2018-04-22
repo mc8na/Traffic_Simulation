@@ -1,7 +1,6 @@
 #ifndef __TRAFFICLIGHT_CPP__
 #define __TRAFFICLIGHT_CPP__
 
-//#include "Intersection.h"
 #include "TrafficLight.h"
 
 TrafficLight::TrafficLight() {}

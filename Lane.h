@@ -1,8 +1,6 @@
 #ifndef __LANE_H__
 #define __LANE_H__
 
-//#include "IntSection.h"
-//#include "Vehicle.h"
 #include "Section.h"
 #include <vector>
 #include <list>
