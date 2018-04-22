@@ -39,4 +39,34 @@ class Vehicle
 		Lane::Direction vDirection;
 };
 
+class Car : public Vehicle
+{
+	public:
+		Car();
+		~Car();
+
+	protected:		
+};
+
+class SUV : public Vehicle
+{
+	public:
+		SUV();
+		~SUV();
+
+	protected:
+		Section mid;
+};
+
+class Truck : public Vehicle
+{
+	public:
+		Truck();
+		~Truck();
+
+	protected:
+		Section frontMid;
+		Section backMid;
+};
+
 #endif

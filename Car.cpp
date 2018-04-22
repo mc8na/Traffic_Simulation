@@ -2,7 +2,7 @@
 #define __CAR_CPP__
 
 //#include "Intersection.h"
-#include "Car.h"
+#include "Lane.h"
 
 Car::Car() : Vehicle() {}
 
