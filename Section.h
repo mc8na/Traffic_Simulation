@@ -21,7 +21,7 @@ class Section
 class IntSection : public Section
 {
 	public:
-		IntSection(TrafficLight tl);
+		IntSection(TrafficLight& tl);
 		void setStraight(Section& sec);
 		void setExit(Section& sec);
 		~IntSection();

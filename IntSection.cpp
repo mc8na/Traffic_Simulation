@@ -3,7 +3,7 @@
 
 #include "Section.h"
 
-IntSection::IntSection(TrafficLight tl) : Section() 
+IntSection::IntSection(TrafficLight& tl) : Section() 
 {
 	traf = tl;
 }
