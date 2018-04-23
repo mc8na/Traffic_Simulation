@@ -1,3 +1,4 @@
+// header file contains Lane, Vehicle, Car, SUV, Truck, Section, IntSection classes
 #ifndef __LANE_H__
 #define __LANE_H__
 

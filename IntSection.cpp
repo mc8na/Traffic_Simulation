@@ -9,23 +9,23 @@ IntSection::IntSection(TrafficLight& tl, Lane::Direction dir) : Section()
 	direction = dir;
 }
 
-void IntSection::setStraight(Section& sec)
+void IntSection::setStraight(Section& sec) // tell IntSection what to point to
 {
 	next = &sec;
 }
 
-void IntSection::setExit(Section& sec)
+void IntSection::setExit(Section& sec) // set Section in outbound lane
 {
 	exit = &sec;
 }
 
-Section* IntSection::getNext(Lane::Direction dir)
+Section* IntSection::getNext(Lane::Direction dir) // returns correct Section based on direction Vehicle travels
 {
-	if(dir == direction)
+	if(dir == direction) // next points in direction of IntSection
 	{
 		return next;
 	}
-	return exit;
+	return exit; // exit points to outbound lane
 }
 
 IntSection::~IntSection() {}

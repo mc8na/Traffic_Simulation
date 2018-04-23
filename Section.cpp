@@ -3,27 +3,27 @@
 
 #include "Lane.h"
 
-Section::Section() { open = true; }
+Section::Section() { open = true; } // Section is not initially occupied
 
 Section::Section(Section& sec)
 {
-	open = true;
-	next = &sec;
+	open = true; // Section is not initially occupied
+	next = &sec; // next Section is passed in as parameter
 }
 
 Section::~Section(){}
 
-bool Section::isOpen()
+bool Section::isOpen() // returns whether the Section is occupied by a Vehicle
 {
 	return open;
 }
 
-Section* Section::getNext(Lane::Direction dir)
+Section* Section::getNext(Lane::Direction dir) // returns the next Section in the Lane
 {
 	return next;
 }
 
-void Section::setOpen(bool op)
+void Section::setOpen(bool op) // set whether the Section is occupied or not
 {
 	open = op;
 }

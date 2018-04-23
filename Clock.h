@@ -2,16 +2,15 @@
 #define __CLOCK_H__
 
 #include "TrafficLight.h"
-//#include "Section.h"
 #include "Lane.h"
 #include <vector>
 
 class Clock
 {
 	protected:
-		TrafficLight* ns;
-		TrafficLight* ew;
-		std::vector<Lane*> lanes;
+		TrafficLight* ns; // traffic light for north-south
+		TrafficLight* ew; // traffic light for east-west
+		std::vector<Lane*> lanes; // list of lanes
 
 	public:
 		//Clock();

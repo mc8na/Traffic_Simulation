@@ -3,34 +3,34 @@
 
 #include "Lane.h"
 
-Vehicle::Vehicle() {}
+Vehicle::Vehicle() {} // default constructor (not used)
 
-Vehicle::Vehicle(Section& sec, Lane::Direction dir)
+Vehicle::Vehicle(Section& sec, Lane::Direction dir) // constructor
 {
-	vDirection = dir;
+	vDirection = dir; 
 	front = &sec;
 	back = NULL;
 }
 
 void Vehicle::proceed()
 {
-	if((*((*front).getNext(vDirection))).isOpen() == true)
+	if((*((*front).getNext(vDirection))).isOpen() == true) // if next Section is open
 	{
 		if(back != NULL)
 		{
-			(*back).setOpen(true);
+			(*back).setOpen(true); // back sets the Section it leaves to open
 		}
-		back = front;
-		front = (*front).getNext(vDirection);
-		(*front).setOpen(false);
+		back = front; // move back to next Section
+		front = (*front).getNext(vDirection); // move front to next Section
+		(*front).setOpen(false); // front occupies the new Section
 	}
 }
 
-Lane::Direction Vehicle::getDirection()
+Lane::Direction Vehicle::getDirection() // returns direction vehicle is traveling
 {
 	return vDirection;
 }
 
-Vehicle::~Vehicle(){}
+Vehicle::~Vehicle() {} // deconstructor
 
 #endif

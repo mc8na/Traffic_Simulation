@@ -4,7 +4,7 @@
 class TrafficLight
 {
 	public:
-		enum Color {RED, YELLOW, GREEN};
+		enum Color {RED, YELLOW, GREEN}; // possible colors
 		TrafficLight();
 		TrafficLight(Color col, int green, int yellow);
 		~TrafficLight();
@@ -16,7 +16,7 @@ class TrafficLight
 		int lengthRed;
 		int lengthYellow;
 		int lengthGreen;
-		int time;	
+		int time;	// keeps track of when to change color
 };
 
 #endif
