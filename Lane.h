@@ -18,9 +18,10 @@ class Lane
 		Lane(Direction dir, IntSection& one, IntSection& two, int numSections);
 		~Lane();
 		void advance();
+		void removeVehicle(Vehicle& veh);
 
 	protected:
-		std::vector<Section*> sections;
+		std::vector<Section> sections;
 		Direction lDirection;
 		std::list<Vehicle> inbound;
 		std::list<Vehicle> outbound;
@@ -80,11 +81,12 @@ class Section
 {
 	public:
 		Section();
-		Section(Section& sec);
+		Section(const Section& sec);
 		~Section();
 		bool isOpen();
 		Section* getNext(Lane::Direction dir);
 		void setOpen(bool op);
+		void setNext(Section& sec);
 
 	protected:
 		Section* next;
@@ -94,6 +96,7 @@ class Section
 class IntSection : public Section
 {
 	public:
+		IntSection(const IntSection& sec);
 		IntSection(TrafficLight& tl, Lane::Direction dir);
 		void setStraight(Section& sec);
 		void setExit(Section& sec);
@@ -102,7 +105,7 @@ class IntSection : public Section
 
 	protected:
 		TrafficLight* traf;
-		Section* exit;
+		Section* out;
 		Lane::Direction direction;
 
 };

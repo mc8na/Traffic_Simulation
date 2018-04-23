@@ -3,12 +3,18 @@
 
 #include "Lane.h"
 
-Section::Section() { open = true; } // Section is not initially occupied
-
-Section::Section(Section& sec)
-{
+Section::Section() 
+{ 
 	open = true; // Section is not initially occupied
-	next = &sec; // next Section is passed in as parameter
+	next = NULL;
+}
+
+Section::Section(const Section& sec)
+{
+	open = sec.open;
+	next = sec.next;
+	//open = true; // Section is not initially occupied
+	//next = &sec; // next Section is passed in as parameter
 }
 
 Section::~Section(){}
@@ -26,6 +32,11 @@ Section* Section::getNext(Lane::Direction dir) // returns the next Section in th
 void Section::setOpen(bool op) // set whether the Section is occupied or not
 {
 	open = op;
+}
+
+void Section::setNext(Section& sec)
+{
+	next = &sec;
 }
 
 #endif

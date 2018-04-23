@@ -8,20 +8,22 @@
 Lane::Lane(Direction dir, IntSection& one, IntSection& two, int numSections)
 {
 	lDirection = dir;
-	Section *sec = new Section(); // end of outbound lane
-	sections.push_back(sec);
+	//Section sec; // end of outbound lane
+	sections.push_back(Section());
 	for(int i = 1; i < numSections; i++) // link Sections to each other and add to vector
 	{
-		Section *sect = new Section(*(sections.at(i-1)));
-		sections.push_back(sect);
+		//Section sect(sections.at(i-1));// = new Section(*(sections.at(i-1)));
+		sections.push_back(Section());
+		sections.at(i).setNext(sections.at(i-1));
 	}
-	one.setExit(*(sections.at(numSections-1))); // IntSection exit points to outbound Sections
-	sections.push_back(&one);
-	sections.push_back(&two);
+	one.setExit(sections.at(numSections-1)); // IntSection exit points to outbound Sections
+	sections.push_back(one);
+	sections.push_back(two);
 	for(int i = numSections + 2; i < 2 * numSections + 2; i++) // fill in inbound Sections
 	{
-		Section *sect = new Section(*(sections.at(i-1)));
-		sections.push_back(sect);
+		//Section sect(sections.at(i-1));// = new Section(*(sections.at(i-1)));
+		sections.push_back(Section());
+		sections.at(i).setNext(sections.at(i-1));
 	}
 }
 
@@ -31,5 +33,7 @@ void Lane::advance()
 {
 
 }
+
+void Lane::removeVehicle(Vehicle& veh) {}
 
 #endif

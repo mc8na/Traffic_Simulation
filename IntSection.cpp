@@ -3,6 +3,13 @@
 
 #include "Lane.h"
 
+IntSection::IntSection(const IntSection& sec) 
+{
+	open = sec.open;
+	next = sec.next;
+	out = sec.out;
+}
+
 IntSection::IntSection(TrafficLight& tl, Lane::Direction dir) : Section() 
 {
 	traf = &tl;
@@ -16,7 +23,7 @@ void IntSection::setStraight(Section& sec) // tell IntSection what to point to
 
 void IntSection::setExit(Section& sec) // set Section in outbound lane
 {
-	exit = &sec;
+	out = &sec;
 }
 
 Section* IntSection::getNext(Lane::Direction dir) // returns correct Section based on direction Vehicle travels
@@ -25,7 +32,7 @@ Section* IntSection::getNext(Lane::Direction dir) // returns correct Section bas
 	{
 		return next;
 	}
-	return exit; // exit points to outbound lane
+	return out; // exit points to outbound lane
 }
 
 IntSection::~IntSection() {}
