@@ -12,8 +12,21 @@ Vehicle::Vehicle(Section& sec, Lane::Direction dir) // constructor
 	back = NULL;
 }
 
-void Vehicle::proceed()
+void Vehicle::proceed(Lane& lane)
 {
+	if (front == NULL) 
+	{
+		(*back).setOpen(true);
+		back = NULL;
+		lane.removeVehicle(*this);
+	}
+	else if ((*front).getNext(vDirection) == NULL)
+	{ 
+		(*back).setOpen(true);
+		back = front;
+		front = NULL;
+
+	}
 	if((*((*front).getNext(vDirection))).isOpen() == true) // if next Section is open
 	{
 		if(back != NULL)
@@ -23,7 +36,8 @@ void Vehicle::proceed()
 		back = front; // move back to next Section
 		front = (*front).getNext(vDirection); // move front to next Section
 		(*front).setOpen(false); // front occupies the new Section
-	}
+	} 
+
 }
 
 Lane::Direction Vehicle::getDirection() // returns direction vehicle is traveling

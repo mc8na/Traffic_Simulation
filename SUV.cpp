@@ -12,6 +12,28 @@ SUV::SUV(Section& sec, Lane::Direction dir) : Vehicle(sec, dir)
 
 void SUV::proceed()
 {
+	if (front == NULL) 
+	{
+		(*back).setOpen(true);
+
+		if (mid == NULL)
+		{
+			back = NULL;
+			lane.removeVehicle(*this);
+		}
+		else {
+			back = mid;
+			mid = NULL;
+		}
+	}
+	else if ((*front).getNext(vDirection) == NULL)
+	{ 
+		(*back).setOpen(true);
+		back = mid;
+		mid = front;
+		front = NULL;
+
+	}
 	if((*((*front).getNext(vDirection))).isOpen() == true) // if next Section is open
 	{
 		if(back != NULL)
