@@ -5,13 +5,13 @@
 
 TrafficLight::TrafficLight() {}
 
-TrafficLight::TrafficLight(TrafficLight::Color col, int red, int green)
+TrafficLight::TrafficLight(TrafficLight::Color col, int green, int yellow)
 {
 	time = 0;
 	color = col;
-	lengthRed = red;
 	lengthGreen = green;
-	lengthYellow = red - green;
+	lengthYellow = yellow;
+	lengthRed = green + yellow;
 }
 
 TrafficLight::~TrafficLight(){}

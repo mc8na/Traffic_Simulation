@@ -6,7 +6,7 @@ class TrafficLight
 	public:
 		enum Color {RED, YELLOW, GREEN};
 		TrafficLight();
-		TrafficLight(Color col, int red, int green);
+		TrafficLight(Color col, int green, int yellow);
 		~TrafficLight();
 		void advanceTick();
 		Color getColor();
