@@ -46,9 +46,7 @@ class Car : public Vehicle
 	public:
 		Car();
 		Car(Section& sec, Lane::Direction dir);
-		~Car();
-
-	protected:		
+		~Car();		
 };
 
 class SUV : public Vehicle
