@@ -1,7 +1,7 @@
 #ifndef __SECTION_CPP__
 #define __SECTION_CPP__
 
-#include "Section.h"
+#include "Lane.h"
 
 Section::Section() { open = true; }
 
@@ -18,7 +18,7 @@ bool Section::isOpen()
 	return open;
 }
 
-Section* Section::getNext()
+Section* Section::getNext(Lane::Direction dir)
 {
 	return next;
 }

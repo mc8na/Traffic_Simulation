@@ -12,7 +12,7 @@ SUV::SUV(Section& sec, Lane::Direction dir) : Vehicle(sec, dir)
 
 void SUV::proceed()
 {
-	if((*((*front).getNext())).isOpen() == true)
+	if((*((*front).getNext(vDirection))).isOpen() == true)
 	{
 		if(back != NULL)
 		{
@@ -20,7 +20,7 @@ void SUV::proceed()
 		}
 		back = mid;
 		mid = front;
-		front = (*front).getNext();
+		front = (*front).getNext(vDirection);
 		(*front).setOpen(false);
 	}
 }

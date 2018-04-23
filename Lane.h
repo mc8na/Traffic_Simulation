@@ -1,13 +1,14 @@
 #ifndef __LANE_H__
 #define __LANE_H__
 
-#include "Section.h"
+#include "TrafficLight.h"
 #include <vector>
 #include <list>
 #include <iostream>
 
-class Section;
 class Vehicle;
+class Section;
+class IntSection;
 
 class Lane
 {
@@ -72,6 +73,37 @@ class Truck : public Vehicle
 	protected:
 		Section* frontMid;
 		Section* backMid;
+};
+
+class Section
+{
+	public:
+		Section();
+		Section(Section& sec);
+		~Section();
+		bool isOpen();
+		Section* getNext(Lane::Direction dir);
+		void setOpen(bool op);
+
+	protected:
+		Section* next;
+		bool open;
+};
+
+class IntSection : public Section
+{
+	public:
+		IntSection(TrafficLight& tl, Lane::Direction dir);
+		void setStraight(Section& sec);
+		void setExit(Section& sec);
+		Section* getNext(Lane::Direction dir);
+		~IntSection();
+
+	protected:
+		TrafficLight* traf;
+		Section* exit;
+		Lane::Direction direction;
+
 };
 
 #endif

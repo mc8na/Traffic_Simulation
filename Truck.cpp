@@ -13,7 +13,7 @@ Truck::Truck(Section& sec, Lane::Direction dir) : Vehicle(sec, dir)
 
 void Truck::proceed()
 {
-	if((*((*front).getNext())).isOpen() == true)
+	if((*((*front).getNext(vDirection))).isOpen() == true)
 	{
 		if(back != NULL)
 		{
@@ -22,7 +22,7 @@ void Truck::proceed()
 		back = backMid;
 		backMid = frontMid;
 		frontMid = front;
-		front = (*front).getNext();
+		front = (*front).getNext(vDirection);
 		(*front).setOpen(false);
 	}
 }

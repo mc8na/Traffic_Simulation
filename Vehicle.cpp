@@ -14,14 +14,14 @@ Vehicle::Vehicle(Section& sec, Lane::Direction dir)
 
 void Vehicle::proceed()
 {
-	if((*((*front).getNext())).isOpen() == true)
+	if((*((*front).getNext(vDirection))).isOpen() == true)
 	{
 		if(back != NULL)
 		{
 			(*back).setOpen(true);
 		}
 		back = front;
-		front = (*front).getNext();
+		front = (*front).getNext(vDirection);
 		(*front).setOpen(false);
 	}
 }

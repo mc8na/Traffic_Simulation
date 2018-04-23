@@ -9,10 +9,10 @@ Clock::Clock(int num, int green_north_south, int yellow_north_south, int green_e
 {
 	ns = new TrafficLight(TrafficLight::GREEN, green_north_south, yellow_north_south);
 	ew = new TrafficLight(TrafficLight::RED, green_east_west, yellow_east_west);
-	IntSection ne(*ew);
-	IntSection nw(*ns);
-	IntSection se(*ns);
-	IntSection sw(*ew);
+	IntSection ne(*ew, Lane::WEST);
+	IntSection nw(*ns, Lane::SOUTH);
+	IntSection se(*ns, Lane::NORTH);
+	IntSection sw(*ew, Lane::EAST);
 	ne.setStraight(nw);
 	nw.setStraight(sw);
 	sw.setStraight(se);
