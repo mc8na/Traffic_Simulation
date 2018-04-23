@@ -3,9 +3,8 @@
 
 #include "Section.h"
 
-IntSection::IntSection(Section& straight, Section& turn, TrafficLight tl) : Section(straight) 
+IntSection::IntSection(TrafficLight tl) : Section() 
 {
-	exit = &turn;
 	traf = tl;
 }
 

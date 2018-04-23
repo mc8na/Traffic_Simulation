@@ -2,12 +2,14 @@
 #define __CLOCK_H__
 
 #include "TrafficLight.h"
+#include "Lane.h"
 
 class Clock
 {
 	protected:
 		TrafficLight ns;
 		TrafficLight ew;
+		
 
 	public:
 		Clock();

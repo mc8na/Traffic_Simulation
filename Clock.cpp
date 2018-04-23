@@ -13,6 +13,7 @@ Clock::Clock(int green_north_south, int yellow_north_south, int green_east_west,
 {
 	ns = TrafficLight(TrafficLight::GREEN, green_north_south, yellow_north_south);
 	ew = TrafficLight(TrafficLight::RED, green_east_west, yellow_east_west);
+	
 }
 
 Clock::~Clock(){}
