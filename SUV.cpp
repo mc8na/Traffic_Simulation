@@ -5,7 +5,25 @@
 
 SUV::SUV() : Vehicle() {}
 
-SUV::SUV(const Section& sec, Lane::Direction dir) : Vehicle(sec, dir) {}
+SUV::SUV(Section& sec, Lane::Direction dir) : Vehicle(sec, dir) 
+{
+	mid = NULL;
+}
+
+void SUV::proceed()
+{
+	if((*((*front).getNext())).isOpen() == true)
+	{
+		if(back != NULL)
+		{
+			(*back).setOpen(true);
+		}
+		back = mid;
+		mid = front;
+		front = (*front).getNext();
+		(*front).setOpen(false);
+	}
+}
 
 SUV::~SUV() {}
 

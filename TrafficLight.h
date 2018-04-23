@@ -16,8 +16,7 @@ class TrafficLight
 		int lengthRed;
 		int lengthYellow;
 		int lengthGreen;
-
-	
+		int time;	
 };
 
 #endif

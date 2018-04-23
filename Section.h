@@ -7,10 +7,11 @@ class Section
 {
 	public:
 		Section();
-		Section(const Section& sec);
+		Section(Section& sec);
 		~Section();
 		bool isOpen();
-		Section& getNext();
+		Section* getNext();
+		void setOpen(bool op);
 
 	protected:
 		Section* next;
@@ -20,12 +21,14 @@ class Section
 class IntSection : public Section
 {
 	public:
-		IntSection(Section straight, Section turn, TrafficLight tl);
+		IntSection(Section& straight, Section& turn, TrafficLight tl);
+		void setStraight(Section& sec);
+		void setExit(Section& sec);
 		~IntSection();
 
 	protected:
 		TrafficLight traf;
-		Section exit;
+		Section* exit;
 
 };
 

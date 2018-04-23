@@ -3,10 +3,20 @@
 
 #include "Section.h"
 
-IntSection::IntSection(Section straight, Section turn, TrafficLight tl) : Section(straight) 
+IntSection::IntSection(Section& straight, Section& turn, TrafficLight tl) : Section(straight) 
 {
-	exit = turn;
+	exit = &turn;
 	traf = tl;
+}
+
+void IntSection::setStraight(Section& sec)
+{
+	next = &sec;
+}
+
+void IntSection::setExit(Section& sec)
+{
+	exit = &sec;
 }
 
 IntSection::~IntSection() {}

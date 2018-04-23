@@ -3,12 +3,12 @@
 
 #include "Section.h"
 
-Section::Section() {}
+Section::Section() { open = true; }
 
-Section::Section(const Section& sec)
+Section::Section(Section& sec)
 {
 	open = true;
-	*next = sec;
+	next = &sec;
 }
 
 Section::~Section(){}
@@ -18,9 +18,14 @@ bool Section::isOpen()
 	return open;
 }
 
-Section& Section::getNext()
+Section* Section::getNext()
 {
-	return *next;
+	return next;
+}
+
+void Section::setOpen(bool op)
+{
+	open = op;
 }
 
 #endif
