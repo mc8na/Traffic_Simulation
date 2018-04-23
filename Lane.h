@@ -32,7 +32,7 @@ class Vehicle
 		Vehicle();
 		Vehicle(Section& sec, Lane::Direction dir);
 		~Vehicle();
-		void proceed();
+		void proceed(Lane& lane);
 		Lane::Direction getDirection();
 
 	protected:
@@ -56,7 +56,7 @@ class SUV : public Vehicle
 	public:
 		SUV();
 		SUV(Section& sec, Lane::Direction dir);
-		void proceed();
+		void proceed(Lane& lane);
 		~SUV();
 
 	protected:
@@ -68,7 +68,7 @@ class Truck : public Vehicle
 	public:
 		Truck();
 		Truck(Section& sec, Lane::Direction dir);
-		void proceed();
+		void proceed(Lane& lane);
 		~Truck();
 
 	protected:
