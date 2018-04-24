@@ -18,7 +18,8 @@ class Lane
 		Lane(const Lane& lane);
 		Lane(Direction dir, IntSection& one, IntSection& two, int numSections);
 		~Lane();
-		void advance();
+		void advanceOutbound();
+		void advanceInbound();
 		void removeVehicle();
 
 	protected:
