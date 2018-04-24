@@ -16,7 +16,7 @@ Vehicle::Vehicle(Section& sec, Lane::Direction dir) // constructor
 {
 	vDirection = dir; 
 	front = &sec;
-	back = NULL;
+	back = &sec;
 }
 
 void Vehicle::proceed(Lane& lane)

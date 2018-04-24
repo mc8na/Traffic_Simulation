@@ -13,8 +13,8 @@ Truck::Truck(const Truck& truck) : Vehicle(truck)
 
 Truck::Truck(Section& sec, Lane::Direction dir) : Vehicle(sec, dir) 
 {
-	frontMid = NULL;
-	backMid = NULL;
+	frontMid = &sec;
+	backMid = &sec;
 }
 
 void Truck::proceed(Lane& lane)

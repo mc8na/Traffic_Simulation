@@ -39,7 +39,23 @@ Lane::~Lane(){}
 
 void Lane::advance()
 {
-
+	std::list<Vehicle>::iterator it = outbound.begin();
+	while(it != outbound.end())
+	{
+		(*it).proceed(*this);
+		it++;
+	}
+	it = inbound.begin();
+	while(it != inbound.end())
+	{
+		(*it).proceed(*this);
+		it++;
+	}
+	if(sections.back().isOpen())
+	{
+		Vehicle veh(sections.back(), lDirection);
+		inbound.push_back(veh);
+	}
 }
 
 void Lane::removeVehicle() 

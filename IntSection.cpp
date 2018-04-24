@@ -30,6 +30,15 @@ Section* IntSection::getNext(Lane::Direction dir) // returns correct Section bas
 	return out; // exit points to outbound lane
 }
 
+bool IntSection::isOpen()
+{
+	if((*traf).getColor() == TrafficLight::GREEN)
+	{
+		return open;
+	}
+	return false;
+}
+
 IntSection::~IntSection() {}
 
 #endif

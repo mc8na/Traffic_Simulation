@@ -103,6 +103,7 @@ class IntSection : public Section
 		IntSection(TrafficLight& tl, Lane::Direction dir);
 		void setExit(Section& sec);
 		Section* getNext(Lane::Direction dir);
+		bool isOpen();
 		~IntSection();
 
 	protected:

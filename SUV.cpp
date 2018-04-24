@@ -12,7 +12,7 @@ SUV::SUV(const SUV& suv) : Vehicle(suv)
 
 SUV::SUV(Section& sec, Lane::Direction dir) : Vehicle(sec, dir) 
 {
-	mid = NULL;
+	mid = &sec;
 }
 
 void SUV::proceed(Lane& lane)
