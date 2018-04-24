@@ -22,17 +22,24 @@ Lane::Lane(Direction dir, IntSection& one, IntSection& two, int numSections)
 	{
 		//Section sect(sections.at(i-1));// = new Section(*(sections.at(i-1)));
 		sections.push_back(Section());
-		sections.at(i).setNext(sections.at(i-1));
+		sections.at(i-1).setNext(sections.at(i));
 	}
-	one.setExit(sections.at(numSections-1)); // IntSection exit points to outbound Sections
-	sections.push_back(one);
 	sections.push_back(two);
-	for(int i = numSections + 2; i < 2 * numSections + 2; i++) // fill in inbound Sections
+	sections.at(numSections-1).setNext(two);
+	sections.push_back(one);
+	//one.setExit(sections.at(numSections-1)); // IntSection exit points to outbound Sections
+	//sections.push_back(one);
+	//sections.push_back(two);
+	sections.push_back(Section());
+	one.setExit(sections.at(numSections + 2));
+	for(int i = numSections + 3; i < 2 * numSections + 2; i++) // fill in inbound Sections
 	{
 		//Section sect(sections.at(i-1));// = new Section(*(sections.at(i-1)));
 		sections.push_back(Section());
-		sections.at(i).setNext(sections.at(i-1));
+		sections.at(i-1).setNext(sections.at(i));
 	}
+	//sections.at(numSections-1).setNext(sections.at(numSections));
+	//one.setExit(sections.at(numSections+2))
 }
 
 Lane::~Lane(){}
