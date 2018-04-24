@@ -16,11 +16,6 @@ IntSection::IntSection(TrafficLight& tl, Lane::Direction dir) : Section()
 	direction = dir;
 }
 
-void IntSection::setStraight(Section& sec) // tell IntSection what to point to
-{
-	next = &sec;
-}
-
 void IntSection::setExit(Section& sec) // set Section in outbound lane
 {
 	out = &sec;

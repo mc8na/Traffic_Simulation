@@ -101,7 +101,6 @@ class IntSection : public Section
 	public:
 		IntSection(const IntSection& sec);
 		IntSection(TrafficLight& tl, Lane::Direction dir);
-		void setStraight(Section& sec);
 		void setExit(Section& sec);
 		Section* getNext(Lane::Direction dir);
 		~IntSection();

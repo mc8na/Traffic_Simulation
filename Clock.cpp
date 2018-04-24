@@ -16,10 +16,10 @@ Clock::Clock(int num, int green_north_south, int yellow_north_south, int green_e
 	IntSection se(*ns, Lane::NORTH);
 	IntSection sw(*ew, Lane::EAST);
 	// interconnect the IntSections
-	ne.setStraight(nw);
-	nw.setStraight(sw);
-	sw.setStraight(se);
-	se.setStraight(ne);
+	ne.setNext(nw);
+	nw.setNext(sw);
+	sw.setNext(se);
+	se.setNext(ne);
 	// construct lanes passing in IntSections
 	Lane *north = new Lane(Lane::NORTH, ne, se, num);
 	Lane *west = new Lane(Lane::WEST, nw, ne, num);
