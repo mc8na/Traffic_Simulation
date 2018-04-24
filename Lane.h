@@ -15,6 +15,7 @@ class Lane
 {
 	public:
 		enum Direction {NORTH, SOUTH, EAST, WEST};
+		Lane(const Lane& lane);
 		Lane(Direction dir, IntSection& one, IntSection& two, int numSections);
 		~Lane();
 		void advance();
@@ -31,6 +32,7 @@ class Vehicle
 {
 	public:
 		Vehicle();
+		Vehicle(const Vehicle& veh);
 		Vehicle(Section& sec, Lane::Direction dir);
 		~Vehicle();
 		void proceed(Lane& lane);
@@ -46,6 +48,7 @@ class Car : public Vehicle
 {
 	public:
 		Car();
+		Car(const Car& car);
 		Car(Section& sec, Lane::Direction dir);
 		~Car();		
 };
@@ -54,6 +57,7 @@ class SUV : public Vehicle
 {
 	public:
 		SUV();
+		SUV(const SUV& suv);
 		SUV(Section& sec, Lane::Direction dir);
 		void proceed(Lane& lane);
 		~SUV();
@@ -66,6 +70,7 @@ class Truck : public Vehicle
 {
 	public:
 		Truck();
+		Truck(const Truck& truck);
 		Truck(Section& sec, Lane::Direction dir);
 		void proceed(Lane& lane);
 		~Truck();

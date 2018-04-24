@@ -5,6 +5,12 @@
 
 Truck::Truck() : Vehicle() {}
 
+Truck::Truck(const Truck& truck) : Vehicle(truck)
+{
+	frontMid = truck.frontMid;
+	backMid = truck.backMid;
+}
+
 Truck::Truck(Section& sec, Lane::Direction dir) : Vehicle(sec, dir) 
 {
 	frontMid = NULL;
@@ -28,7 +34,8 @@ void Truck::proceed(Lane& lane)
 			back = backMid;
 			backMid = NULL;
 		}
-		else {
+		else 
+		{
 			back = NULL;
 			lane.removeVehicle(*this);
 		}

@@ -5,6 +5,13 @@
 
 Vehicle::Vehicle() {} // default constructor (not used)
 
+Vehicle::Vehicle(const Vehicle& veh)
+{
+	front = veh.front;
+	back = veh.back;
+	vDirection = veh.vDirection;
+}
+
 Vehicle::Vehicle(Section& sec, Lane::Direction dir) // constructor
 {
 	vDirection = dir; 

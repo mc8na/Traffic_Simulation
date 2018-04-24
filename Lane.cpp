@@ -5,6 +5,14 @@
 #include <vector>
 #include <list>
 
+Lane::Lane(const Lane& lane)
+{
+	sections = lane.sections;
+	lDirection = lane.lDirection;
+	inbound = lane.inbound;
+	outbound = lane.outbound;
+}
+
 Lane::Lane(Direction dir, IntSection& one, IntSection& two, int numSections)
 {
 	lDirection = dir;
@@ -34,6 +42,9 @@ void Lane::advance()
 
 }
 
-void Lane::removeVehicle(Vehicle& veh) {}
+void Lane::removeVehicle(Vehicle& veh) 
+{
+
+}
 
 #endif

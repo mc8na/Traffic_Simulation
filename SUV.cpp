@@ -5,12 +5,17 @@
 
 SUV::SUV() : Vehicle() {}
 
+SUV::SUV(const SUV& suv) : Vehicle(suv) 
+{
+	mid = suv.mid;
+}
+
 SUV::SUV(Section& sec, Lane::Direction dir) : Vehicle(sec, dir) 
 {
 	mid = NULL;
 }
 
-void SUV::proceed()
+void SUV::proceed(Lane& lane)
 {
 	if (front == NULL) 
 	{
