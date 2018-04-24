@@ -24,7 +24,7 @@ void SUV::proceed(Lane& lane)
 		if (mid == NULL)
 		{
 			back = NULL;
-			lane.removeVehicle(*this);
+			lane.removeVehicle();
 		}
 		else {
 			back = mid;

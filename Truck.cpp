@@ -37,7 +37,7 @@ void Truck::proceed(Lane& lane)
 		else 
 		{
 			back = NULL;
-			lane.removeVehicle(*this);
+			lane.removeVehicle();
 		}
 	}
 	else if ((*front).getNext(vDirection) == NULL)

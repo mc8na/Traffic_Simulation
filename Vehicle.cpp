@@ -25,7 +25,7 @@ void Vehicle::proceed(Lane& lane)
 	{
 		(*back).setOpen(true);
 		back = NULL;
-		lane.removeVehicle(*this);
+		lane.removeVehicle();
 	}
 	else if ((*front).getNext(vDirection) == NULL)
 	{ 

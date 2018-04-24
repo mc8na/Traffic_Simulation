@@ -42,9 +42,9 @@ void Lane::advance()
 
 }
 
-void Lane::removeVehicle(Vehicle& veh) 
+void Lane::removeVehicle() 
 {
-
+	outbound.pop_front();
 }
 
 #endif

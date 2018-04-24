@@ -19,7 +19,7 @@ class Lane
 		Lane(Direction dir, IntSection& one, IntSection& two, int numSections);
 		~Lane();
 		void advance();
-		void removeVehicle(Vehicle& veh);
+		void removeVehicle();
 
 	protected:
 		std::vector<Section> sections;
