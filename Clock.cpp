@@ -32,6 +32,8 @@ Clock::Clock(int num, int green_north_south, int yellow_north_south, int green_e
 	lanes.push_back(east);
 }
 
-Clock::~Clock(){}
+Clock::~Clock() {}
+
+void Clock::Tick() {}
 
 #endif

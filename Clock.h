@@ -16,6 +16,7 @@ class Clock
 		//Clock();
 		Clock(int num, int green_north_south, int yellow_north_south, int green_east_west, int yellow_east_west);
 		~Clock();
+		void Tick();
 };
 
 #endif
