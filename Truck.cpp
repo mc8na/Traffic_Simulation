@@ -19,28 +19,28 @@ Truck::Truck(Section& sec, Lane::Direction dir) : Vehicle(sec, dir)
 
 void Truck::proceed(Lane& lane)
 {
-	if (front == NULL) 
+	if (front == NULL) // if vehicle has walked off end of lane
 	{
-		(*back).setOpen(true);
+		(*back).setOpen(true); // move back section forward
 
-		if (frontMid != NULL)
+		if (frontMid != NULL) // if part of the truck is still in the lane
 		{
-			back = backMid;
+			back = backMid; // advance Sections still in the lane
 			backMid = frontMid;
 			frontMid = NULL;
 		}
-		else if (backMid != NULL) 
+		else if (backMid != NULL) // if part of the truck is still in the lane
 		{
-			back = backMid;
+			back = backMid; // advance Section still in the lane
 			backMid = NULL;
 		}
-		else 
+		else // truck has walked completely off end of the lane, time to remove it
 		{
 			back = NULL;
 			lane.removeVehicle();
 		}
 	}
-	else if ((*front).getNext(vDirection) == NULL)
+	else if ((*front).getNext(vDirection) == NULL) // if truck about to walk off end of lane
 	{ 
 		(*back).setOpen(true);
 		back = backMid;

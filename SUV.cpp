@@ -5,7 +5,7 @@
 
 SUV::SUV() : Vehicle() {}
 
-SUV::SUV(const SUV& suv) : Vehicle(suv) 
+SUV::SUV(const SUV& suv) : Vehicle(suv) // const copy constructor
 {
 	mid = suv.mid;
 }
@@ -17,21 +17,22 @@ SUV::SUV(Section& sec, Lane::Direction dir) : Vehicle(sec, dir)
 
 void SUV::proceed(Lane& lane)
 {
-	if (front == NULL) 
+	if (front == NULL) // if front of vehicle has exited the lane
 	{
-		(*back).setOpen(true);
+		(*back).setOpen(true); // move back forward
 
-		if (mid == NULL)
+		if (mid != NULL) // if vehicle has fully exited the lane
 		{
 			back = NULL;
-			lane.removeVehicle();
+			lane.removeVehicle(); // remove vehicle from lane
 		}
-		else {
-			back = mid;
+		else // if part of vehicle still in the lane
+		{
+			back = mid; // advance back Section
 			mid = NULL;
 		}
 	}
-	else if ((*front).getNext(vDirection) == NULL)
+	else if ((*front).getNext(vDirection) == NULL) // if vehicle about to exit lane
 	{ 
 		(*back).setOpen(true);
 		back = mid;

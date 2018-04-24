@@ -21,15 +21,15 @@ Vehicle::Vehicle(Section& sec, Lane::Direction dir) // constructor
 
 void Vehicle::proceed(Lane& lane)
 {
-	if (front == NULL) 
+	if (front == NULL) // if front of vehicle has exited the lane
 	{
-		(*back).setOpen(true);
+		(*back).setOpen(true); // back no longer occupies a Section
 		back = NULL;
-		lane.removeVehicle();
+		lane.removeVehicle(); // remove vehicle from lane
 	}
-	else if ((*front).getNext(vDirection) == NULL)
+	else if ((*front).getNext(vDirection) == NULL) // if vehicle about to exit lane
 	{ 
-		(*back).setOpen(true);
+		(*back).setOpen(true); // back advances
 		back = front;
 		front = NULL;
 

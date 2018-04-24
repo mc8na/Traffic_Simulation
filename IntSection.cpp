@@ -3,7 +3,7 @@
 
 #include "Lane.h"
 
-IntSection::IntSection(const IntSection& sec) 
+IntSection::IntSection(const IntSection& sec) // const copy constructor
 {
 	open = sec.open;
 	next = sec.next;
@@ -27,16 +27,16 @@ Section* IntSection::getNext(Lane::Direction dir) // returns correct Section bas
 	{
 		return next;
 	}
-	return out; // exit points to outbound lane
+	return out; // out points to outbound lane
 }
 
 bool IntSection::isOpen()
 {
-	if((*traf).getColor() == TrafficLight::GREEN)
+	if((*traf).getColor() == TrafficLight::GREEN) // if the vehicle has a green light
 	{
-		return open;
+		return open; // return whether the IntSection is occupied
 	}
-	return false;
+	return false; // if the light is yellow or red, do not advance vehicle
 }
 
 IntSection::~IntSection() {}

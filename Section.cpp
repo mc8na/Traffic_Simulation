@@ -9,12 +9,10 @@ Section::Section()
 	next = NULL;
 }
 
-Section::Section(const Section& sec)
+Section::Section(const Section& sec) // const copy constructor
 {
 	open = sec.open;
 	next = sec.next;
-	//open = true; // Section is not initially occupied
-	//next = &sec; // next Section is passed in as parameter
 }
 
 Section::~Section(){}
@@ -34,7 +32,7 @@ void Section::setOpen(bool op) // set whether the Section is occupied or not
 	open = op;
 }
 
-void Section::setNext(Section& sec)
+void Section::setNext(Section& sec) // sets the Section to point to sec
 {
 	next = &sec;
 }

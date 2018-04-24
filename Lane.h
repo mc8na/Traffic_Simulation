@@ -18,15 +18,13 @@ class Lane
 		Lane(const Lane& lane);
 		Lane(Direction dir, IntSection& one, IntSection& two, int numSections);
 		~Lane();
-		void advanceOutbound();
-		void advanceInbound();
+		void advance();
 		void removeVehicle();
 
 	protected:
 		std::vector<Section> sections;
 		Direction lDirection;
-		std::list<Vehicle> inbound;
-		std::list<Vehicle> outbound;
+		std::list<Vehicle> vehicles;
 };
 
 class Vehicle
