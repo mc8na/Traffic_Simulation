@@ -6,6 +6,7 @@
 #include <vector>
 #include <list>
 #include <iostream>
+#include <random>
 
 class Vehicle;
 class Section;
