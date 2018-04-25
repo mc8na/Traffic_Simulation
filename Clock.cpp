@@ -5,7 +5,11 @@
 
 //Clock::Clock(){}
 
-Clock::Clock(int num, int green_north_south, int yellow_north_south, int green_east_west, int yellow_east_west)
+Clock::Clock(int num, int green_north_south, int yellow_north_south, 
+	         int green_east_west, int yellow_east_west, double prob_new_vehicle_north_south,
+			 double prob_new_vehicle_east_west, double proportion_of_cars,
+			 double proportion_of_SUVs, double prob_right_turn_cars,
+			 double prob_right_turn_SUVs, double prob_right_turn_trucks)
 {
 	// intialize traffic lights per specifications
 	ns = TrafficLight(TrafficLight::GREEN, green_north_south, yellow_north_south);
@@ -21,10 +25,18 @@ Clock::Clock(int num, int green_north_south, int yellow_north_south, int green_e
 	sw.setNext(se);
 	se.setNext(ne);
 	// construct lanes and add to vector
-	lanes.push_back(Lane(Lane::NORTH, ne, se, num));
-	lanes.push_back(Lane(Lane::WEST, nw, ne, num));
-	lanes.push_back(Lane(Lane::SOUTH, sw, nw, num));
-	lanes.push_back(Lane(Lane::EAST, se, sw, num));
+	lanes.push_back(Lane(Lane::NORTH, ne, se, num, prob_new_vehicle_north_south,
+						 proportion_of_cars, proportion_of_SUVs, 
+						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks));
+	lanes.push_back(Lane(Lane::WEST, nw, ne, num, prob_new_vehicle_east_west,
+						 proportion_of_cars, proportion_of_SUVs, 
+						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks));
+	lanes.push_back(Lane(Lane::SOUTH, sw, nw, num, prob_new_vehicle_north_south,
+						 proportion_of_cars, proportion_of_SUVs, 
+						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks));
+	lanes.push_back(Lane(Lane::EAST, se, sw, num, prob_new_vehicle_east_west,
+						 proportion_of_cars, proportion_of_SUVs, 
+						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks));
 }
 
 Clock::~Clock() {}

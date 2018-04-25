@@ -16,7 +16,10 @@ class Lane
 	public:
 		enum Direction {NORTH, SOUTH, EAST, WEST};
 		Lane(const Lane& lane);
-		Lane(Direction dir, IntSection& one, IntSection& two, int numSections);
+		Lane(Direction dir, IntSection& one, IntSection& two, int numSections,
+			 double prob_new, double proportion_cars, double proportion_SUVs,
+			 double prob_right_cars, double prob_right_SUVs,
+			 double prob_right_trucks);
 		~Lane();
 		void advance();
 		void removeVehicle();
@@ -25,6 +28,13 @@ class Lane
 		std::vector<Section> sections;
 		Direction lDirection;
 		std::list<Vehicle> vehicles;
+		double prob_new_vehicle;
+		double proportion_of_cars;
+		double proportion_of_SUVs;
+		double proportion_of_trucks;
+		double prob_right_turn_cars;
+		double prob_right_turn_SUVs;
+		double prob_right_turn_trucks;
 };
 
 class Vehicle

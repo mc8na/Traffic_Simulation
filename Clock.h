@@ -14,7 +14,11 @@ class Clock
 
 	public:
 		//Clock();
-		Clock(int num, int green_north_south, int yellow_north_south, int green_east_west, int yellow_east_west);
+		Clock(int num, int green_north_south, int yellow_north_south, 
+			  int green_east_west, int yellow_east_west, double prob_new_vehicle_north_south,
+			  double prob_new_vehicle_east_west, double proportion_of_cars,
+			  double proportion_of_SUVs, double prob_right_turn_cars,
+			  double prob_right_turn_SUVs, double prob_right_turn_trucks);
 		~Clock();
 		void Tick();
 };
