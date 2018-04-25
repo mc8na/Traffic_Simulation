@@ -50,7 +50,7 @@ void Truck::proceed(Lane& lane)
 	}
 	if((*((*front).getNext(vDirection))).isOpen() == true) // if next Section is open
 	{
-		if(back != NULL)
+		if(back != NULL && back != backMid)
 		{
 			(*back).setOpen(true); // back sets Section it leaves to open
 		}

@@ -36,7 +36,7 @@ void Vehicle::proceed(Lane& lane)
 	}
 	if((*((*front).getNext(vDirection))).isOpen() == true) // if next Section is open
 	{
-		if(back != NULL)
+		if(back != NULL && back != front)
 		{
 			(*back).setOpen(true); // back sets the Section it leaves to open
 		}
