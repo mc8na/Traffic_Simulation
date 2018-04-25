@@ -8,9 +8,9 @@
 class Clock
 {
 	protected:
-		TrafficLight* ns; // traffic light for north-south
-		TrafficLight* ew; // traffic light for east-west
-		std::vector<Lane*> lanes; // list of lanes
+		TrafficLight ns; // traffic light for north-south
+		TrafficLight ew; // traffic light for east-west
+		std::vector<Lane> lanes; // list of lanes
 
 	public:
 		//Clock();

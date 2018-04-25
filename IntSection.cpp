@@ -10,7 +10,7 @@ IntSection::IntSection(const IntSection& sec) // const copy constructor
 	out = sec.out;
 }
 
-IntSection::IntSection(TrafficLight& tl, Lane::Direction dir) : Section() 
+IntSection::IntSection(TrafficLight& tl, Lane::Direction dir) : Section() // constructor
 {
 	traf = &tl;
 	direction = dir;
