@@ -58,11 +58,67 @@ void Lane::advance()
 		(*it).proceed(*this);
 		it++;
 	}
+	if(sections.front().isOpen())
+	{
+		std::mt19937 rng(8675308);
+		std::uniform_real_distribution<double> rand_double(0.0, 1.0);
+		if(rand_double(rng) < prob_new_vehicle)
+		{
+			vehicles.push_back(createVehicle(rand_double));
+		}
+	}
 }
 
 void Lane::removeVehicle() // remove vehicle when it exits the lane
 {
 	vehicles.pop_front();
+}
+
+Vehicle Lane::createVehicle(std::uniform_real_distribution<double> rand_double)
+{
+	std::mt19937 rng(8675308);
+	double prob = rand_double(rng);
+	if(prob < proportion_of_cars)
+	{
+		
+		Vehicle veh = Car(sections.front(), assignDir(rand_double, prob_right_turn_cars));
+		return veh;
+
+	}
+	else if(prob < proportion_of_cars + proportion_of_SUVs)
+	{
+		Vehicle veh = SUV(sections.front(), assignDir(rand_double, prob_right_turn_SUVs));
+		return veh;
+	}
+	else
+	{
+		Vehicle veh = Truck(sections.front(), assignDir(rand_double, prob_right_turn_trucks));
+		return veh;
+	}
+		
+}
+
+Lane::Direction Lane::assignDir(std::uniform_real_distribution<double> rand_double, double prob_right_turn)
+{
+	std::mt19937 rng(8675308);
+	double prob = rand_double(rng);
+	switch(prob < prob_right_turn)
+	{
+		case true:
+			switch(lDirection)
+			{
+				case Lane::NORTH:
+					return Lane::EAST;
+				case Lane::SOUTH:
+					return Lane::WEST;
+				case Lane::EAST:
+					return Lane::SOUTH;
+				case Lane::WEST:
+					return Lane::NORTH;
+			}
+		case false:
+			return lDirection;
+	}
 }
 
 #endif
