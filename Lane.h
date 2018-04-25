@@ -24,8 +24,6 @@ class Lane
 		~Lane();
 		void advance();
 		void removeVehicle();
-		Vehicle createVehicle(std::uniform_real_distribution<double> rand_double);
-		Lane::Direction assignDir(std::uniform_real_distribution<double> rand_double, double prob_right_turn);
 
 	protected:
 		std::vector<Section> sections;
@@ -38,6 +36,8 @@ class Lane
 		double prob_right_turn_cars;
 		double prob_right_turn_SUVs;
 		double prob_right_turn_trucks;
+		Vehicle createVehicle(std::uniform_real_distribution<double> rand_double);
+		Lane::Direction assignDir(std::uniform_real_distribution<double> rand_double, double prob_right_turn);
 };
 
 class Vehicle
