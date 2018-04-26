@@ -1,13 +1,23 @@
-#ifndef __VEHICLE_BASE_CPP__
-#define __VEHICLE_BASE_CPP__
+#ifndef __VEHICLE_BASE_H__
+#define __VEHICLE_BASE_H__
 
-#include "VehicleBase.h"
+class VehicleBase
+{
+   public:
+      static int vehicleCount;
+      enum VehicleType {CAR, SUV, TRUCK};
 
-int VehicleBase::vehicleCount = 0;
+   private:
+      int         vehicleID;
+      VehicleType vehicleType;
 
-VehicleBase::VehicleBase(VehicleBase::VehicleType type)
-    : vehicleID(VehicleBase::vehicleCount++), vehicleType(type) {}
+   public:
+      VehicleBase(VehicleBase::VehicleType type);
+      ~VehicleBase();
 
-VehicleBase::~VehicleBase() {}
+      inline int getVehicleID() { return this->vehicleID; }
+
+      inline VehicleBase::VehicleType getVehicleType() { return this->vehicleType; }
+};
 
 #endif

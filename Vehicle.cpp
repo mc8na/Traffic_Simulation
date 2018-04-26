@@ -3,16 +3,16 @@
 
 #include "Lane.h"
 
-Vehicle::Vehicle() {} // default constructor (not used)
+//Vehicle::Vehicle() {} // default constructor (not used)
 
-Vehicle::Vehicle(const Vehicle& veh)
+Vehicle::Vehicle(const Vehicle& veh) : VehicleBase(veh.getVehicleType())
 {
 	front = veh.front;
 	back = veh.back;
 	vDirection = veh.vDirection;
 }
 
-Vehicle::Vehicle(Section& sec, Lane::Direction dir) // constructor
+Vehicle::Vehicle(Section& sec, Lane::Direction dir, VehicleBase::VehicleType type) : VehicleBase(type) // constructor
 {
 	vDirection = dir; 
 	front = &sec;
