@@ -3,14 +3,14 @@
 
 #include "Lane.h"
 
-SUV::SUV() : Vehicle() {}
+//SUV::SUV() : Vehicle() {}
 
 SUV::SUV(const SUV& suv) : Vehicle(suv) // const copy constructor
 {
 	mid = suv.mid;
 }
 
-SUV::SUV(Section& sec, Lane::Direction dir) : Vehicle(sec, dir) 
+SUV::SUV(Section& sec, Lane::Direction dir) : Vehicle(sec, dir, VehicleBase::SUV) 
 {
 	mid = &sec;
 }
