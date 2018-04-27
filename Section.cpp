@@ -29,11 +29,6 @@ Section* Section::getNext(Lane::Direction dir) // returns the next Section in th
 	return next;
 }
 
-void Section::setOpen(bool op) // set whether the Section is occupied or not
-{
-	open = op;
-}
-
 void Section::occupy(Vehicle& veh)
 {
 	open = false;

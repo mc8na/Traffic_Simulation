@@ -23,7 +23,7 @@ class Lane
 			 double prob_right_cars, double prob_right_SUVs,
 			 double prob_right_trucks);
 		~Lane();
-		void advance();
+		std::vector<Section*> advance();
 		void removeVehicle();
 
 	protected:
@@ -100,7 +100,6 @@ class Section
 		~Section();
 		bool isOpen();
 		Section* getNext(Lane::Direction dir);
-		void setOpen(bool op);
 		void occupy(Vehicle& veh);
 		void leave();
 		void setNext(Section& sec);
