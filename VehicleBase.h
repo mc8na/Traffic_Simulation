@@ -17,7 +17,7 @@ class VehicleBase
 
       inline int getVehicleID() { return this->vehicleID; }
 
-      inline VehicleBase::VehicleType getVehicleType() { return this->vehicleType; }
+      inline VehicleBase::VehicleType getVehicleType() const { return this->vehicleType; }
 };
 
 #endif
