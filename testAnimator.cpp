@@ -8,9 +8,9 @@ int main(int argc, char* argv[])
 {
     std::ifstream inputFile;
 
-    if (argc != 1) 
+    if (argc != 2) 
     {
-        std::cerr << "Usage: " << argv[0] << " You need to include an input file intersection specifications." << std::endl;
+        std::cerr << "Usage: " << argv[0] << " You need to include an input file with intersection specifications." << std::endl;
         exit(0);
     }
     
@@ -22,8 +22,8 @@ int main(int argc, char* argv[])
     }
 
     //Animator::MAX_VEHICLE_COUNT = 9999;  // vehicles will be displayed with four digits
-    Animator::MAX_VEHICLE_COUNT = 999;  // vehicles will be displayed with three digits
-    //Animator::MAX_VEHICLE_COUNT = 99;  // vehicles will be displayed with two digits
+    //Animator::MAX_VEHICLE_COUNT = 999;  // vehicles will be displayed with three digits
+    Animator::MAX_VEHICLE_COUNT = 99;  // vehicles will be displayed with two digits
 
     int maxTime;
     int halfSize;  // number of sections before intersection
@@ -61,7 +61,47 @@ int main(int argc, char* argv[])
     // test drawing vehicles moving eastbound and westbound
     Clock clock(halfSize, ns_green, ns_yellow, ew_green, ew_yellow, prob_nsVehicle, prob_ewVehicle, 
         prop_cars, prop_SUVs, probRight_cars, probRight_SUVs, probRight_trucks);
-    
+
+    for (int i = 0; i < maxTime; i++)
+    {
+        std::vector<Section*> sections = clock.Tick();
+        std::vector<Section*>::iterator it = sections.begin();
+        std::vector<VehicleBase> vehicles;
+        while(it != sections.end())
+        {   
+            VehicleBase vb((*(*(*it)).getVehicle()).getVehicleType());
+            vehicles.push_back(vb);
+            switch ( (*(*it)).getLane() )
+            {
+                case Lane::NORTH:
+                    northbound[(*(*it)).getIndex()] = &vb;
+                break;
+                case Lane::SOUTH:
+                    southbound[(*(*it)).getIndex()] = &vb;
+                break;
+                case Lane::WEST:
+                    westbound[(*(*it)).getIndex()] = &vb;
+                break;
+                case Lane::EAST:
+                    eastbound[(*(*it)).getIndex()] = &vb;
+                break;
+            }
+        }
+
+        anim.setVehiclesNorthbound(northbound);
+        anim.setVehiclesWestbound(westbound);
+        anim.setVehiclesSouthbound(southbound);
+        anim.setVehiclesEastbound(eastbound);
+
+        anim.draw(i);
+        std::cin.get(dummy);
+
+        eastbound.assign(halfSize * 2 + 2, nullptr); // reset
+        westbound.assign(halfSize * 2 + 2, nullptr); // reset
+        northbound.assign(halfSize * 2 + 2, nullptr);
+        southbound.assign(halfSize * 2 + 2, nullptr);
+    }
+/*    
     VehicleBase vb1(VehicleBase::CAR);
     VehicleBase vb2(VehicleBase::SUV);
     VehicleBase vb3(VehicleBase::TRUCK);
@@ -120,5 +160,5 @@ int main(int argc, char* argv[])
         northbound.assign(halfSize * 2 + 2, nullptr); // reset
         southbound.assign(halfSize * 2 + 2, nullptr); // reset
     }
-
+*/
 }

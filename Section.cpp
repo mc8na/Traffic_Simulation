@@ -3,7 +3,7 @@
 
 #include "Lane.h"
 
-Section::Section(Lane* l, int i) 
+Section::Section(Lane::Direction l, int i) 
 { 
 	open = true; // Section is not initially occupied
 	next = NULL;
@@ -55,7 +55,7 @@ Vehicle* Section::getVehicle()
 	return vehicle;
 }
 
-Lane* Section::getLane()
+Lane::Direction Section::getLane()
 {
 	return lane;
 }
