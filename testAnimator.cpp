@@ -1,14 +1,54 @@
 #include <iostream>
 #include "Animator.h"
 #include "VehicleBase.h"
+#include "Clock.h"
+#include <fstream>
 
-int main()
+int main(int argc, char* argv[])
 {
-    Animator::MAX_VEHICLE_COUNT = 9999;  // vehicles will be displayed with four digits
-    //Animator::MAX_VEHICLE_COUNT = 999;  // vehicles will be displayed with three digits
+    std::ifstream inputFile;
+
+    if (argc != 1) 
+    {
+        std::cerr << "Usage: " << argv[0] << " You need to include an input file intersection specifications." << std::endl;
+        exit(0);
+    }
+    
+    inputFile.open(argv[1]);
+    if (!inputFile.is_open()) 
+    {
+        std::cerr << "Error: Unable to open specified input file." << std::endl;
+        exit(1);
+    }
+
+    //Animator::MAX_VEHICLE_COUNT = 9999;  // vehicles will be displayed with four digits
+    Animator::MAX_VEHICLE_COUNT = 999;  // vehicles will be displayed with three digits
     //Animator::MAX_VEHICLE_COUNT = 99;  // vehicles will be displayed with two digits
 
-    int halfSize = 8;  // number of sections before intersection
+
+
+    int maxTime;
+    int halfSize;  // number of sections before intersection
+    int ns_green;
+    int ns_yellow;
+    int ew_green;
+    int ew_yellow;
+    double prob_nsVehicle;
+    double prob_ewVehicle;
+    double prop_cars;
+    double prop_SUVs;
+    double probRight_cars;
+    double probRight_SUVs;
+    double probRight_trucks;
+    double probLeft_cars;
+    double probLeft_SUVs;
+    double probLeft_trucks;
+
+    inputFile >> maxTime >> halfSize >> ns_green >> ns_yellow >> ew_green >> ew_yellow;
+    inputFile >> prob_nsVehicle >> prob_ewVehicle >> prop_cars >> prop_SUVs >> probRight_cars;
+    inputFile >> probLeft_cars >> probRight_SUVs >> probLeft_SUVs >> probRight_trucks >> probLeft_trucks;
+
+    inputFile.close();
 
     Animator anim(halfSize);
 
@@ -21,6 +61,9 @@ int main()
     char dummy;
 
     // test drawing vehicles moving eastbound and westbound
+    Clock clock(halfSize, ns_green, ns_yellow, ew_green, ew_yellow, prob_nsVehicle, prob_ewVehicle, 
+        prop_cars, prop_SUVs, probRight_cars, probRight_SUVs, probRight_trucks);
+    
     VehicleBase vb1(VehicleBase::CAR);
     VehicleBase vb2(VehicleBase::SUV);
     VehicleBase vb3(VehicleBase::TRUCK);

@@ -48,13 +48,12 @@ class Vehicle : public VehicleBase
 		Vehicle(const Vehicle& veh);
 		Vehicle(Section& sec, Lane::Direction dir, VehicleBase::VehicleType type);
 		~Vehicle();
-		void proceed(Lane& lane);
+		std::vector<Section*> proceed(Lane& lane);
 		Lane::Direction getDirection();
 
 	protected:
-		Section* front;
-		Section* back;
 		Lane::Direction vDirection;
+		std::vector<Section*> location; 
 };
 
 class Car : public Vehicle
