@@ -71,23 +71,23 @@ int main(int argc, char* argv[])
         std::vector<VehicleBase> vehicles;
         while(it != sections.end())
         {   
-            VehicleBase vb((*(*(*it)).getVehicle()).getVehicleType());
-            vehicles.push_back(vb);
+            vehicles.emplace_back((*(*(*it)).getVehicle()).getVehicleType());
             switch ( (*(*it)).getLane() )
             {
                 case Lane::NORTH:
-                    northbound[(*(*it)).getIndex()] = &vb;
+                    northbound[(*(*it)).getIndex()] = &(vehicles.back());
                 break;
                 case Lane::SOUTH:
-                    southbound[(*(*it)).getIndex()] = &vb;
+                    southbound[(*(*it)).getIndex()] = &(vehicles.back());
                 break;
                 case Lane::WEST:
-                    westbound[(*(*it)).getIndex()] = &vb;
+                    westbound[(*(*it)).getIndex()] = &(vehicles.back());
                 break;
                 case Lane::EAST:
-                    eastbound[(*(*it)).getIndex()] = &vb;
+                    eastbound[(*(*it)).getIndex()] = &(vehicles.back());
                 break;
             }
+            it++;
         }
 
         anim.setVehiclesNorthbound(northbound);

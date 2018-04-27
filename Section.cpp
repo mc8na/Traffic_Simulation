@@ -38,6 +38,7 @@ void Section::occupy(Vehicle& veh)
 void Section::leave()
 {
 	open = true;
+	vehicle = NULL;
 }
 
 void Section::setNext(Section& sec) // sets the Section to point to sec
