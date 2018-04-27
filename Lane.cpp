@@ -68,11 +68,10 @@ std::vector<Section*> Lane::advance()
 	}
 	if(sections.front().isOpen())
 	{
-		std::mt19937 rng(8675308);
-		std::uniform_real_distribution<double> rand_double(0.0, 1.0);
-		if(rand_double(rng) < prob_new_vehicle)
+		double random = randDouble(0.0, 1.0);
+		if(random < prob_new_vehicle)
 		{
-			vehicles.push_back(createVehicle(rand_double));
+			vehicles.push_back(createVehicle(random));
 		}
 	}
 	return occupied;
@@ -83,34 +82,32 @@ void Lane::removeVehicle() // remove vehicle when it exits the lane
 	vehicles.pop_front();
 }
 
-Vehicle Lane::createVehicle(std::uniform_real_distribution<double> rand_double)
+Vehicle Lane::createVehicle(double prob)
 {
-	std::mt19937 rng(8675308);
-	double prob = rand_double(rng);
+	prob = randDouble(0.0, 1.0);
 	if(prob < proportion_of_cars)
 	{
 		
-		Vehicle veh = Car(sections.front(), assignDir(rand_double, prob_right_turn_cars));
+		Vehicle veh = Car(sections.front(), assignDir(prob, prob_right_turn_cars));
 		return veh;
 
 	}
 	else if(prob < proportion_of_cars + proportion_of_SUVs)
 	{
-		Vehicle veh = SUV(sections.front(), assignDir(rand_double, prob_right_turn_SUVs));
+		Vehicle veh = SUV(sections.front(), assignDir(prob, prob_right_turn_SUVs));
 		return veh;
 	}
 	else
 	{
-		Vehicle veh = Truck(sections.front(), assignDir(rand_double, prob_right_turn_trucks));
+		Vehicle veh = Truck(sections.front(), assignDir(prob, prob_right_turn_trucks));
 		return veh;
 	}
 		
 }
 
-Lane::Direction Lane::assignDir(std::uniform_real_distribution<double> rand_double, double prob_right_turn)
+Lane::Direction Lane::assignDir(double prob, double prob_right_turn)
 {
-	std::mt19937 rng(8675308);
-	double prob = rand_double(rng);
+	prob = randDouble(0.0, 1.0);
 	switch(prob < prob_right_turn)
 	{
 		case true:
@@ -133,6 +130,10 @@ Lane::Direction Lane::assignDir(std::uniform_real_distribution<double> rand_doub
 Lane::Direction Lane::getDirection()
 {
 	return lDirection;
+}
+
+double Lane::randDouble(double low, double high) {
+	return ( ( double )rand() * ( high - low ) ) / ( double )RAND_MAX + low;
 }
 
 #endif

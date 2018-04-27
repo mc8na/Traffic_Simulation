@@ -62,9 +62,12 @@ int main(int argc, char* argv[])
     Clock clock(halfSize, ns_green, ns_yellow, ew_green, ew_yellow, prob_nsVehicle, prob_ewVehicle, 
         prop_cars, prop_SUVs, probRight_cars, probRight_SUVs, probRight_trucks);
 
-    for (int i = 0; i < maxTime; i++)
+    std::vector<Section*> sections = clock.Tick();
+
+    for (int i = 0; i <= maxTime; i++)
     {
-        std::vector<Section*> sections = clock.Tick();
+        sections = clock.Tick();
+        std::cout << sections.size() << std::endl;
         std::vector<Section*>::iterator it = sections.begin();
         std::vector<VehicleBase> vehicles;
         while(it != sections.end())
@@ -74,18 +77,13 @@ int main(int argc, char* argv[])
             {
                 case Lane::NORTH:
                     northbound[(*(*it)).getIndex()] = &(vehicles.back());
-                break;
                 case Lane::SOUTH:
                     southbound[(*(*it)).getIndex()] = &(vehicles.back());
-                break;
                 case Lane::WEST:
                     westbound[(*(*it)).getIndex()] = &(vehicles.back());
-                break;
                 case Lane::EAST:
                     eastbound[(*(*it)).getIndex()] = &(vehicles.back());
-                break;
             }
-            it++;
         }
 
         anim.setVehiclesNorthbound(northbound);
