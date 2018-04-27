@@ -66,11 +66,9 @@ int main(int argc, char* argv[])
     {
         std::vector<Section*> sections = clock.Tick();
         std::vector<Section*>::iterator it = sections.begin();
-        std::vector<VehicleBase> vehicles;
         while(it != sections.end())
         {   
             VehicleBase vb((*(*(*it)).getVehicle()).getVehicleType());
-            vehicles.push_back(vb);
             switch ( (*(*it)).getLane() )
             {
                 case Lane::NORTH:
