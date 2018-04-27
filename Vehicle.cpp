@@ -16,6 +16,7 @@ Vehicle::Vehicle(const Vehicle& veh) : VehicleBase(veh.getVehicleType())
 	}
 
 	vDirection = veh.vDirection;
+	(*location.front()).occupy(*this);
 }
 
 Vehicle::Vehicle(Section& sec, Lane::Direction dir, VehicleBase::VehicleType type) : VehicleBase(type) // constructor
@@ -23,6 +24,7 @@ Vehicle::Vehicle(Section& sec, Lane::Direction dir, VehicleBase::VehicleType typ
 	vDirection = dir; 
 	location.push_back(&sec);
 	location.push_back(&sec);
+	sec.occupy(*this);
 }
 
 std::vector<Section*> Vehicle::proceed(Lane& lane)

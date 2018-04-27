@@ -15,6 +15,8 @@ Section::Section(const Section& sec) // const copy constructor
 {
 	open = sec.open;
 	next = sec.next;
+	lane = sec.lane;
+	index = sec.index;
 }
 
 Section::~Section(){}

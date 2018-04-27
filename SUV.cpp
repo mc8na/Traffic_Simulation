@@ -12,7 +12,7 @@ SUV::SUV(const SUV& suv) : Vehicle(suv) // const copy constructor
 
 SUV::SUV(Section& sec, Lane::Direction dir) : Vehicle(sec, dir, VehicleBase::SUV) 
 {
-	
+	location.push_back(&sec);
 }
 
 std::vector<Section*> SUV::proceed(Lane& lane)

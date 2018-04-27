@@ -12,7 +12,8 @@ Truck::Truck(const Truck& truck) : Vehicle(truck)
 
 Truck::Truck(Section& sec, Lane::Direction dir) : Vehicle(sec, dir, VehicleBase::TRUCK) 
 {
-	
+	location.push_back(&sec);
+	location.push_back(&sec);
 }
 
 std::vector<Section*> Truck::proceed(Lane& lane)
