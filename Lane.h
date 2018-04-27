@@ -76,7 +76,7 @@ class SUV : public Vehicle
 		~SUV();
 
 	protected:
-		Section* mid;
+		//Section* mid;
 };
 
 class Truck : public Vehicle
@@ -89,8 +89,8 @@ class Truck : public Vehicle
 		~Truck();
 
 	protected:
-		Section* frontMid;
-		Section* backMid;
+		//Section* frontMid;
+		//Section* backMid;
 };
 
 class Section

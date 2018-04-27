@@ -76,16 +76,16 @@ int main(int argc, char* argv[])
             {
                 case Lane::NORTH:
                     northbound[(*(*it)).getIndex()] = (*(*it)).getVehicle();
-                break;
+                //break;
                 case Lane::SOUTH:
                     southbound[(*(*it)).getIndex()] = (*(*it)).getVehicle();
-                break;
+                //break;
                 case Lane::WEST:
                     westbound[(*(*it)).getIndex()] = (*(*it)).getVehicle();
-                break;
+                //break;
                 case Lane::EAST:
                     eastbound[(*(*it)).getIndex()] = (*(*it)).getVehicle();
-                break;
+                //break;
             }
             it++;
         }

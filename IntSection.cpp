@@ -5,8 +5,6 @@
 
 IntSection::IntSection(const IntSection& sec) : Section(sec) // const copy constructor
 {
-	open = sec.open;
-	next = sec.next;
 	out = sec.out;
 }
 
