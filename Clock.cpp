@@ -15,10 +15,10 @@ Clock::Clock(int num, int green_north_south, int yellow_north_south,
 	ns = TrafficLight(TrafficLight::GREEN, green_north_south, yellow_north_south);
 	ew = TrafficLight(TrafficLight::RED, green_east_west, yellow_east_west);
 	// create IntSections
-	IntSection ne(ew, Lane::WEST, NULL, num); 
-	IntSection nw(ns, Lane::SOUTH, NULL, num);
-	IntSection se(ns, Lane::NORTH, NULL, num);
-	IntSection sw(ew, Lane::EAST, NULL, num);
+	IntSection ne(ew, Lane::WEST, num); 
+	IntSection nw(ns, Lane::SOUTH, num);
+	IntSection se(ns, Lane::NORTH, num);
+	IntSection sw(ew, Lane::EAST, num);
 	// interconnect the IntSections
 	ne.setNext(nw);
 	nw.setNext(sw);
@@ -37,6 +37,7 @@ Clock::Clock(int num, int green_north_south, int yellow_north_south,
 	lanes.push_back(Lane(Lane::EAST, se, sw, num, prob_new_vehicle_east_west,
 						 proportion_of_cars, proportion_of_SUVs, 
 						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks));
+	
 }
 
 Clock::~Clock() {}

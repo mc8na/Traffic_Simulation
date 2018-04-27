@@ -10,10 +10,9 @@ IntSection::IntSection(const IntSection& sec) : Section(sec) // const copy const
 	out = sec.out;
 }
 
-IntSection::IntSection(TrafficLight& tl, Lane::Direction dir, Lane* l, int i) : Section(l, i) // constructor
+IntSection::IntSection(TrafficLight& tl, Lane::Direction dir, int i) : Section(dir, i) // constructor
 {
 	traf = &tl;
-	direction = dir;
 }
 
 void IntSection::setExit(Section& sec) // set Section in outbound lane
@@ -21,14 +20,9 @@ void IntSection::setExit(Section& sec) // set Section in outbound lane
 	out = &sec;
 }
 
-void IntSection::setLane(Lane& l)
-{
-	lane = &l;
-}
-
 Section* IntSection::getNext(Lane::Direction dir) // returns correct Section based on direction Vehicle travels
 {
-	if(dir == direction) // next points in direction of IntSection
+	if(dir == lane) // next points in direction of IntSection
 	{
 		return next;
 	}
