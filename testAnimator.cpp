@@ -68,23 +68,23 @@ int main(int argc, char* argv[])
     {
         std::vector<Section*> sections = clock.Tick();
         std::vector<Section*>::iterator it = sections.begin();
-        std::vector<VehicleBase> vehicles;
+        //std::vector<VehicleBase> vehicles;
         while(it != sections.end())
         {   
-            vehicles.emplace_back((*(*(*it)).getVehicle()).getVehicleType());
+            //vehicles.emplace_back((*(*(*it)).getVehicle()).getVehicleType());
             switch ( (*(*it)).getLane() )
             {
                 case Lane::NORTH:
-                    northbound[(*(*it)).getIndex()] = &(vehicles.back());
+                    northbound[(*(*it)).getIndex()] = (*(*it)).getVehicle();
                 break;
                 case Lane::SOUTH:
-                    southbound[(*(*it)).getIndex()] = &(vehicles.back());
+                    southbound[(*(*it)).getIndex()] = (*(*it)).getVehicle();
                 break;
                 case Lane::WEST:
-                    westbound[(*(*it)).getIndex()] = &(vehicles.back());
+                    westbound[(*(*it)).getIndex()] = (*(*it)).getVehicle();
                 break;
                 case Lane::EAST:
-                    eastbound[(*(*it)).getIndex()] = &(vehicles.back());
+                    eastbound[(*(*it)).getIndex()] = (*(*it)).getVehicle();
                 break;
             }
             it++;
