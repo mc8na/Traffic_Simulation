@@ -88,6 +88,7 @@ int main(int argc, char* argv[])
                     eastbound[(*(*it)).getIndex()] = (*(*it)).getVehicle();
                 //break;
             }
+            it++;
         }
 
         anim.setVehiclesNorthbound(northbound);
