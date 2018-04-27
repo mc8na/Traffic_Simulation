@@ -7,29 +7,35 @@
 
 Vehicle::Vehicle(const Vehicle& veh) : VehicleBase(veh.getVehicleType())
 {
-	front = veh.front;
-	back = veh.back;
+	std::vector<Section*>::iterator it = veh.location.begin();
+
+	while (it != veh.location.end()) 
+	{
+		location.push_back(*it);
+		it++;
+	}
+
 	vDirection = veh.vDirection;
 }
 
 Vehicle::Vehicle(Section& sec, Lane::Direction dir, VehicleBase::VehicleType type) : VehicleBase(type) // constructor
 {
 	vDirection = dir; 
-	front = &sec;
-	back = &sec;
+	location.push_back(&sec);
+	location.push_back(&sec);
 }
 
 void Vehicle::proceed(Lane& lane)
 {
-	if (front == NULL) // if front of vehicle has exited the lane
+	if (location.front() == NULL) // if front of vehicle has exited the lane
 	{
-		(*back).setOpen(true); // back no longer occupies a Section
-		back = NULL;
+		(*location.back()).setOpen(true); // back no longer occupies a Section
+		location.back() = NULL;
 		lane.removeVehicle(); // remove vehicle from lane
 	}
-	else if ((*front).getNext(vDirection) == NULL) // if vehicle about to exit lane
+	else if ((*location.front()).getNext(vDirection) == NULL) // if vehicle about to exit lane
 	{ 
-		(*back).setOpen(true); // back advances
+		(*location.back()).setOpen(true); // back advances
 		back = front;
 		front = NULL;
 
