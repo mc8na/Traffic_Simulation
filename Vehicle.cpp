@@ -29,22 +29,22 @@ Vehicle::Vehicle(Section& sec, Lane::Direction dir, VehicleBase::VehicleType typ
 
 std::vector<Section*> Vehicle::proceed(Lane& lane)
 {
-	if (location.front() == NULL) // if front of vehicle has exited the lane
+	if (location.front() == nullptr) // if front of vehicle has exited the lane
 	{
 		(*location.back()).leave(); // back no longer occupies a Section
-		location.back() = NULL;
+		location.back() = nullptr;
 		lane.removeVehicle(); // remove vehicle from lane
 	}
-	else if ((*location.front()).getNext(vDirection) == NULL) // if vehicle about to exit lane
+	else if ((*location.front()).getNext(vDirection) == nullptr) // if vehicle about to exit lane
 	{ 
 		(*location.back()).leave(); // back advances
 		location.back() = location.front();
-		location.front() = NULL;
+		location.front() = nullptr;
 
 	}
 	if((*((*location.front()).getNext(vDirection))).isOpen() == true) // if next Section is open
 	{
-		if(location.back() != NULL && location.back() != location.front())
+		if(location.back() != nullptr && location.back() != location.front())
 		{
 			(*location.back()).leave(); // back sets the Section it leaves to open
 		}

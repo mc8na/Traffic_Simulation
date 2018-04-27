@@ -62,12 +62,9 @@ int main(int argc, char* argv[])
     Clock clock(halfSize, ns_green, ns_yellow, ew_green, ew_yellow, prob_nsVehicle, prob_ewVehicle, 
         prop_cars, prop_SUVs, probRight_cars, probRight_SUVs, probRight_trucks);
 
-    std::vector<Section*> sections = clock.Tick();
-
     for (int i = 0; i <= maxTime; i++)
     {
-        sections = clock.Tick();
-        std::cout << sections.size() << std::endl;
+        std::vector<Section*> sections = clock.Tick();
         std::vector<Section*>::iterator it = sections.begin();
         //std::vector<VehicleBase> vehicles;
         while(it != sections.end())
@@ -86,7 +83,7 @@ int main(int argc, char* argv[])
                 //break;
                 case Lane::EAST:
                     eastbound[(*(*it)).getIndex()] = (*(*it)).getVehicle();
-                //break;
+               // break;
             }
             it++;
         }
