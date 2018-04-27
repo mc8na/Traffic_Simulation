@@ -3,6 +3,7 @@
 #define __LANE_H__
 
 #include "TrafficLight.h"
+#include "VehicleBase.h"
 #include <vector>
 #include <list>
 #include <iostream>
@@ -40,12 +41,12 @@ class Lane
 		Lane::Direction assignDir(std::uniform_real_distribution<double> rand_double, double prob_right_turn);
 };
 
-class Vehicle
+class Vehicle : public VehicleBase
 {
 	public:
-		Vehicle();
+		//Vehicle();
 		Vehicle(const Vehicle& veh);
-		Vehicle(Section& sec, Lane::Direction dir);
+		Vehicle(Section& sec, Lane::Direction dir, VehicleBase::VehicleType type);
 		~Vehicle();
 		void proceed(Lane& lane);
 		Lane::Direction getDirection();
@@ -59,7 +60,7 @@ class Vehicle
 class Car : public Vehicle
 {
 	public:
-		Car();
+		//Car();
 		Car(const Car& car);
 		Car(Section& sec, Lane::Direction dir);
 		~Car();		
@@ -68,7 +69,7 @@ class Car : public Vehicle
 class SUV : public Vehicle
 {
 	public:
-		SUV();
+		//SUV();
 		SUV(const SUV& suv);
 		SUV(Section& sec, Lane::Direction dir);
 		void proceed(Lane& lane);
@@ -81,7 +82,7 @@ class SUV : public Vehicle
 class Truck : public Vehicle
 {
 	public:
-		Truck();
+		//Truck();
 		Truck(const Truck& truck);
 		Truck(Section& sec, Lane::Direction dir);
 		void proceed(Lane& lane);

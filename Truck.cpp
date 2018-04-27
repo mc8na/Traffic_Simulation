@@ -3,7 +3,7 @@
 
 #include "Lane.h"
 
-Truck::Truck() : Vehicle() {}
+//Truck::Truck() : Vehicle() {}
 
 Truck::Truck(const Truck& truck) : Vehicle(truck)
 {
@@ -11,7 +11,7 @@ Truck::Truck(const Truck& truck) : Vehicle(truck)
 	backMid = truck.backMid;
 }
 
-Truck::Truck(Section& sec, Lane::Direction dir) : Vehicle(sec, dir) 
+Truck::Truck(Section& sec, Lane::Direction dir) : Vehicle(sec, dir, VehicleBase::TRUCK) 
 {
 	frontMid = &sec;
 	backMid = &sec;
