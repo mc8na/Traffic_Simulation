@@ -55,7 +55,7 @@ void Lane::advance()
 	std::list<Vehicle>::iterator it = vehicles.begin();
 	while(it != vehicles.end()) // tell each vehicle in the list to move forward
 	{
-		(*it).proceed(*this);
+		std::vector<Section*> location = (*it).proceed(*this);
 		it++;
 	}
 	if(sections.front().isOpen())
