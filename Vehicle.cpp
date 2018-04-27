@@ -7,7 +7,7 @@
 
 Vehicle::Vehicle(const Vehicle& veh) : VehicleBase(veh.getVehicleType())
 {
-	std::vector<Section*>::iterator it = veh.location.begin();
+	std::vector<Section*>::const_iterator it = veh.location.cbegin();
 
 	while (it != veh.location.end()) 
 	{
@@ -25,7 +25,7 @@ Vehicle::Vehicle(Section& sec, Lane::Direction dir, VehicleBase::VehicleType typ
 	location.push_back(&sec);
 }
 
-void Vehicle::proceed(Lane& lane)
+std::vector<Section*> Vehicle::proceed(Lane& lane)
 {
 	if (location.front() == NULL) // if front of vehicle has exited the lane
 	{
@@ -36,20 +36,21 @@ void Vehicle::proceed(Lane& lane)
 	else if ((*location.front()).getNext(vDirection) == NULL) // if vehicle about to exit lane
 	{ 
 		(*location.back()).setOpen(true); // back advances
-		back = front;
-		front = NULL;
+		location.back() = location.front();
+		location.front() = NULL;
 
 	}
-	if((*((*front).getNext(vDirection))).isOpen() == true) // if next Section is open
+	if((*((*location.front()).getNext(vDirection))).isOpen() == true) // if next Section is open
 	{
-		if(back != NULL && back != front)
+		if(location.back() != NULL && location.back() != location.front())
 		{
-			(*back).setOpen(true); // back sets the Section it leaves to open
+			(*location.back()).setOpen(true); // back sets the Section it leaves to open
 		}
-		back = front; // move back to next Section
-		front = (*front).getNext(vDirection); // move front to next Section
-		(*front).setOpen(false); // front occupies the new Section
+		location.back() = location.front(); // move back to next Section
+		location.front() = (*location.front()).getNext(vDirection); // move front to next Section
+		(*location.front()).setOpen(false); // front occupies the new Section
 	} 
+	return location;
 
 }
 

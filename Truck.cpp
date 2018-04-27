@@ -7,60 +7,59 @@
 
 Truck::Truck(const Truck& truck) : Vehicle(truck)
 {
-	frontMid = truck.frontMid;
-	backMid = truck.backMid;
+	
 }
 
 Truck::Truck(Section& sec, Lane::Direction dir) : Vehicle(sec, dir, VehicleBase::TRUCK) 
 {
-	frontMid = &sec;
-	backMid = &sec;
+	
 }
 
-void Truck::proceed(Lane& lane)
+std::vector<Section*> Truck::proceed(Lane& lane)
 {
-	if (front == NULL) // if vehicle has walked off end of lane
+	if (location.front() == NULL) // if vehicle has walked off end of lane
 	{
-		(*back).setOpen(true); // move back section forward
+		(*location.back()).setOpen(true); // move back section forward
 
-		if (frontMid != NULL) // if part of the truck is still in the lane
+		if (location.at(1) != NULL) // if part of the truck is still in the lane
 		{
-			back = backMid; // advance Sections still in the lane
-			backMid = frontMid;
-			frontMid = NULL;
+			location.back() = location.at(2); // advance Sections still in the lane
+			location.at(2) = location.at(1);
+			location.at(1) = NULL;
 		}
-		else if (backMid != NULL) // if part of the truck is still in the lane
+		else if (location.at(2) != NULL) // if part of the truck is still in the lane
 		{
-			back = backMid; // advance Section still in the lane
-			backMid = NULL;
+			location.back() = location.at(2); // advance Section still in the lane
+			location.at(2) = NULL;
 		}
 		else // truck has walked completely off end of the lane, time to remove it
 		{
-			back = NULL;
+			location.back() = NULL;
 			lane.removeVehicle();
 		}
 	}
-	else if ((*front).getNext(vDirection) == NULL) // if truck about to walk off end of lane
+	else if ((*location.front()).getNext(vDirection) == NULL) // if truck about to walk off end of lane
 	{ 
-		(*back).setOpen(true);
-		back = backMid;
-		backMid = frontMid;
-		front = NULL;
+		(*location.back()).setOpen(true);
+		location.back() = location.at(2);
+		location.at(2) = location.at(1);
+		location.front() = NULL;
 
 	}
-	if((*((*front).getNext(vDirection))).isOpen() == true) // if next Section is open
+	if((*((*location.front()).getNext(vDirection))).isOpen() == true) // if next Section is open
 	{
-		if(back != NULL && back != backMid)
+		if(location.back() != NULL && location.back() != location.at(2))
 		{
-			(*back).setOpen(true); // back sets Section it leaves to open
+			(*location.back()).setOpen(true); // back sets Section it leaves to open
 		}
 		// move the Truck forward
-		back = backMid;
-		backMid = frontMid;
-		frontMid = front;
-		front = (*front).getNext(vDirection);
-		(*front).setOpen(false); // front occupies new Section
+		location.back() = location.at(2);
+		location.at(2) = location.at(1);
+		location.at(1) = location.front();
+		location.front() = (*location.front()).getNext(vDirection);
+		(*location.front()).setOpen(false); // front occupies new Section
 	}
+	return location;
 }
 
 Truck::~Truck() {}
