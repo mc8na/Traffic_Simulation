@@ -95,25 +95,34 @@ class Truck : public Vehicle
 class Section
 {
 	public:
-		Section();
+		Section(Lane* l, int i);
 		Section(const Section& sec);
 		~Section();
 		bool isOpen();
 		Section* getNext(Lane::Direction dir);
 		void setOpen(bool op);
+		void occupy(Vehicle& veh);
+		void leave();
 		void setNext(Section& sec);
+		int getIndex();
+		Vehicle* getVehicle();
+		Lane* getLane();
 
 	protected:
 		Section* next;
 		bool open;
+		Lane* lane;
+		Vehicle* vehicle;
+		int index;
 };
 
 class IntSection : public Section
 {
 	public:
 		IntSection(const IntSection& sec);
-		IntSection(TrafficLight& tl, Lane::Direction dir);
+		IntSection(TrafficLight& tl, Lane::Direction dir, Lane* l, int i);
 		void setExit(Section& sec);
+		void setLane(Lane& l);
 		Section* getNext(Lane::Direction dir);
 		bool isOpen();
 		~IntSection();
