@@ -6,7 +6,7 @@ CCFLAGS = -Wall -Wno-deprecated -Werror=return-type -g -std=c++11
 
 all: $(EXECS)
 
-test: $(OBJS)
+testAnimator: $(OBJS)
 	$(CC) $(CCFLAGS) $^ -o $@
 
 %.o: %.cpp *.h
