@@ -15,10 +15,10 @@ Clock::Clock(int num, int green_north_south, int yellow_north_south,
 	ns = TrafficLight(TrafficLight::GREEN, green_north_south, yellow_north_south);
 	ew = TrafficLight(TrafficLight::RED, green_east_west, yellow_east_west);
 	// create IntSections
-	IntSection ne(ew, Lane::WEST); 
-	IntSection nw(ns, Lane::SOUTH);
-	IntSection se(ns, Lane::NORTH);
-	IntSection sw(ew, Lane::EAST);
+	IntSection ne(ew, Lane::WEST, NULL, num); 
+	IntSection nw(ns, Lane::SOUTH, NULL, num);
+	IntSection se(ns, Lane::NORTH, NULL, num);
+	IntSection sw(ew, Lane::EAST, NULL, num);
 	// interconnect the IntSections
 	ne.setNext(nw);
 	nw.setNext(sw);

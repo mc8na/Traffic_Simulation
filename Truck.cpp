@@ -19,7 +19,7 @@ std::vector<Section*> Truck::proceed(Lane& lane)
 {
 	if (location.front() == NULL) // if vehicle has walked off end of lane
 	{
-		(*location.back()).setOpen(true); // move back section forward
+		(*location.back()).leave(); // move back section forward
 
 		if (location.at(1) != NULL) // if part of the truck is still in the lane
 		{
@@ -40,7 +40,7 @@ std::vector<Section*> Truck::proceed(Lane& lane)
 	}
 	else if ((*location.front()).getNext(vDirection) == NULL) // if truck about to walk off end of lane
 	{ 
-		(*location.back()).setOpen(true);
+		(*location.back()).leave();
 		location.back() = location.at(2);
 		location.at(2) = location.at(1);
 		location.front() = NULL;
@@ -50,14 +50,14 @@ std::vector<Section*> Truck::proceed(Lane& lane)
 	{
 		if(location.back() != NULL && location.back() != location.at(2))
 		{
-			(*location.back()).setOpen(true); // back sets Section it leaves to open
+			(*location.back()).leave(); // back sets Section it leaves to open
 		}
 		// move the Truck forward
 		location.back() = location.at(2);
 		location.at(2) = location.at(1);
 		location.at(1) = location.front();
 		location.front() = (*location.front()).getNext(vDirection);
-		(*location.front()).setOpen(false); // front occupies new Section
+		(*location.front()).occupy(*this); // front occupies new Section
 	}
 	return location;
 }

@@ -3,14 +3,14 @@
 
 #include "Lane.h"
 
-IntSection::IntSection(const IntSection& sec) // const copy constructor
+IntSection::IntSection(const IntSection& sec) : Section(sec) // const copy constructor
 {
 	open = sec.open;
 	next = sec.next;
 	out = sec.out;
 }
 
-IntSection::IntSection(TrafficLight& tl, Lane::Direction dir) : Section() // constructor
+IntSection::IntSection(TrafficLight& tl, Lane::Direction dir, Lane* l, int i) : Section(l, i) // constructor
 {
 	traf = &tl;
 	direction = dir;
@@ -19,6 +19,11 @@ IntSection::IntSection(TrafficLight& tl, Lane::Direction dir) : Section() // con
 void IntSection::setExit(Section& sec) // set Section in outbound lane
 {
 	out = &sec;
+}
+
+void IntSection::setLane(Lane& l)
+{
+	lane = &l;
 }
 
 Section* IntSection::getNext(Lane::Direction dir) // returns correct Section based on direction Vehicle travels
