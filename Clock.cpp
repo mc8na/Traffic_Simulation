@@ -41,16 +41,25 @@ Clock::Clock(int num, int green_north_south, int yellow_north_south,
 
 Clock::~Clock() {}
 
-void Clock::Tick() 
+std::vector<Section*> Clock::Tick() 
 {
 	ns.advanceTick(); // advance traffic lights by one tick
 	ew.advanceTick();
+	std::vector<Section*> occupied;
+	std::vector<Section*> temp;
 	std::vector<Lane>::iterator it = lanes.begin();
 	while(it != lanes.end()) 
 	{
-		(*it).advance(); // tell each lane to advance its vehicles
+		temp = (*it).advance(); // tell each lane to advance its vehicles
+		std::vector<Section*>::iterator it2 = temp.begin();
+		while(it2 != temp.end())
+		{
+			occupied.push_back(*it2);
+			it2++;
+		}
 		it++;
 	}
+	return occupied;
 }
 
 #endif

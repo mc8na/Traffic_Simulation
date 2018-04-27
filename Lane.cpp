@@ -50,12 +50,20 @@ Lane::Lane(Direction dir, IntSection& one, IntSection& two, int numSections,
 
 Lane::~Lane(){}
 
-void Lane::advance()
+std::vector<Section*> Lane::advance()
 {
+	std::vector<Section*> occupied;
+	std::vector<Section*> temp;
 	std::list<Vehicle>::iterator it = vehicles.begin();
 	while(it != vehicles.end()) // tell each vehicle in the list to move forward
 	{
-		std::vector<Section*> location = (*it).proceed(*this);
+		temp = (*it).proceed(*this);
+		std::vector<Section*>::iterator it2 = temp.begin();
+		while(it2 != temp.end())
+		{
+			occupied.push_back(*it2);
+			it2++;
+		}
 		it++;
 	}
 	if(sections.front().isOpen())
@@ -67,6 +75,7 @@ void Lane::advance()
 			vehicles.push_back(createVehicle(rand_double));
 		}
 	}
+	return occupied;
 }
 
 void Lane::removeVehicle() // remove vehicle when it exits the lane

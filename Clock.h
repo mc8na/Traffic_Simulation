@@ -20,7 +20,7 @@ class Clock
 			  double proportion_of_SUVs, double prob_right_turn_cars,
 			  double prob_right_turn_SUVs, double prob_right_turn_trucks);
 		~Clock();
-		void Tick();
+		std::vector<Section*> Tick();
 };
 
 #endif
