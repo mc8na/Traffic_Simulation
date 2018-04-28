@@ -61,6 +61,22 @@ Lane::Direction Vehicle::getDirection() // returns direction vehicle is travelin
 	return vDirection;
 }
 
+void Vehicle::operator=(const Vehicle& veh)
+{
+	location.clear();
+	std::vector<Section*>::const_iterator it = veh.location.cbegin();
+	while (it != veh.location.cend()) 
+	{
+		location.push_back(*it);
+		it++;
+	}
+
+	vehicleType = veh.getVehicleType();
+	vehicleID = veh.getVehicleID();
+	vDirection = veh.vDirection;
+	(*location.front()).occupy(*this);
+}
+
 Vehicle::~Vehicle() {} // deconstructor
 
 #endif

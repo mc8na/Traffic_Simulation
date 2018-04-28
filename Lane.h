@@ -54,6 +54,7 @@ class Vehicle : public VehicleBase
 		~Vehicle();
 		std::vector<Section*> proceed(Lane& lane);
 		Lane::Direction getDirection();
+		void operator=(const Vehicle& veh);
 
 	protected:
 		Lane::Direction vDirection;
