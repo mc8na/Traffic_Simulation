@@ -21,7 +21,7 @@ std::vector<Section*> SUV::proceed(Lane& lane)
 	{
 		(*location.back()).leave(); // move back forward
 
-		if (location.at(1) != nullptr) // if vehicle has fully exited the lane
+		if (location.at(1) == nullptr) // if vehicle has fully exited the lane
 		{
 			location.back() = nullptr;
 			lane.removeVehicle(); // remove vehicle from lane
@@ -40,7 +40,7 @@ std::vector<Section*> SUV::proceed(Lane& lane)
 		location.front() = nullptr;
 
 	}
-	if((*((*location.front()).getNext(vDirection))).isOpen() == true) // if next Section is open
+	else if((*((*location.front()).getNext(vDirection))).isOpen() == true) // if next Section is open
 	{
 		if(location.back() != nullptr && location.back() != location.at(1))
 		{

@@ -52,7 +52,7 @@ Lane::~Lane(){}
 
 std::vector<Section*> Lane::advance()
 {
-	std::vector<Section*> occupied;
+	occupied.clear();
 	std::vector<Section*> temp;
 	std::list<Vehicle>::iterator it = vehicles.begin();
 	while(it != vehicles.end()) // tell each vehicle in the list to move forward
@@ -71,7 +71,20 @@ std::vector<Section*> Lane::advance()
 		double random = randDouble(0.0, 1.0);
 		if(random < prob_new_vehicle)
 		{
-			vehicles.push_back(createVehicle(random));
+			double prob = randDouble(0.0, 1.0);
+			if(prob < proportion_of_cars)
+			{
+				vehicles.push_back(Car(sections.front(), assignDir(prob, prob_right_turn_cars)));
+			}
+			else if(prob < proportion_of_cars + proportion_of_SUVs)
+			{
+				vehicles.push_back(SUV(sections.front(), assignDir(prob, prob_right_turn_SUVs)));
+			}
+			else
+			{
+				vehicles.push_back(Truck(sections.front(), assignDir(prob, prob_right_turn_trucks)));
+			}
+			occupied.push_back(&(sections.front()));
 		}
 	}
 	return occupied;
@@ -80,29 +93,6 @@ std::vector<Section*> Lane::advance()
 void Lane::removeVehicle() // remove vehicle when it exits the lane
 {
 	vehicles.pop_front();
-}
-
-Vehicle Lane::createVehicle(double prob)
-{
-	prob = randDouble(0.0, 1.0);
-	if(prob < proportion_of_cars)
-	{
-		
-		Vehicle veh = Car(sections.front(), assignDir(prob, prob_right_turn_cars));
-		return veh;
-
-	}
-	else if(prob < proportion_of_cars + proportion_of_SUVs)
-	{
-		Vehicle veh = SUV(sections.front(), assignDir(prob, prob_right_turn_SUVs));
-		return veh;
-	}
-	else
-	{
-		Vehicle veh = Truck(sections.front(), assignDir(prob, prob_right_turn_trucks));
-		return veh;
-	}
-		
 }
 
 Lane::Direction Lane::assignDir(double prob, double prob_right_turn)
@@ -132,7 +122,8 @@ Lane::Direction Lane::getDirection()
 	return lDirection;
 }
 
-double Lane::randDouble(double low, double high) {
+double Lane::randDouble(double low, double high) 
+{
 	return ( ( double )rand() * ( high - low ) ) / ( double )RAND_MAX + low;
 }
 

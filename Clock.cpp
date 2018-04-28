@@ -46,7 +46,7 @@ std::vector<Section*> Clock::Tick()
 {
 	ns.advanceTick(); // advance traffic lights by one tick
 	ew.advanceTick();
-	std::vector<Section*> occupied;
+	occupied.clear();
 	std::vector<Section*> temp;
 	std::vector<Lane>::iterator it = lanes.begin();
 	while(it != lanes.end()) 
