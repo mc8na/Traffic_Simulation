@@ -5,7 +5,7 @@
 
 //Vehicle::Vehicle() {} // default constructor (not used)
 
-Vehicle::Vehicle(const Vehicle& veh) : VehicleBase(veh.getVehicleType())
+Vehicle::Vehicle(const Vehicle& veh) : VehicleBase(veh)
 {
 	std::vector<Section*>::const_iterator it = veh.location.cbegin();
 

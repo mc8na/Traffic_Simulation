@@ -12,6 +12,7 @@ class VehicleBase
       VehicleType vehicleType;
 
    public:
+      VehicleBase(const VehicleBase& veh);
       VehicleBase(VehicleBase::VehicleType type);
       ~VehicleBase();
 

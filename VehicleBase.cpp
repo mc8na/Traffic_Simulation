@@ -5,6 +5,12 @@
 
 int VehicleBase::vehicleCount = 0;
 
+VehicleBase::VehicleBase(const VehicleBase& veh)
+{
+	vehicleID = veh.vehicleID;
+	vehicleType = veh.vehicleType;
+}
+
 VehicleBase::VehicleBase(VehicleBase::VehicleType type)
     : vehicleID(VehicleBase::vehicleCount++), vehicleType(type) {}
 
