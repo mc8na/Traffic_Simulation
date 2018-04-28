@@ -62,12 +62,11 @@ int main(int argc, char* argv[])
     Clock clock(halfSize, ns_green, ns_yellow, ew_green, ew_yellow, prob_nsVehicle, prob_ewVehicle, 
         prop_cars, prop_SUVs, probRight_cars, probRight_SUVs, probRight_trucks);
 
+    std::vector<Section*> sections;
+
     for (int i = 0; i <= maxTime; i++)
     {
-        std::vector<Section*> sections = clock.Tick();
-        for (int i = 0; i < sections.size(); i++) {
-            std::cout << (*(sections.at(i))).getIndex() << std::endl;
-        }
+        sections = clock.Tick();
         std::vector<Section*>::iterator it = sections.begin();
         //std::vector<VehicleBase> vehicles;
         while(it != sections.end())
@@ -103,6 +102,8 @@ int main(int argc, char* argv[])
         westbound.assign(halfSize * 2 + 2, nullptr); // reset
         northbound.assign(halfSize * 2 + 2, nullptr);
         southbound.assign(halfSize * 2 + 2, nullptr);
+
+        sections.clear();
     }
 /*    
     VehicleBase vb1(VehicleBase::CAR);

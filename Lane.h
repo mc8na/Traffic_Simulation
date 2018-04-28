@@ -32,6 +32,7 @@ class Lane
 		std::vector<Section> sections;
 		Direction lDirection;
 		std::list<Vehicle> vehicles;
+		std::vector<Section*> occupied;
 		double prob_new_vehicle;
 		double proportion_of_cars;
 		double proportion_of_SUVs;
@@ -39,7 +40,6 @@ class Lane
 		double prob_right_turn_cars;
 		double prob_right_turn_SUVs;
 		double prob_right_turn_trucks;
-		Vehicle createVehicle(double prob);
 		Lane::Direction assignDir(double prob, double prob_right_turn);
 };
 

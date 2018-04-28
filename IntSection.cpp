@@ -5,6 +5,7 @@
 
 IntSection::IntSection(const IntSection& sec) : Section(sec) // const copy constructor
 {
+	traf = sec.traf;
 	out = sec.out;
 }
 
