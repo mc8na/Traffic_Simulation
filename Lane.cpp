@@ -108,6 +108,7 @@ Vehicle Lane::createVehicle(double prob)
 Lane::Direction Lane::assignDir(double prob, double prob_right_turn)
 {
 	prob = randDouble(0.0, 1.0);
+	std::cout << randDouble(0.0, 1.0) << std::endl;
 	switch(prob < prob_right_turn)
 	{
 		case true:

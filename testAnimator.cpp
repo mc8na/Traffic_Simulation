@@ -65,6 +65,9 @@ int main(int argc, char* argv[])
     for (int i = 0; i <= maxTime; i++)
     {
         std::vector<Section*> sections = clock.Tick();
+        for (int i = 0; i < sections.size(); i++) {
+            std::cout << (*(sections.at(i))).getIndex() << std::endl;
+        }
         std::vector<Section*>::iterator it = sections.begin();
         //std::vector<VehicleBase> vehicles;
         while(it != sections.end())
