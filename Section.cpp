@@ -15,6 +15,8 @@ Section::Section(const Section& sec) // const copy constructor
 {
 	open = sec.open;
 	next = sec.next;
+	lane = sec.lane;
+	index = sec.index;
 }
 
 Section::~Section(){}
@@ -38,6 +40,7 @@ void Section::occupy(Vehicle& veh)
 void Section::leave()
 {
 	open = true;
+	vehicle = NULL;
 }
 
 void Section::setNext(Section& sec) // sets the Section to point to sec

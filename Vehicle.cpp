@@ -16,6 +16,7 @@ Vehicle::Vehicle(const Vehicle& veh) : VehicleBase(veh.getVehicleType())
 	}
 
 	vDirection = veh.vDirection;
+	(*location.front()).occupy(*this);
 }
 
 Vehicle::Vehicle(Section& sec, Lane::Direction dir, VehicleBase::VehicleType type) : VehicleBase(type) // constructor
@@ -23,26 +24,27 @@ Vehicle::Vehicle(Section& sec, Lane::Direction dir, VehicleBase::VehicleType typ
 	vDirection = dir; 
 	location.push_back(&sec);
 	location.push_back(&sec);
+	sec.occupy(*this);
 }
 
 std::vector<Section*> Vehicle::proceed(Lane& lane)
 {
-	if (location.front() == NULL) // if front of vehicle has exited the lane
+	if (location.front() == nullptr) // if front of vehicle has exited the lane
 	{
 		(*location.back()).leave(); // back no longer occupies a Section
-		location.back() = NULL;
+		location.back() = nullptr;
 		lane.removeVehicle(); // remove vehicle from lane
 	}
-	else if ((*location.front()).getNext(vDirection) == NULL) // if vehicle about to exit lane
+	else if ((*location.front()).getNext(vDirection) == nullptr) // if vehicle about to exit lane
 	{ 
 		(*location.back()).leave(); // back advances
 		location.back() = location.front();
-		location.front() = NULL;
+		location.front() = nullptr;
 
 	}
-	if((*((*location.front()).getNext(vDirection))).isOpen() == true) // if next Section is open
+	else if((*((*location.front()).getNext(vDirection))).isOpen() == true) // if next Section is open
 	{
-		if(location.back() != NULL && location.back() != location.front())
+		if(location.back() != nullptr && location.back() != location.front())
 		{
 			(*location.back()).leave(); // back sets the Section it leaves to open
 		}
