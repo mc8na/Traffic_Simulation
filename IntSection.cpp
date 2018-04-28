@@ -14,7 +14,7 @@ IntSection::IntSection(TrafficLight& tl, Lane::Direction dir, int i) : Section(d
 	traf = &tl;
 }
 
-void IntSection::setExit(Section& sec) // set Section in outbound lane
+void IntSection::setExit(Section& sec) // out points to Section in outbound lane
 {
 	out = &sec;
 }

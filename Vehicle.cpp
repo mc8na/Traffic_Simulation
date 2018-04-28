@@ -9,7 +9,7 @@ Vehicle::Vehicle(const Vehicle& veh) : VehicleBase(veh)
 {
 	std::vector<Section*>::const_iterator it = veh.location.cbegin();
 
-	while (it != veh.location.end()) 
+	while (it != veh.location.cend()) 
 	{
 		location.push_back(*it);
 		it++;
