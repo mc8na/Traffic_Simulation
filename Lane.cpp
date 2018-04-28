@@ -30,21 +30,26 @@ Lane::Lane(Direction dir, IntSection& one, IntSection& two, int numSections,
 	prob_right_turn_cars = prob_right_cars;
 	prob_right_turn_SUVs = prob_right_SUVs;
 	prob_right_turn_trucks = prob_right_trucks;
-	sections.push_back(Section(getDirection(), 0));
-	for(int i = 1; i < numSections; i++) // create inbound sections and link to one another
+
+	for(int i = 0; i < numSections; i++) // create inbound sections 
 	{
 		sections.push_back(Section(getDirection(), i));
-		sections.at(i-1).setNext(sections.at(i));
 	}
 	sections.push_back(two); // add IntSection
-	sections.at(numSections-1).setNext(two); // link Section to IntSection
 	sections.push_back(one); // add IntSection
-	sections.push_back(Section(getDirection(), numSections + 2));
-	one.setExit(sections.at(numSections + 2)); // link IntSection to outbound Sections
-	for(int i = numSections + 3; i < 2 * numSections + 2; i++) // create and link outbound sections
+	for(int i = numSections + 2; i < 2 * numSections + 2; i++) // create outbound sections
 	{
 		sections.push_back(Section(getDirection(), i));
-		sections.at(i-1).setNext(sections.at(i));
+	}
+
+	for(int i = 0; i < numSections; i++) // now link sections together
+	{
+		sections.at(i).setNext(sections.at(i + 1));
+	}
+	one.setExit(sections.at(numSections + 2));
+	for(int i = numSections + 2; i < 2 * numSections + 1; i++)
+	{
+		sections.at(i).setNext(sections.at(i + 1));
 	}
 }
 
