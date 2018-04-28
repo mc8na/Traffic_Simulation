@@ -64,7 +64,7 @@ std::vector<Section*> Lane::advance()
 {
 	occupied.clear();
 	std::vector<Section*> temp;
-	for(int i = indexFirstVehicle; i < indexLastVehicle; i++)
+	for(int i = indexFirstVehicle; i != indexLastVehicle; i = (i + 1) % vehicles.capacity())
 	{
 		temp = vehicles.at(i).proceed(*this);
 		std::vector<Section*>::iterator it2 = temp.begin();
@@ -84,20 +84,48 @@ std::vector<Section*> Lane::advance()
 		double random = randDouble(0.0, 1.0);
 		if(random < prob_new_vehicle)
 		{
-			std::vector<Vehicle>::iterator it = vehicles.begin() + indexLastVehicle;
+			//std::vector<Vehicle>::iterator it = vehicles.begin() + indexLastVehicle;
 			double prob = randDouble(0.0, 1.0);
 			if(prob < proportion_of_cars)
 			{
-				vehicles.insert(it, Car(sections.front(), assignDir(prob, prob_right_turn_cars)));
-				//vehicles.push_back(Car(sections.front(), assignDir(prob, prob_right_turn_cars)));
+				//Vehicle veh = Car(sections.front(), assignDir(prob, prob_right_turn_cars));
+				//vehicles.insert(it, Car(sections.front(), assignDir(prob, prob_right_turn_cars)));
+				if(indexLastVehicle < vehicles.size())
+				{
+					Vehicle veh = Car(sections.front(), assignDir(prob, prob_right_turn_cars));
+					vehicles.at(indexLastVehicle) = veh;
+				}
+				else
+				{
+					vehicles.push_back(Car(sections.front(), assignDir(prob, prob_right_turn_cars)));
+				}
 			}
 			else if(prob < proportion_of_cars + proportion_of_SUVs)
 			{
-				vehicles.insert(it, SUV(sections.front(), assignDir(prob, prob_right_turn_SUVs)));
+				//vehicles.insert(it, SUV(sections.front(), assignDir(prob, prob_right_turn_SUVs)));
+				if(indexLastVehicle < vehicles.size())
+				{
+					Vehicle veh = SUV(sections.front(), assignDir(prob, prob_right_turn_SUVs));
+					vehicles.at(indexLastVehicle) = veh;
+				}
+				else
+				{
+					vehicles.push_back(SUV(sections.front(), assignDir(prob, prob_right_turn_SUVs)));
+				}
 			}
 			else
 			{
-				vehicles.insert(it, Truck(sections.front(), assignDir(prob, prob_right_turn_trucks)));
+				if(indexLastVehicle < vehicles.size())
+				{
+					Vehicle veh = Truck(sections.front(), assignDir(prob, prob_right_turn_trucks));
+					vehicles.at(indexLastVehicle) = veh;
+				}
+				else
+				{
+					vehicles.push_back(Truck(sections.front(), assignDir(prob, prob_right_turn_trucks)));
+				}
+				//vehicles.insert(it, Truck(sections.front(), assignDir(prob, prob_right_turn_trucks)));
+				//vehicles.push_back(Truck(sections.front(), assignDir(prob, prob_right_turn_trucks)));
 			}
 			indexLastVehicle = (indexLastVehicle + 1) % vehicles.capacity();
 			occupied.push_back(&(sections.front()));
