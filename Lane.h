@@ -31,7 +31,9 @@ class Lane
 	protected:
 		std::vector<Section> sections;
 		Direction lDirection;
-		std::list<Vehicle> vehicles;
+		std::vector<Vehicle> vehicles;
+		int indexFirstVehicle;
+		int indexLastVehicle;
 		std::vector<Section*> occupied;
 		double prob_new_vehicle;
 		double proportion_of_cars;
