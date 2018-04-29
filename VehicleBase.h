@@ -7,15 +7,16 @@ class VehicleBase
       static int vehicleCount;
       enum VehicleType {CAR, SUV, TRUCK};
 
-   private:
+   protected:
       int         vehicleID;
       VehicleType vehicleType;
 
    public:
+      VehicleBase(const VehicleBase& veh);
       VehicleBase(VehicleBase::VehicleType type);
       ~VehicleBase();
 
-      inline int getVehicleID() { return this->vehicleID; }
+      inline int getVehicleID() const { return this->vehicleID; }
 
       inline VehicleBase::VehicleType getVehicleType() const { return this->vehicleType; }
 };

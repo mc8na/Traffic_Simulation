@@ -5,11 +5,11 @@
 
 //Vehicle::Vehicle() {} // default constructor (not used)
 
-Vehicle::Vehicle(const Vehicle& veh) : VehicleBase(veh.getVehicleType())
+Vehicle::Vehicle(const Vehicle& veh) : VehicleBase(veh)
 {
 	std::vector<Section*>::const_iterator it = veh.location.cbegin();
 
-	while (it != veh.location.end()) 
+	while (it != veh.location.cend()) 
 	{
 		location.push_back(*it);
 		it++;
@@ -59,6 +59,22 @@ std::vector<Section*> Vehicle::proceed(Lane& lane)
 Lane::Direction Vehicle::getDirection() // returns direction vehicle is traveling
 {
 	return vDirection;
+}
+
+void Vehicle::operator=(const Vehicle& veh)
+{
+	location.clear();
+	std::vector<Section*>::const_iterator it = veh.location.cbegin();
+	while (it != veh.location.cend()) 
+	{
+		location.push_back(*it);
+		it++;
+	}
+
+	vehicleType = veh.getVehicleType();
+	vehicleID = veh.getVehicleID();
+	vDirection = veh.vDirection;
+	(*location.front()).occupy(*this);
 }
 
 Vehicle::~Vehicle() {} // deconstructor
