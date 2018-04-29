@@ -6,9 +6,10 @@
 Section::Section(Lane::Direction l, int i) 
 { 
 	open = true; // Section is not initially occupied
-	next = NULL;
+	next = nullptr;
 	lane = l;
 	index = i;
+	vehicle = nullptr;
 }
 
 Section::Section(const Section& sec) // const copy constructor
@@ -17,6 +18,7 @@ Section::Section(const Section& sec) // const copy constructor
 	next = sec.next;
 	lane = sec.lane;
 	index = sec.index;
+	vehicle = sec.vehicle;
 }
 
 Section::~Section(){}
@@ -40,7 +42,7 @@ void Section::occupy(Vehicle& veh)
 void Section::leave()
 {
 	open = true;
-	vehicle = NULL;
+	vehicle = nullptr;
 }
 
 void Section::setNext(Section& sec) // sets the Section to point to sec
