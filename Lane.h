@@ -31,12 +31,13 @@ class Lane
 	protected:
 		std::vector<Section> sections;
 		Direction lDirection;
-		std::list<Vehicle> vehicles;
+		std::vector<Vehicle> vehicles;
+		int indexFirstVehicle;
+		int indexLastVehicle;
 		std::vector<Section*> occupied;
 		double prob_new_vehicle;
 		double proportion_of_cars;
 		double proportion_of_SUVs;
-		double proportion_of_trucks;
 		double prob_right_turn_cars;
 		double prob_right_turn_SUVs;
 		double prob_right_turn_trucks;
@@ -52,6 +53,7 @@ class Vehicle : public VehicleBase
 		~Vehicle();
 		std::vector<Section*> proceed(Lane& lane);
 		Lane::Direction getDirection();
+		void operator=(const Vehicle& veh);
 
 	protected:
 		Lane::Direction vDirection;

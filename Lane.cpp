@@ -9,7 +9,17 @@ Lane::Lane(const Lane& lane)
 {
 	sections = lane.sections;
 	lDirection = lane.lDirection;
-	vehicles = lane.vehicles;
+	//vehicles = lane.vehicles;
+	vehicles.reserve(lane.vehicles.capacity());
+	std::vector<Vehicle>::const_iterator it = lane.vehicles.cbegin();
+	while(it != lane.vehicles.cend())
+	{
+		vehicles.push_back(*it);
+		it++;
+	}
+	occupied = lane.occupied;
+	indexFirstVehicle = lane.indexFirstVehicle;
+	indexLastVehicle = lane.indexLastVehicle;
 	prob_new_vehicle = lane.prob_new_vehicle;
 	proportion_of_cars = lane.proportion_of_cars;
 	proportion_of_SUVs = lane.proportion_of_SUVs;
@@ -30,21 +40,34 @@ Lane::Lane(Direction dir, IntSection& one, IntSection& two, int numSections,
 	prob_right_turn_cars = prob_right_cars;
 	prob_right_turn_SUVs = prob_right_SUVs;
 	prob_right_turn_trucks = prob_right_trucks;
-	sections.push_back(Section(getDirection(), 0));
-	for(int i = 1; i < numSections; i++) // create inbound sections and link to one another
+	indexFirstVehicle = 0;
+	indexLastVehicle = 0;
+	vehicles.reserve(numSections + 2);
+	sections.reserve(2 * numSections + 2);
+
+	for(int i = 0; i < numSections; i++) // create inbound sections 
 	{
-		sections.push_back(Section(getDirection(), i));
-		sections.at(i-1).setNext(sections.at(i));
+		Section sec(dir, i);
+		sections.push_back(sec);
+		//sections.push_back(Section(dir, i));
 	}
 	sections.push_back(two); // add IntSection
-	sections.at(numSections-1).setNext(two); // link Section to IntSection
 	sections.push_back(one); // add IntSection
-	sections.push_back(Section(getDirection(), numSections + 2));
-	one.setExit(sections.at(numSections + 2)); // link IntSection to outbound Sections
-	for(int i = numSections + 3; i < 2 * numSections + 2; i++) // create and link outbound sections
+	for(int i = numSections + 2; i < 2 * numSections + 2; i++) // create outbound sections
 	{
-		sections.push_back(Section(getDirection(), i));
-		sections.at(i-1).setNext(sections.at(i));
+		Section sec(dir, i);
+		sections.push_back(sec);
+		//sections.push_back(Section(dir, i));
+	}
+
+	for(int i = 0; i < numSections; i++) // now link sections together
+	{
+		sections.at(i).setNext(sections.at(i + 1));
+	}
+	one.setExit(sections.at(numSections + 2));
+	for(int i = numSections + 2; i < 2 * numSections + 1; i++)
+	{
+		sections.at(i).setNext(sections.at(i + 1));
 	}
 }
 
@@ -54,36 +77,80 @@ std::vector<Section*> Lane::advance()
 {
 	occupied.clear();
 	std::vector<Section*> temp;
-	std::list<Vehicle>::iterator it = vehicles.begin();
-	while(it != vehicles.end()) // tell each vehicle in the list to move forward
+	for(int i = indexFirstVehicle; i != indexLastVehicle; i = (i + 1) % vehicles.capacity())
 	{
-		temp = (*it).proceed(*this);
+		temp = vehicles.at(i).proceed(*this);
 		std::vector<Section*>::iterator it2 = temp.begin();
 		while(it2 != temp.end())
 		{
-			occupied.push_back(*it2);
+			if(*it2 != nullptr)
+			{
+				occupied.push_back(*it2);
+			}
 			it2++;
 		}
-		it++;
+		temp.clear();
 	}
+	//std::list<Vehicle>::iterator it = vehicles.begin();
+	//while(it != vehicles.end()) // tell each vehicle in the list to move forward
+	//{
+	//	temp = (*it).proceed(*this);
+	//}
 	if(sections.front().isOpen())
 	{
 		double random = randDouble(0.0, 1.0);
 		if(random < prob_new_vehicle)
 		{
+			//std::vector<Vehicle>::iterator it = vehicles.begin() + indexLastVehicle;
 			double prob = randDouble(0.0, 1.0);
 			if(prob < proportion_of_cars)
 			{
-				vehicles.push_back(Car(sections.front(), assignDir(prob, prob_right_turn_cars)));
+				//Vehicle veh = Car(sections.front(), assignDir(prob, prob_right_turn_cars));
+				//vehicles.insert(it, Car(sections.front(), assignDir(prob, prob_right_turn_cars)));
+				if(indexLastVehicle < (int) vehicles.size())
+				{
+					Vehicle car = Car(sections.front(), assignDir(prob, prob_right_turn_cars));
+					vehicles.at(indexLastVehicle) = car;
+				}
+				else
+				{
+					Vehicle car = Car(sections.front(), assignDir(prob, prob_right_turn_cars));
+					vehicles.push_back(car);
+					//vehicles.push_back(Car(sections.front(), assignDir(prob, prob_right_turn_cars)));
+				}
 			}
 			else if(prob < proportion_of_cars + proportion_of_SUVs)
 			{
-				vehicles.push_back(SUV(sections.front(), assignDir(prob, prob_right_turn_SUVs)));
+				//vehicles.insert(it, SUV(sections.front(), assignDir(prob, prob_right_turn_SUVs)));
+				if(indexLastVehicle < (int) vehicles.size())
+				{
+					Vehicle suv = SUV(sections.front(), assignDir(prob, prob_right_turn_SUVs));
+					vehicles.at(indexLastVehicle) = suv;
+				}
+				else
+				{
+					Vehicle suv = SUV(sections.front(), assignDir(prob, prob_right_turn_SUVs));
+					vehicles.push_back(suv);
+					//vehicles.push_back(SUV(sections.front(), assignDir(prob, prob_right_turn_SUVs)));
+				}
 			}
 			else
 			{
-				vehicles.push_back(Truck(sections.front(), assignDir(prob, prob_right_turn_trucks)));
+				if(indexLastVehicle < (int) vehicles.size())
+				{
+					Vehicle truck = Truck(sections.front(), assignDir(prob, prob_right_turn_trucks));
+					vehicles.at(indexLastVehicle) = truck;
+				}
+				else
+				{
+					Vehicle truck = Truck(sections.front(), assignDir(prob, prob_right_turn_trucks));
+					vehicles.push_back(truck);
+					//vehicles.push_back(Truck(sections.front(), assignDir(prob, prob_right_turn_trucks)));
+				}
+				//vehicles.insert(it, Truck(sections.front(), assignDir(prob, prob_right_turn_trucks)));
+				//vehicles.push_back(Truck(sections.front(), assignDir(prob, prob_right_turn_trucks)));
 			}
+			indexLastVehicle = (indexLastVehicle + 1) % vehicles.capacity();
 			occupied.push_back(&(sections.front()));
 		}
 	}
@@ -92,7 +159,8 @@ std::vector<Section*> Lane::advance()
 
 void Lane::removeVehicle() // remove vehicle when it exits the lane
 {
-	vehicles.pop_front();
+	//vehicles.pop_front();
+	indexFirstVehicle = (indexFirstVehicle + 1) % vehicles.capacity();
 }
 
 Lane::Direction Lane::assignDir(double prob, double prob_right_turn)

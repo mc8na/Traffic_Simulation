@@ -11,6 +11,8 @@ Clock::Clock(int num, int green_north_south, int yellow_north_south,
 			 double proportion_of_SUVs, double prob_right_turn_cars,
 			 double prob_right_turn_SUVs, double prob_right_turn_trucks)
 {
+	// reserve space in memory for the lanes
+	lanes.reserve(4);
 	// intialize traffic lights per specifications
 	ns = TrafficLight(TrafficLight::GREEN, green_north_south, yellow_north_south);
 	ew = TrafficLight(TrafficLight::RED, green_east_west, yellow_east_west);
@@ -25,6 +27,23 @@ Clock::Clock(int num, int green_north_south, int yellow_north_south,
 	sw.setNext(se);
 	se.setNext(ne);
 	// construct lanes and add to vector
+	Lane north(Lane::NORTH, ne, se, num, prob_new_vehicle_north_south,
+						 proportion_of_cars, proportion_of_SUVs, 
+						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks);
+	Lane west(Lane::WEST, nw, ne, num, prob_new_vehicle_east_west,
+						 proportion_of_cars, proportion_of_SUVs, 
+						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks);
+	Lane south(Lane::SOUTH, sw, nw, num, prob_new_vehicle_north_south,
+						 proportion_of_cars, proportion_of_SUVs, 
+						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks);
+	Lane east(Lane::EAST, se, sw, num, prob_new_vehicle_east_west,
+						 proportion_of_cars, proportion_of_SUVs, 
+						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks);
+	lanes.push_back(north);
+	lanes.push_back(west);
+	lanes.push_back(south);
+	lanes.push_back(east);
+	/*
 	lanes.push_back(Lane(Lane::NORTH, ne, se, num, prob_new_vehicle_north_south,
 						 proportion_of_cars, proportion_of_SUVs, 
 						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks));
@@ -37,7 +56,7 @@ Clock::Clock(int num, int green_north_south, int yellow_north_south,
 	lanes.push_back(Lane(Lane::EAST, se, sw, num, prob_new_vehicle_east_west,
 						 proportion_of_cars, proportion_of_SUVs, 
 						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks));
-	
+	*/
 }
 
 Clock::~Clock() {}
@@ -58,6 +77,7 @@ std::vector<Section*> Clock::Tick()
 			occupied.push_back(*it2);
 			it2++;
 		}
+		temp.clear();
 		it++;
 	}
 	return occupied;
