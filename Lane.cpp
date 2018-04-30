@@ -5,6 +5,9 @@
 #include <vector>
 #include <list>
 
+std::mt19937 Lane::rng = std::mt19937(8675308);
+std::uniform_real_distribution<double> Lane::rand_double = std::uniform_real_distribution<double>(0.0, 1.0);
+
 Lane::Lane(const Lane& lane)
 {
 	sections = lane.sections;
@@ -127,7 +130,7 @@ std::vector<Section*> Lane::advance()
 	//{
 	//	temp = (*it).proceed(*this);
 	//}
-	if(sections.front().isOpen())
+	if(sections.front().isOpen(nullptr))
 	{
 		double random = randDouble(0.0, 1.0);
 		if(random < prob_new_vehicle)
@@ -136,45 +139,39 @@ std::vector<Section*> Lane::advance()
 			double prob = randDouble(0.0, 1.0);
 			if(prob < proportion_of_cars)
 			{
-				//Vehicle veh = Car(sections.front(), assignDir(prob, prob_right_turn_cars));
-				//vehicles.insert(it, Car(sections.front(), assignDir(prob, prob_right_turn_cars)));
+				Car car(sections.front(), assignDir(prob, prob_right_turn_cars));
 				if(indexLastVehicle < (int) vehicles.size())
 				{
-					Car car(sections.front(), assignDir(prob, prob_right_turn_cars));
 					vehicles.at(indexLastVehicle) = car;
 				}
 				else
 				{
-					Car car(sections.front(), assignDir(prob, prob_right_turn_cars));
 					vehicles.push_back(car);
 					//vehicles.push_back(Car(sections.front(), assignDir(prob, prob_right_turn_cars)));
 				}
 			}
 			else if(prob < proportion_of_cars + proportion_of_SUVs)
 			{
-				//vehicles.insert(it, SUV(sections.front(), assignDir(prob, prob_right_turn_SUVs)));
+				SUV suv(sections.front(), assignDir(prob, prob_right_turn_SUVs));
 				if(indexLastVehicle < (int) vehicles.size())
 				{
-					SUV suv(sections.front(), assignDir(prob, prob_right_turn_SUVs));
 					vehicles.at(indexLastVehicle) = suv;
 				}
 				else
 				{
-					SUV suv(sections.front(), assignDir(prob, prob_right_turn_SUVs));
 					vehicles.push_back(suv);
 					//vehicles.push_back(SUV(sections.front(), assignDir(prob, prob_right_turn_SUVs)));
 				}
 			}
 			else
 			{
+				Truck truck(sections.front(), assignDir(prob, prob_right_turn_trucks));
 				if(indexLastVehicle < (int) vehicles.size())
 				{
-					Truck truck(sections.front(), assignDir(prob, prob_right_turn_trucks));
 					vehicles.at(indexLastVehicle) = truck;
 				}
 				else
 				{
-					Truck truck(sections.front(), assignDir(prob, prob_right_turn_trucks));
 					vehicles.push_back(truck);
 					//vehicles.push_back(Truck(sections.front(), assignDir(prob, prob_right_turn_trucks)));
 				}
@@ -223,7 +220,8 @@ Lane::Direction Lane::getDirection()
 
 double Lane::randDouble(double low, double high) 
 {
-	return ( ( double )rand() * ( high - low ) ) / ( double )RAND_MAX + low;
+	return rand_double(rng);
+	//return ( ( double )rand() * ( high - low ) ) / ( double )RAND_MAX + low;
 }
 
 #endif

@@ -40,7 +40,7 @@ std::vector<Section*> SUV::proceed(Lane& lane)
 		location.front() = nullptr;
 
 	}
-	else if((*((*location.front()).getNext(vDirection))).isOpen() == true) // if next Section is open
+	else if((*((*location.front()).getNext(vDirection))).isOpen(location.front()) == true) // if next Section is open
 	{
 		if(location.back() != nullptr && location.back() != location.at(1))
 		{

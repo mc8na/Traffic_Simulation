@@ -47,9 +47,13 @@ Clock::Clock(int num, int green_north_south, int yellow_north_south,
 	*/
 	// interconnect the IntSections
 	ne.setNext(nw);
+	ne.setBack(se);
 	nw.setNext(sw);
+	nw.setBack(ne);
 	sw.setNext(se);
+	sw.setBack(nw);
 	se.setNext(ne);
+	se.setBack(sw);
 	// construct lanes and add to vector
 	
 	Lane north(Lane::NORTH, ne, se, num, prob_new_vehicle_north_south,
