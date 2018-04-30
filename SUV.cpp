@@ -42,7 +42,7 @@ std::vector<Section*> SUV::proceed(Lane& lane)
 	}
 	else if((*((*location.front()).getNext(vDirection))).isOpen(location.front()) == true) // if next Section is open
 	{
-		if(location.back() != nullptr && location.back() != location.at(1))
+		if(location.back() != location.at(1))
 		{
 			(*location.back()).leave(); // back sets the Section it leaves to open
 		}

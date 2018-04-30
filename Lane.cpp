@@ -45,7 +45,7 @@ Lane::Lane(Direction dir, IntSection& one, IntSection& two, int numSections,
 	prob_right_turn_trucks = prob_right_trucks;
 	indexFirstVehicle = 0;
 	indexLastVehicle = 0;
-	vehicles.reserve(numSections + 2);
+	vehicles.reserve(2 * numSections + 2);
 	sections.reserve(2 * numSections);
 	/*
 	for(int i = 0; i < numSections; i++) // create inbound sections 
@@ -77,6 +77,7 @@ Lane::Lane(Direction dir, IntSection& one, IntSection& two, int numSections,
 
 Section& Lane::link(int numSections, IntSection& one, IntSection& two)
 {
+	vehicles.reserve(2 * numSections + 2);
 	sections.reserve(2 * numSections);
 
 	for(int i = 0; i < numSections; i++) // create inbound sections 
