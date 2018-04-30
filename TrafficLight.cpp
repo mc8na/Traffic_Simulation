@@ -27,18 +27,21 @@ void TrafficLight::advanceTick()
 				time = 0; // reset timer
 				color = TrafficLight::GREEN; // change from red to green
 			}
+		break;
 		case TrafficLight::GREEN:
 			if(time >= lengthGreen) // if it is time to change color
 			{
 				time = 0; // reset timer
 				color = TrafficLight::YELLOW; // change from green to yellow
 			}
+		break;
 		case TrafficLight::YELLOW:
 			if(time >= lengthYellow) // if it is time to change color
 			{
 				time = 0; // reset timer
 				color = TrafficLight::RED; // change from yellow to red
 			}
+		break;
 	}
 }
 
