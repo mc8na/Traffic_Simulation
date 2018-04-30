@@ -72,7 +72,7 @@ Lane::Lane(Direction dir, IntSection& one, IntSection& two, int numSections,
 	*/
 }
 
-void Lane::link(int numSections, IntSection& one, IntSection& two)
+Section& Lane::link(int numSections, IntSection& one, IntSection& two)
 {
 	sections.reserve(2 * numSections);
 
@@ -94,11 +94,12 @@ void Lane::link(int numSections, IntSection& one, IntSection& two)
 	}
 	sections.at(numSections - 1).setNext(two);
 	//two.setNext(one);
-	one.setExit(sections.at(numSections));
+	//one.setExit(sections.at(numSections));
 	for(int i = numSections; i < 2 * numSections - 1; i++)
 	{
 		sections.at(i).setNext(sections.at(i + 1));
 	}
+	return sections.at(numSections);
 }
 
 Lane::~Lane(){}

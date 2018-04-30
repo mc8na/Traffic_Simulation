@@ -27,7 +27,7 @@ class Lane
 		void removeVehicle();
 		Lane::Direction getDirection();
 		double randDouble(double low, double high);
-		void link(int numSections, IntSection& one, IntSection& two);
+		Section& link(int numSections, IntSection& one, IntSection& two);
 
 	protected:
 		std::vector<Section> sections;
