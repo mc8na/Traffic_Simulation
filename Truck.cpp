@@ -45,11 +45,10 @@ std::vector<Section*> Truck::proceed(Lane& lane)
 		location.back() = location.at(2);
 		location.at(2) = location.at(1);
 		location.front() = nullptr;
-
 	}
 	else if((*((*location.front()).getNext(vDirection))).isOpen(location.front()) == true) // if next Section is open
 	{
-		if(location.back() != nullptr && location.back() != location.at(2))
+		if(location.back() != location.at(2))
 		{
 			(*location.back()).leave(); // back sets Section it leaves to open
 		}

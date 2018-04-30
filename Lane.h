@@ -60,7 +60,10 @@ class Vehicle : public VehicleBase
 
 	protected:
 		Lane::Direction vDirection;
-		std::vector<Section*> location; 
+		std::vector<Section*> location;
+		std::vector<Section*> proceedCar(Lane& lane);
+		std::vector<Section*> proceedSUV(Lane& lane);
+		std::vector<Section*> proceedTruck(Lane& lane); 
 };
 
 class Car : public Vehicle
@@ -69,6 +72,7 @@ class Car : public Vehicle
 		//Car();
 		Car(const Car& car);
 		Car(Section& sec, Lane::Direction dir);
+		std::vector<Section*> proceed(Lane& lane);
 		~Car();		
 };
 
