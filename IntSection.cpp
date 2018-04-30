@@ -12,6 +12,7 @@ IntSection::IntSection(const IntSection& sec) : Section(sec) // const copy const
 IntSection::IntSection(TrafficLight& tl, Lane::Direction dir, int i) : Section(dir, i) // constructor
 {
 	traf = &tl;
+	out = nullptr;
 }
 
 void IntSection::setExit(Section& sec) // out points to Section in outbound lane

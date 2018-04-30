@@ -11,6 +11,17 @@ class Clock
 		TrafficLight ns; // traffic light for north-south
 		TrafficLight ew; // traffic light for east-west
 		std::vector<Lane> lanes; // list of lanes
+
+		IntSection ne;
+		IntSection nw;
+		IntSection se;
+		IntSection sw;
+		/*
+		Lane north;
+		Lane west;
+		Lane south;
+		Lane east;
+		*/
 		std::vector<Section*> occupied;
 
 	public:
