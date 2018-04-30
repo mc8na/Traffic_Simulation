@@ -59,7 +59,6 @@ Lane::Lane(Direction dir, IntSection& one, IntSection& two, int numSections,
 		sections.push_back(sec);
 		//sections.push_back(Section(dir, i));
 	}
-
 	for(int i = 0; i < numSections; i++) // now link sections together
 	{
 		sections.at(i).setNext(sections.at(i + 1));
