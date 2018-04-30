@@ -23,7 +23,7 @@ Section::Section(const Section& sec) // const copy constructor
 
 Section::~Section(){}
 
-bool Section::isOpen() // returns whether the Section is occupied by a Vehicle
+bool Section::isOpen(Section* sec) // returns whether the Section is occupied by a Vehicle
 {
 	return open;
 }

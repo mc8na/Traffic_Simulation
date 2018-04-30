@@ -28,6 +28,8 @@ class Lane
 		Lane::Direction getDirection();
 		double randDouble(double low, double high);
 		Section& link(int numSections, IntSection& one, IntSection& two);
+		static std::mt19937 rng;
+		static std::uniform_real_distribution<double> rand_double;
 
 	protected:
 		std::vector<Section> sections;
@@ -52,7 +54,7 @@ class Vehicle : public VehicleBase
 		Vehicle(const Vehicle& veh);
 		Vehicle(Section& sec, Lane::Direction dir, VehicleBase::VehicleType type);
 		~Vehicle();
-		std::vector<Section*> proceed(Lane& lane);
+		virtual std::vector<Section*> proceed(Lane& lane);
 		Lane::Direction getDirection();
 		void operator=(const Vehicle& veh);
 
@@ -103,8 +105,8 @@ class Section
 		Section(Lane::Direction l, int i);
 		Section(const Section& sec);
 		~Section();
-		bool isOpen();
-		Section* getNext(Lane::Direction dir);
+		virtual bool isOpen(Section* sec);
+		virtual Section* getNext(Lane::Direction dir);
 		void occupy(Vehicle& veh);
 		void leave();
 		void setNext(Section& sec);
@@ -126,13 +128,15 @@ class IntSection : public Section
 		IntSection(const IntSection& sec);
 		IntSection(TrafficLight& tl, Lane::Direction dir, int i);
 		void setExit(Section& sec);
+		void setBack(Section& sec);
 		Section* getNext(Lane::Direction dir);
-		bool isOpen();
+		bool isOpen(Section* sec);
 		~IntSection();
 
 	protected:
 		TrafficLight* traf;
 		Section* out;
+		Section* back;
 
 };
 
