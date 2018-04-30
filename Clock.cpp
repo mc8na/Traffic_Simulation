@@ -22,11 +22,12 @@ Clock::Clock(int num, int green_north_south, int yellow_north_south,
 	IntSection se(ns, Lane::NORTH, num);
 	IntSection sw(ew, Lane::EAST, num);
 	// interconnect the IntSections
-	ne.setNext(nw);
-	nw.setNext(sw);
-	sw.setNext(se);
-	se.setNext(ne);
+	//ne.setNext(nw);
+	//nw.setNext(sw);
+	//sw.setNext(se);
+	//se.setNext(ne);
 	// construct lanes and add to vector
+	
 	Lane north(Lane::NORTH, ne, se, num, prob_new_vehicle_north_south,
 						 proportion_of_cars, proportion_of_SUVs, 
 						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks);
@@ -39,10 +40,12 @@ Clock::Clock(int num, int green_north_south, int yellow_north_south,
 	Lane east(Lane::EAST, se, sw, num, prob_new_vehicle_east_west,
 						 proportion_of_cars, proportion_of_SUVs, 
 						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks);
+	
 	lanes.push_back(north);
 	lanes.push_back(west);
 	lanes.push_back(south);
 	lanes.push_back(east);
+	
 	/*
 	lanes.push_back(Lane(Lane::NORTH, ne, se, num, prob_new_vehicle_north_south,
 						 proportion_of_cars, proportion_of_SUVs, 
@@ -66,6 +69,7 @@ std::vector<Section*> Clock::Tick()
 	ns.advanceTick(); // advance traffic lights by one tick
 	ew.advanceTick();
 	occupied.clear();
+
 	std::vector<Section*> temp;
 	std::vector<Lane>::iterator it = lanes.begin();
 	while(it != lanes.end()) 
@@ -80,6 +84,7 @@ std::vector<Section*> Clock::Tick()
 		temp.clear();
 		it++;
 	}
+	
 	return occupied;
 }
 

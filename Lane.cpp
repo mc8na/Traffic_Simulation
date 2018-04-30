@@ -64,6 +64,7 @@ Lane::Lane(Direction dir, IntSection& one, IntSection& two, int numSections,
 	{
 		sections.at(i).setNext(sections.at(i + 1));
 	}
+	two.setNext(one);
 	one.setExit(sections.at(numSections + 2));
 	for(int i = numSections + 2; i < 2 * numSections + 1; i++)
 	{
@@ -109,12 +110,12 @@ std::vector<Section*> Lane::advance()
 				//vehicles.insert(it, Car(sections.front(), assignDir(prob, prob_right_turn_cars)));
 				if(indexLastVehicle < (int) vehicles.size())
 				{
-					Vehicle car = Car(sections.front(), assignDir(prob, prob_right_turn_cars));
+					Car car(sections.front(), assignDir(prob, prob_right_turn_cars));
 					vehicles.at(indexLastVehicle) = car;
 				}
 				else
 				{
-					Vehicle car = Car(sections.front(), assignDir(prob, prob_right_turn_cars));
+					Car car(sections.front(), assignDir(prob, prob_right_turn_cars));
 					vehicles.push_back(car);
 					//vehicles.push_back(Car(sections.front(), assignDir(prob, prob_right_turn_cars)));
 				}
@@ -124,12 +125,12 @@ std::vector<Section*> Lane::advance()
 				//vehicles.insert(it, SUV(sections.front(), assignDir(prob, prob_right_turn_SUVs)));
 				if(indexLastVehicle < (int) vehicles.size())
 				{
-					Vehicle suv = SUV(sections.front(), assignDir(prob, prob_right_turn_SUVs));
+					SUV suv(sections.front(), assignDir(prob, prob_right_turn_SUVs));
 					vehicles.at(indexLastVehicle) = suv;
 				}
 				else
 				{
-					Vehicle suv = SUV(sections.front(), assignDir(prob, prob_right_turn_SUVs));
+					SUV suv(sections.front(), assignDir(prob, prob_right_turn_SUVs));
 					vehicles.push_back(suv);
 					//vehicles.push_back(SUV(sections.front(), assignDir(prob, prob_right_turn_SUVs)));
 				}
@@ -138,12 +139,12 @@ std::vector<Section*> Lane::advance()
 			{
 				if(indexLastVehicle < (int) vehicles.size())
 				{
-					Vehicle truck = Truck(sections.front(), assignDir(prob, prob_right_turn_trucks));
+					Truck truck(sections.front(), assignDir(prob, prob_right_turn_trucks));
 					vehicles.at(indexLastVehicle) = truck;
 				}
 				else
 				{
-					Vehicle truck = Truck(sections.front(), assignDir(prob, prob_right_turn_trucks));
+					Truck truck(sections.front(), assignDir(prob, prob_right_turn_trucks));
 					vehicles.push_back(truck);
 					//vehicles.push_back(Truck(sections.front(), assignDir(prob, prob_right_turn_trucks)));
 				}
