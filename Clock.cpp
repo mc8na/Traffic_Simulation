@@ -69,10 +69,10 @@ Clock::Clock(int num, int green_north_south, int yellow_north_south,
 	lanes.push_back(west);
 	lanes.push_back(south);
 	lanes.push_back(east);
-	lanes.at(0).link(num, ne, se);
-	lanes.at(1).link(num, nw, ne);
-	lanes.at(2).link(num, sw, nw);
-	lanes.at(3).link(num, se, sw);
+	ne.setExit(lanes.at(0).link(num, ne, se));
+	nw.setExit(lanes.at(1).link(num, nw, ne));
+	sw.setExit(lanes.at(2).link(num, sw, nw));
+	se.setExit(lanes.at(3).link(num, se, sw));
 	/*
 	lanes.push_back(Lane(Lane::NORTH, ne, se, num, prob_new_vehicle_north_south,
 						 proportion_of_cars, proportion_of_SUVs, 
