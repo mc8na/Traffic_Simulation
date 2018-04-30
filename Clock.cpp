@@ -13,7 +13,7 @@ Clock::Clock(int num, int green_north_south, int yellow_north_south,
 			 ns(TrafficLight(TrafficLight::GREEN, green_north_south, yellow_north_south)),
 			 ew(TrafficLight(TrafficLight::RED, green_east_west, yellow_east_west)),
 			 ne(IntSection(ew, Lane::WEST, num)), nw(IntSection(ns, Lane::SOUTH, num)),
-			 se(IntSection(ns, Lane::NORTH, num)), sw(IntSection(ew, Lane::EAST, num)),
+			 se(IntSection(ns, Lane::NORTH, num)), sw(IntSection(ew, Lane::EAST, num))/*,
 			 north(Lane(Lane::NORTH, ne, se, num, prob_new_vehicle_north_south,
 						 proportion_of_cars, proportion_of_SUVs, 
 						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks)),
@@ -25,14 +25,15 @@ Clock::Clock(int num, int green_north_south, int yellow_north_south,
 						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks)),
 			 east(Lane(Lane::EAST, se, sw, num, prob_new_vehicle_east_west,
 						 proportion_of_cars, proportion_of_SUVs, 
-						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks))
-{	/*
+						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks))*/
+{	
 	// reserve space in memory for the lanes
-	//lanes.reserve(4);
+	lanes.reserve(4);
+	/*
 	// intialize traffic lights per specifications
 	ns = TrafficLight(TrafficLight::GREEN, green_north_south, yellow_north_south);
 	ew = TrafficLight(TrafficLight::RED, green_east_west, yellow_east_west);
-	/*
+	
 	// create IntSections
 	IntSection ne(ew, Lane::WEST, num); 
 	IntSection nw(ns, Lane::SOUTH, num);
@@ -43,31 +44,35 @@ Clock::Clock(int num, int green_north_south, int yellow_north_south,
 	nw = IntSection(ns, Lane::SOUTH, num);
 	se = IntSection(ns, Lane::NORTH, num);
 	sw = IntSection(ew, Lane::EAST, num);
+	*/
 	// interconnect the IntSections
-	//ne.setNext(nw);
-	//nw.setNext(sw);
-	//sw.setNext(se);
-	//se.setNext(ne);
+	ne.setNext(nw);
+	nw.setNext(sw);
+	sw.setNext(se);
+	se.setNext(ne);
 	// construct lanes and add to vector
 	
-	north = Lane(Lane::NORTH, ne, se, num, prob_new_vehicle_north_south,
+	Lane north(Lane::NORTH, ne, se, num, prob_new_vehicle_north_south,
 						 proportion_of_cars, proportion_of_SUVs, 
 						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks);
-	west = Lane(Lane::WEST, nw, ne, num, prob_new_vehicle_east_west,
+	Lane west(Lane::WEST, nw, ne, num, prob_new_vehicle_east_west,
 						 proportion_of_cars, proportion_of_SUVs, 
 						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks);
-	south = Lane(Lane::SOUTH, sw, nw, num, prob_new_vehicle_north_south,
+	Lane south(Lane::SOUTH, sw, nw, num, prob_new_vehicle_north_south,
 						 proportion_of_cars, proportion_of_SUVs, 
 						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks);
-	east = Lane(Lane::EAST, se, sw, num, prob_new_vehicle_east_west,
+	Lane east(Lane::EAST, se, sw, num, prob_new_vehicle_east_west,
 						 proportion_of_cars, proportion_of_SUVs, 
 						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks);
-	/*
+	
 	lanes.push_back(north);
 	lanes.push_back(west);
 	lanes.push_back(south);
 	lanes.push_back(east);
-	*/
+	lanes.at(0).link(num, ne, se);
+	lanes.at(1).link(num, nw, ne);
+	lanes.at(2).link(num, sw, nw);
+	lanes.at(3).link(num, se, sw);
 	/*
 	lanes.push_back(Lane(Lane::NORTH, ne, se, num, prob_new_vehicle_north_south,
 						 proportion_of_cars, proportion_of_SUVs, 
@@ -91,7 +96,9 @@ std::vector<Section*> Clock::Tick()
 	ns.advanceTick(); // advance traffic lights by one tick
 	ew.advanceTick();
 	occupied.clear();
+	std::vector<Section*> temp;
 
+	/*
 	std::vector<Section*> temp = north.advance();
 	std::vector<Section*>::iterator it2 = temp.begin();
 	while(it2 != temp.end())
@@ -126,8 +133,8 @@ std::vector<Section*> Clock::Tick()
 		occupied.push_back(*it2);
 		it2++;
 	}
-
-	/*
+	*/
+	
 	std::vector<Lane>::iterator it = lanes.begin();
 	while(it != lanes.end()) 
 	{
@@ -141,7 +148,7 @@ std::vector<Section*> Clock::Tick()
 		temp.clear();
 		it++;
 	}
-	*/
+	
 	
 	return occupied;
 }

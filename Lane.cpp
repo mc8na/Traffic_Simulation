@@ -43,8 +43,8 @@ Lane::Lane(Direction dir, IntSection& one, IntSection& two, int numSections,
 	indexFirstVehicle = 0;
 	indexLastVehicle = 0;
 	vehicles.reserve(numSections + 2);
-	sections.reserve(2 * numSections + 2);
-
+	sections.reserve(2 * numSections);
+	/*
 	for(int i = 0; i < numSections; i++) // create inbound sections 
 	{
 		Section sec(dir, i);
@@ -66,6 +66,36 @@ Lane::Lane(Direction dir, IntSection& one, IntSection& two, int numSections,
 	two.setNext(one);
 	one.setExit(sections.at(numSections + 2));
 	for(int i = numSections + 2; i < 2 * numSections + 1; i++)
+	{
+		sections.at(i).setNext(sections.at(i + 1));
+	}
+	*/
+}
+
+void Lane::link(int numSections, IntSection& one, IntSection& two)
+{
+	sections.reserve(2 * numSections);
+
+	for(int i = 0; i < numSections; i++) // create inbound sections 
+	{
+		Section sec(lDirection, i);
+		sections.push_back(sec);
+		//sections.push_back(Section(dir, i));
+	}
+	for(int i = numSections + 2; i < 2 * numSections + 2; i++) // create outbound sections
+	{
+		Section sec(lDirection, i);
+		sections.push_back(sec);
+		//sections.push_back(Section(dir, i));
+	}
+	for(int i = 0; i < numSections - 1; i++) // now link sections together
+	{
+		sections.at(i).setNext(sections.at(i + 1));
+	}
+	sections.at(numSections - 1).setNext(two);
+	//two.setNext(one);
+	one.setExit(sections.at(numSections));
+	for(int i = numSections; i < 2 * numSections - 1; i++)
 	{
 		sections.at(i).setNext(sections.at(i + 1));
 	}
