@@ -29,22 +29,7 @@ Clock::Clock(int num, int green_north_south, int yellow_north_south,
 {	
 	// reserve space in memory for the lanes
 	lanes.reserve(4);
-	/*
-	// intialize traffic lights per specifications
-	ns = TrafficLight(TrafficLight::GREEN, green_north_south, yellow_north_south);
-	ew = TrafficLight(TrafficLight::RED, green_east_west, yellow_east_west);
 	
-	// create IntSections
-	IntSection ne(ew, Lane::WEST, num); 
-	IntSection nw(ns, Lane::SOUTH, num);
-	IntSection se(ns, Lane::NORTH, num);
-	IntSection sw(ew, Lane::EAST, num);
-	
-	ne = IntSection(ew, Lane::WEST, num); 
-	nw = IntSection(ns, Lane::SOUTH, num);
-	se = IntSection(ns, Lane::NORTH, num);
-	sw = IntSection(ew, Lane::EAST, num);
-	*/
 	// interconnect the IntSections
 	ne.setNext(nw);
 	ne.setBack(se);
@@ -77,20 +62,6 @@ Clock::Clock(int num, int green_north_south, int yellow_north_south,
 	nw.setExit(lanes.at(1).link(num, nw, ne));
 	sw.setExit(lanes.at(2).link(num, sw, nw));
 	se.setExit(lanes.at(3).link(num, se, sw));
-	/*
-	lanes.push_back(Lane(Lane::NORTH, ne, se, num, prob_new_vehicle_north_south,
-						 proportion_of_cars, proportion_of_SUVs, 
-						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks));
-	lanes.push_back(Lane(Lane::WEST, nw, ne, num, prob_new_vehicle_east_west,
-						 proportion_of_cars, proportion_of_SUVs, 
-						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks));
-	lanes.push_back(Lane(Lane::SOUTH, sw, nw, num, prob_new_vehicle_north_south,
-						 proportion_of_cars, proportion_of_SUVs, 
-						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks));
-	lanes.push_back(Lane(Lane::EAST, se, sw, num, prob_new_vehicle_east_west,
-						 proportion_of_cars, proportion_of_SUVs, 
-						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks));
-	*/
 }
 
 Clock::~Clock() {}
@@ -101,43 +72,6 @@ std::vector<Section*> Clock::Tick()
 	ew.advanceTick();
 	occupied.clear();
 	std::vector<Section*> temp;
-
-	/*
-	std::vector<Section*> temp = north.advance();
-	std::vector<Section*>::iterator it2 = temp.begin();
-	while(it2 != temp.end())
-	{
-		occupied.push_back(*it2);
-		it2++;
-	}
-	temp.clear();
-
-	temp = west.advance();
-	it2 = temp.begin();
-	while(it2 != temp.end())
-	{
-		occupied.push_back(*it2);
-		it2++;
-	}
-	temp.clear();
-
-	temp = south.advance();
-	it2 = temp.begin();
-	while(it2 != temp.end())
-	{
-		occupied.push_back(*it2);
-		it2++;
-	}
-	temp.clear();
-
-	temp = east.advance();
-	it2 = temp.begin();
-	while(it2 != temp.end())
-	{
-		occupied.push_back(*it2);
-		it2++;
-	}
-	*/
 	
 	std::vector<Lane>::iterator it = lanes.begin();
 	while(it != lanes.end()) 
@@ -151,8 +85,7 @@ std::vector<Section*> Clock::Tick()
 		}
 		temp.clear();
 		it++;
-	}
-	
+	}	
 	
 	return occupied;
 }

@@ -5,16 +5,14 @@
 
 //SUV::SUV() : Vehicle() {}
 
-SUV::SUV(const SUV& suv) : Vehicle(suv) // const copy constructor
-{
-	
-}
+SUV::SUV(const SUV& suv) : Vehicle(suv) {} // const copy constructor
+
 
 SUV::SUV(Section& sec, Lane::Direction dir) : Vehicle(sec, dir, VehicleBase::SUV) 
 {
 	location.push_back(&sec);
 }
-
+/*
 std::vector<Section*> SUV::proceed(Lane& lane)
 {
 	if (location.front() == nullptr) // if front of vehicle has exited the lane
@@ -53,7 +51,7 @@ std::vector<Section*> SUV::proceed(Lane& lane)
 	}
 	return location;
 }
-
+*/
 SUV::~SUV() {}
 
 #endif

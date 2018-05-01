@@ -5,17 +5,14 @@
 
 //Truck::Truck() : Vehicle() {}
 
-Truck::Truck(const Truck& truck) : Vehicle(truck)
-{
-	
-}
+Truck::Truck(const Truck& truck) : Vehicle(truck) {}
 
 Truck::Truck(Section& sec, Lane::Direction dir) : Vehicle(sec, dir, VehicleBase::TRUCK) 
 {
 	location.push_back(&sec);
 	location.push_back(&sec);
 }
-
+/*
 std::vector<Section*> Truck::proceed(Lane& lane)
 {
 	if (location.front() == nullptr) // if vehicle has walked off end of lane
@@ -61,7 +58,7 @@ std::vector<Section*> Truck::proceed(Lane& lane)
 	}
 	return location;
 }
-
+*/
 Truck::~Truck() {}
 
 #endif

@@ -72,7 +72,7 @@ class Car : public Vehicle
 		//Car();
 		Car(const Car& car);
 		Car(Section& sec, Lane::Direction dir);
-		std::vector<Section*> proceed(Lane& lane);
+		//std::vector<Section*> proceed(Lane& lane);
 		~Car();		
 };
 
@@ -82,7 +82,7 @@ class SUV : public Vehicle
 		//SUV();
 		SUV(const SUV& suv);
 		SUV(Section& sec, Lane::Direction dir);
-		std::vector<Section*> proceed(Lane& lane);
+		//std::vector<Section*> proceed(Lane& lane);
 		~SUV();
 
 	protected:
@@ -95,7 +95,7 @@ class Truck : public Vehicle
 		//Truck();
 		Truck(const Truck& truck);
 		Truck(Section& sec, Lane::Direction dir);
-		std::vector<Section*> proceed(Lane& lane);
+		//std::vector<Section*> proceed(Lane& lane);
 		~Truck();
 
 	protected:
