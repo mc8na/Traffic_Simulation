@@ -106,7 +106,7 @@ std::vector<Section*> Lane::advance()
 			double prob = randDouble();
 			if(prob < proportion_of_cars)
 			{
-				Car car(sections.front(), assignDir(prob_right_turn_cars));
+				Vehicle car(sections.front(), assignDir(prob_right_turn_cars), VehicleBase::CAR);
 				if(indexLastVehicle < (int) vehicles.size())
 				{
 					vehicles.at(indexLastVehicle) = car;
@@ -118,7 +118,7 @@ std::vector<Section*> Lane::advance()
 			}
 			else if(prob < proportion_of_cars + proportion_of_SUVs)
 			{
-				SUV suv(sections.front(), assignDir(prob_right_turn_SUVs));
+				Vehicle suv(sections.front(), assignDir(prob_right_turn_SUVs), VehicleBase::SUV);
 				if(indexLastVehicle < (int) vehicles.size())
 				{
 					vehicles.at(indexLastVehicle) = suv;
@@ -130,7 +130,7 @@ std::vector<Section*> Lane::advance()
 			}
 			else
 			{
-				Truck truck(sections.front(), assignDir(prob_right_turn_trucks));
+				Vehicle truck(sections.front(), assignDir(prob_right_turn_trucks), VehicleBase::TRUCK);
 				if(indexLastVehicle < (int) vehicles.size())
 				{
 					vehicles.at(indexLastVehicle) = truck;

@@ -65,7 +65,7 @@ class Vehicle : public VehicleBase
 		std::vector<Section*> proceedSUV(Lane& lane);
 		std::vector<Section*> proceedTruck(Lane& lane); 
 };
-
+/*
 class Car : public Vehicle
 {
 	public:
@@ -102,7 +102,7 @@ class Truck : public Vehicle
 		//Section* frontMid;
 		//Section* backMid;
 };
-
+*/
 class Section
 {
 	public:

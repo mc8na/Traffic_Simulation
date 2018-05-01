@@ -25,6 +25,15 @@ Vehicle::Vehicle(Section& sec, Lane::Direction dir, VehicleBase::VehicleType typ
 	location.reserve(4);
 	location.push_back(&sec);
 	location.push_back(&sec);
+	if(type == VehicleBase::SUV)
+	{
+		location.push_back(&sec);
+	}
+	else if(type == VehicleBase::TRUCK)
+	{
+		location.push_back(&sec);
+		location.push_back(&sec);
+	}
 	(*location.front()).occupy(*this);
 	vDirection = dir;
 }
