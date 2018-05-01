@@ -5,7 +5,7 @@
 #include <vector>
 #include <list>
 
-std::mt19937 Lane::rng = std::mt19937(8675308);
+std::mt19937 Lane::rng = std::mt19937(8675306);
 std::uniform_real_distribution<double> Lane::rand_double = std::uniform_real_distribution<double>(0.0, 1.0);
 
 Lane::Lane(const Lane& lane)
@@ -38,6 +38,7 @@ Lane::Lane(Direction dir, int numSections,
 {
 	vehicles.reserve(2 * numSections + 2);
 	sections.reserve(2 * numSections);
+	occupied.reserve(2 * numSections + 2);
 	lDirection = dir; // assign the Lane a direction
 	prob_new_vehicle = prob_new;
 	proportion_of_cars = proportion_cars;

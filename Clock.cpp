@@ -29,7 +29,7 @@ Clock::Clock(int num, int green_north_south, int yellow_north_south,
 {	
 	// reserve space in memory for the lanes
 	lanes.reserve(4);
-	
+	occupied.reserve(8 * num + 4);
 	// interconnect the IntSections
 	ne.setNext(nw);
 	ne.setBack(se);
