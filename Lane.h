@@ -18,15 +18,15 @@ class Lane
 	public:
 		enum Direction {NORTH, SOUTH, EAST, WEST};
 		Lane(const Lane& lane);
-		Lane(Direction dir, IntSection& one, IntSection& two, int numSections,
+		Lane(Direction dir, int numSections,
 			 double prob_new, double proportion_cars, double proportion_SUVs,
 			 double prob_right_cars, double prob_right_SUVs,
 			 double prob_right_trucks);
 		~Lane();
 		std::vector<Section*> advance();
 		void removeVehicle();
-		Lane::Direction getDirection();
-		double randDouble(double low, double high);
+		//Lane::Direction getDirection();
+		double randDouble();
 		Section& link(int numSections, IntSection& one, IntSection& two);
 		static std::mt19937 rng;
 		static std::uniform_real_distribution<double> rand_double;
@@ -44,7 +44,7 @@ class Lane
 		double prob_right_turn_cars;
 		double prob_right_turn_SUVs;
 		double prob_right_turn_trucks;
-		Lane::Direction assignDir(double prob, double prob_right_turn);
+		Lane::Direction assignDir(double prob_right_turn);
 };
 
 class Vehicle : public VehicleBase
@@ -65,14 +65,14 @@ class Vehicle : public VehicleBase
 		std::vector<Section*> proceedSUV(Lane& lane);
 		std::vector<Section*> proceedTruck(Lane& lane); 
 };
-
+/*
 class Car : public Vehicle
 {
 	public:
 		//Car();
 		Car(const Car& car);
 		Car(Section& sec, Lane::Direction dir);
-		std::vector<Section*> proceed(Lane& lane);
+		//std::vector<Section*> proceed(Lane& lane);
 		~Car();		
 };
 
@@ -82,7 +82,7 @@ class SUV : public Vehicle
 		//SUV();
 		SUV(const SUV& suv);
 		SUV(Section& sec, Lane::Direction dir);
-		std::vector<Section*> proceed(Lane& lane);
+		//std::vector<Section*> proceed(Lane& lane);
 		~SUV();
 
 	protected:
@@ -95,14 +95,14 @@ class Truck : public Vehicle
 		//Truck();
 		Truck(const Truck& truck);
 		Truck(Section& sec, Lane::Direction dir);
-		std::vector<Section*> proceed(Lane& lane);
+		//std::vector<Section*> proceed(Lane& lane);
 		~Truck();
 
 	protected:
 		//Section* frontMid;
 		//Section* backMid;
 };
-
+*/
 class Section
 {
 	public:
