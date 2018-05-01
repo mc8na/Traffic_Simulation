@@ -18,14 +18,14 @@ class Lane
 	public:
 		enum Direction {NORTH, SOUTH, EAST, WEST};
 		Lane(const Lane& lane);
-		Lane(Direction dir, IntSection& one, IntSection& two, int numSections,
+		Lane(Direction dir, int numSections,
 			 double prob_new, double proportion_cars, double proportion_SUVs,
 			 double prob_right_cars, double prob_right_SUVs,
 			 double prob_right_trucks);
 		~Lane();
 		std::vector<Section*> advance();
 		void removeVehicle();
-		Lane::Direction getDirection();
+		//Lane::Direction getDirection();
 		double randDouble();
 		Section& link(int numSections, IntSection& one, IntSection& two);
 		static std::mt19937 rng;

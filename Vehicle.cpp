@@ -7,6 +7,7 @@
 
 Vehicle::Vehicle(const Vehicle& veh) : VehicleBase(veh)
 {
+	location.reserve(4);
 	std::vector<Section*>::const_iterator it = veh.location.cbegin();
 
 	while (it != veh.location.cend()) 
@@ -20,11 +21,12 @@ Vehicle::Vehicle(const Vehicle& veh) : VehicleBase(veh)
 }
 
 Vehicle::Vehicle(Section& sec, Lane::Direction dir, VehicleBase::VehicleType type) : VehicleBase(type) // constructor
-{
-	vDirection = dir; 
+{ 
+	location.reserve(4);
 	location.push_back(&sec);
 	location.push_back(&sec);
-	sec.occupy(*this);
+	(*location.front()).occupy(*this);
+	vDirection = dir;
 }
 
 std::vector<Section*> Vehicle::proceed(Lane& lane)
@@ -58,7 +60,7 @@ std::vector<Section*> Vehicle::proceedCar(Lane& lane)
 	}
 	else if((*((*location.front()).getNext(vDirection))).isOpen(location.front()) == true) // if next Section is open
 	{
-		if(location.back() != nullptr && location.back() != location.front())
+		if(location.back() != location.front())
 		{
 			(*location.back()).leave(); // back sets the Section it leaves to open
 		}
@@ -162,6 +164,7 @@ Lane::Direction Vehicle::getDirection() // returns direction vehicle is travelin
 void Vehicle::operator=(const Vehicle& veh)
 {
 	location.clear();
+	location.reserve(4);
 	std::vector<Section*>::const_iterator it = veh.location.cbegin();
 	while (it != veh.location.cend()) 
 	{

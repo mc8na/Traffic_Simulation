@@ -41,16 +41,16 @@ Clock::Clock(int num, int green_north_south, int yellow_north_south,
 	se.setBack(sw);
 	// construct lanes and add to vector
 	
-	Lane north(Lane::NORTH, ne, se, num, prob_new_vehicle_north_south,
+	Lane north(Lane::NORTH, num, prob_new_vehicle_north_south,
 						 proportion_of_cars, proportion_of_SUVs, 
 						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks);
-	Lane west(Lane::WEST, nw, ne, num, prob_new_vehicle_east_west,
+	Lane west(Lane::WEST, num, prob_new_vehicle_east_west,
 						 proportion_of_cars, proportion_of_SUVs, 
 						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks);
-	Lane south(Lane::SOUTH, sw, nw, num, prob_new_vehicle_north_south,
+	Lane south(Lane::SOUTH, num, prob_new_vehicle_north_south,
 						 proportion_of_cars, proportion_of_SUVs, 
 						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks);
-	Lane east(Lane::EAST, se, sw, num, prob_new_vehicle_east_west,
+	Lane east(Lane::EAST, num, prob_new_vehicle_east_west,
 						 proportion_of_cars, proportion_of_SUVs, 
 						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks);
 	
