@@ -22,7 +22,8 @@ void IntSection::setExit(Section& sec) // out points to Section in outbound lane
 	out = &sec;
 }
 
-void IntSection::setBack(Section& sec)
+void IntSection::setBack(Section& sec) // back points to IntSection from which vehicles
+									   // passing through the intersection will come
 {
 	back = &sec;
 }
@@ -38,11 +39,12 @@ Section* IntSection::getNext(Lane::Direction dir) // returns correct Section bas
 
 bool IntSection::isOpen(Section* sec)
 {
-	if(sec == back)
+	if(sec == back) // if vehicle is already in the intersection and is passing through
 	{
 		return open;
 	}
-	else if((*traf).getColor() == TrafficLight::GREEN) // if the vehicle has a green light
+	else if((*traf).getColor() == TrafficLight::GREEN) // if the vehicle is entering
+													   // the intersection and has a green light
 	{
 		return open; // return whether the IntSection is occupied
 	}

@@ -14,9 +14,9 @@ class TrafficLight
 	protected:
 		Color color;
 		int lengthRed;
-		int lengthYellow;
-		int lengthGreen;
-		int time;	// keeps track of when to change color
+		int lengthYellow;   
+		int lengthGreen;    
+		int time;	        // keeps track of when to change color
 };
 
 #endif
