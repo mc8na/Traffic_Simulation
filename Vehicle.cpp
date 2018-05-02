@@ -3,8 +3,6 @@
 
 #include "Lane.h"
 
-//Vehicle::Vehicle() {} // default constructor (not used)
-
 Vehicle::Vehicle(const Vehicle& veh) : VehicleBase(veh)
 {
 	location.reserve(4);

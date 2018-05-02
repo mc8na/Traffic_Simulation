@@ -3,8 +3,6 @@
 
 #include "Clock.h"
 
-//Clock::Clock(){}
-
 Clock::Clock(int num, int green_north_south, int yellow_north_south, 
 	         int green_east_west, int yellow_east_west, double prob_new_vehicle_north_south,
 			 double prob_new_vehicle_east_west, double proportion_of_cars,
@@ -13,19 +11,7 @@ Clock::Clock(int num, int green_north_south, int yellow_north_south,
 			 ns(TrafficLight(TrafficLight::GREEN, green_north_south, yellow_north_south)),
 			 ew(TrafficLight(TrafficLight::RED, green_east_west, yellow_east_west)),
 			 ne(IntSection(ew, Lane::WEST, num)), nw(IntSection(ns, Lane::SOUTH, num)),
-			 se(IntSection(ns, Lane::NORTH, num)), sw(IntSection(ew, Lane::EAST, num))/*,
-			 north(Lane(Lane::NORTH, ne, se, num, prob_new_vehicle_north_south,
-						 proportion_of_cars, proportion_of_SUVs, 
-						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks)),
-			 west(Lane(Lane::WEST, nw, ne, num, prob_new_vehicle_east_west,
-						 proportion_of_cars, proportion_of_SUVs, 
-						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks)),
-			 south(Lane(Lane::SOUTH, sw, nw, num, prob_new_vehicle_north_south,
-						 proportion_of_cars, proportion_of_SUVs, 
-						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks)),
-			 east(Lane(Lane::EAST, se, sw, num, prob_new_vehicle_east_west,
-						 proportion_of_cars, proportion_of_SUVs, 
-						 prob_right_turn_cars, prob_right_turn_SUVs, prob_right_turn_trucks))*/
+			 se(IntSection(ns, Lane::NORTH, num)), sw(IntSection(ew, Lane::EAST, num))
 {	
 	// reserve space in memory for the lanes
 	lanes.reserve(4);
@@ -85,8 +71,7 @@ std::vector<Section*> Clock::Tick()
 		}
 		temp.clear();
 		it++;
-	}	
-	
+	}		
 	return occupied;
 }
 

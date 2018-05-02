@@ -54,7 +54,7 @@ int main(int argc, char* argv[])
 
     Animator anim(halfSize);
 
-    // construct vectors of VehicleBase* of appropriate size, init to nullptr
+    //construct vectors of VehicleBase* of appropriate size, init to nullptr
     std::vector<VehicleBase*> westbound(halfSize * 2 + 2, nullptr);
     std::vector<VehicleBase*> eastbound(halfSize * 2 + 2, nullptr);
     std::vector<VehicleBase*> southbound(halfSize * 2 + 2, nullptr);
@@ -76,11 +76,10 @@ int main(int argc, char* argv[])
         //tick the clock
         sections = clock.Tick();
         std::vector<Section*>::iterator it = sections.begin();
-        //std::vector<VehicleBase> vehicles;
+
         //set up the vectors we are going to draw, based off info from our intersection
         while(it != sections.end())
         {   
-            //vehicles.emplace_back((*(*(*it)).getVehicle()).getVehicleType());
             switch ( (*(*it)).getLane() )
             {
                 case Lane::NORTH:
@@ -114,64 +113,4 @@ int main(int argc, char* argv[])
 
         sections.clear();
     }
-/*    
-    VehicleBase vb1(VehicleBase::CAR);
-    VehicleBase vb2(VehicleBase::SUV);
-    VehicleBase vb3(VehicleBase::TRUCK);
-    VehicleBase vb4(VehicleBase::CAR);
-    VehicleBase vb5(VehicleBase::SUV);
-    VehicleBase vb6(VehicleBase::TRUCK);
-
-    for (int i = 0; i < 5; i++)
-    {
-        eastbound[12+i] = eastbound[13+i] = &vb1;
-        eastbound[6+i] = eastbound[7+i] = eastbound[8+i] = &vb2;
-        eastbound[0+i] = eastbound[1+i] = eastbound[2+i] = eastbound[3+i] = &vb3;
-
-        westbound[12+i] = westbound[13+i] = &vb4;
-        westbound[6+i] = westbound[7+i] = westbound[8+i] = &vb5;
-        westbound[0+i] = westbound[1+i] = westbound[2+i] = westbound[3+i] = &vb6;
-
-        anim.setVehiclesNorthbound(northbound);
-        anim.setVehiclesWestbound(westbound);
-        anim.setVehiclesSouthbound(southbound);
-        anim.setVehiclesEastbound(eastbound);
-
-        anim.draw(i);
-        std::cin.get(dummy);
-
-        eastbound.assign(halfSize * 2 + 2, nullptr); // reset
-        westbound.assign(halfSize * 2 + 2, nullptr); // reset
-    }
-
-    // test drawing vehicles moving southbound and northbound
-    VehicleBase vb7(VehicleBase::CAR);
-    VehicleBase vb8(VehicleBase::SUV);
-    VehicleBase vb9(VehicleBase::TRUCK);
-    VehicleBase vb10(VehicleBase::CAR);
-    VehicleBase vb11(VehicleBase::SUV);
-    VehicleBase vb12(VehicleBase::TRUCK);
-
-    for (int i = 0; i < 5; i++)
-    {
-        southbound[12+i] = southbound[13+i] = &vb7;
-        southbound[6+i] = southbound[7+i] = southbound[8+i] = &vb8;
-        southbound[0+i] = southbound[1+i] = southbound[2+i] = southbound[3+i] = &vb9;
-
-        northbound[12+i] = northbound[13+i] = &vb10;
-        northbound[6+i] = northbound[7+i] = northbound[8+i] = &vb11;
-        northbound[0+i] = northbound[1+i] = northbound[2+i] = northbound[3+i] = &vb12;
-
-        anim.setVehiclesNorthbound(northbound);
-        anim.setVehiclesWestbound(westbound);
-        anim.setVehiclesSouthbound(southbound);
-        anim.setVehiclesEastbound(eastbound);
-
-        anim.draw(i + 10);
-        std::cin.get(dummy);
-
-        northbound.assign(halfSize * 2 + 2, nullptr); // reset
-        southbound.assign(halfSize * 2 + 2, nullptr); // reset
-    }
-*/
 }

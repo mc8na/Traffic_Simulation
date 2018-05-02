@@ -1,11 +1,10 @@
-// header file contains Lane, Vehicle, Car, SUV, Truck, Section, IntSection classes
+//Header file contains Lane, Vehicle, Car, SUV, Truck, Section, IntSection classes
 #ifndef __LANE_H__
 #define __LANE_H__
 
 #include "TrafficLight.h"
 #include "VehicleBase.h"
 #include <vector>
-#include <list>
 #include <iostream>
 #include <random>
 

@@ -20,7 +20,6 @@ class Clock
 		std::vector<Section*> occupied;
 
 	public:
-		//Clock();
 		Clock(int num, int green_north_south, int yellow_north_south, 
 			  int green_east_west, int yellow_east_west, double prob_new_vehicle_north_south,
 			  double prob_new_vehicle_east_west, double proportion_of_cars,
