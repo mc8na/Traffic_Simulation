@@ -76,15 +76,14 @@ int main(int argc, char* argv[])
         //tick the clock
         sections = clock.Tick();
         std::vector<Section*>::iterator it = sections.begin();
-        //std::vector<VehicleBase> vehicles;
+        
         //set up the vectors we are going to draw, based off info from our intersection
         while(it != sections.end())
         {   
-            //vehicles.emplace_back((*(*(*it)).getVehicle()).getVehicleType());
-            switch ( (*(*it)).getLane() )
+            switch ( (*(*it)).getLane() ) // find which lane occupied Section is in
             {
                 case Lane::NORTH:
-                    northbound[(*(*it)).getIndex()] = (*(*it)).getVehicle();
+                    northbound[(*(*it)).getIndex()] = (*(*it)).getVehicle(); 
                 break;
                 case Lane::SOUTH:
                     southbound[(*(*it)).getIndex()] = (*(*it)).getVehicle();
