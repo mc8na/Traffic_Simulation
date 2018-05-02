@@ -158,6 +158,7 @@ void Lane::removeVehicle() // remove vehicle when it exits the lane
 Lane::Direction Lane::assignDir(double prob_right_turn)
 {
 	double prob = randDouble();
+	switch(prob < prob_right_turn)
 	{
 		case true:
 			switch(lDirection)
@@ -175,6 +176,7 @@ Lane::Direction Lane::assignDir(double prob_right_turn)
 			return lDirection;
 	}
 }
+
 
 double Lane::randDouble() 
 {
