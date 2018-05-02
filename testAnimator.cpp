@@ -1,3 +1,6 @@
+//Names: Wesley Su, Palmer Robins, Miles Clikeman
+//This file tests, and displays, our implementation of the traffic intersection simulation.
+
 #include <iostream>
 #include "Animator.h"
 #include "VehicleBase.h"
@@ -17,7 +20,7 @@ int main(int argc, char* argv[])
     inputFile.open(argv[1]);
     if (!inputFile.is_open()) 
     {
-        std::cerr << "Error: Unable to open specified input file." << std::endl;
+        std::cerr << "Error: Unable to open specified input file: [" << argv[1] << "]." << std::endl;
         exit(1);
     }
 
@@ -25,23 +28,24 @@ int main(int argc, char* argv[])
     Animator::MAX_VEHICLE_COUNT = 999;  // vehicles will be displayed with three digits
     //Animator::MAX_VEHICLE_COUNT = 99;  // vehicles will be displayed with two digits
 
-    int maxTime;
+    int maxTime;   //Maximum time for the sim
     int halfSize;  // number of sections before intersection
-    int ns_green;
+    int ns_green;  //These 4 vars control timing of the traffic lights
     int ns_yellow;
     int ew_green;
     int ew_yellow;
-    double prob_nsVehicle;
-    double prob_ewVehicle;
-    double prop_cars;
+    double prob_nsVehicle; //probability that a new car generates in NS lanes
+    double prob_ewVehicle; //probability that a new car generates in EW lanes
+    double prop_cars;      //proportion of cars/suvs
     double prop_SUVs;
-    double probRight_cars;
+    double probRight_cars; //probability that a vehicle turns right
     double probRight_SUVs;
     double probRight_trucks;
-    double probLeft_cars;
+    double probLeft_cars;   //left turn probabilities not used
     double probLeft_SUVs;
     double probLeft_trucks;
 
+    //Reading the values from the inputfile for our simulation
     inputFile >> maxTime >> halfSize >> ns_green >> ns_yellow >> ew_green >> ew_yellow;
     inputFile >> prob_nsVehicle >> prob_ewVehicle >> prop_cars >> prop_SUVs >> probRight_cars;
     inputFile >> probLeft_cars >> probRight_SUVs >> probLeft_SUVs >> probRight_trucks >> probLeft_trucks;
@@ -58,17 +62,22 @@ int main(int argc, char* argv[])
 
     char dummy;
 
-    // test drawing vehicles moving eastbound and westbound
+    // test drawing vehicles moving east, west, north, and south
+    //Construct an instance of clock, which will create the intersection
     Clock clock(halfSize, ns_green, ns_yellow, ew_green, ew_yellow, prob_nsVehicle, prob_ewVehicle, 
         prop_cars, prop_SUVs, probRight_cars, probRight_SUVs, probRight_trucks);
 
+    //Stores the sections of each lane in the intersection
     std::vector<Section*> sections;
 
+    // test drawing vehicles moving east, west, north, and south
     for (int i = 0; i <= maxTime; i++)
     {
+        //tick the clock
         sections = clock.Tick();
         std::vector<Section*>::iterator it = sections.begin();
         //std::vector<VehicleBase> vehicles;
+        //set up the vectors we are going to draw, based off info from our intersection
         while(it != sections.end())
         {   
             //vehicles.emplace_back((*(*(*it)).getVehicle()).getVehicleType());
@@ -89,7 +98,7 @@ int main(int argc, char* argv[])
             }
             it++;
         }
-
+        //Draw the vehicles in each vector
         anim.setVehiclesNorthbound(northbound);
         anim.setVehiclesWestbound(westbound);
         anim.setVehiclesSouthbound(southbound);
@@ -100,8 +109,8 @@ int main(int argc, char* argv[])
 
         eastbound.assign(halfSize * 2 + 2, nullptr); // reset
         westbound.assign(halfSize * 2 + 2, nullptr); // reset
-        northbound.assign(halfSize * 2 + 2, nullptr);
-        southbound.assign(halfSize * 2 + 2, nullptr);
+        northbound.assign(halfSize * 2 + 2, nullptr);// reset
+        southbound.assign(halfSize * 2 + 2, nullptr);// reset
 
         sections.clear();
     }

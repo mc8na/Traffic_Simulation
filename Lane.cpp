@@ -177,6 +177,7 @@ Lane::Direction Lane::assignDir(double prob_right_turn)
 	}
 }
 
+
 double Lane::randDouble() 
 {
 	return rand_double(rng);

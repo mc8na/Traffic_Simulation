@@ -41,6 +41,7 @@ void TrafficLight::advanceTick()
 				time = 0; // reset timer
 				color = TrafficLight::RED; // change from yellow to red
 			}
+		break;
 	}
 }
 
