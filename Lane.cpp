@@ -5,11 +5,15 @@
 #include <vector>
 #include <list>
 
+std::mt19937 Lane::rng = std::mt19937(8675306);
+std::uniform_real_distribution<double> Lane::rand_double = std::uniform_real_distribution<double>(0.0, 1.0);
+
 Lane::Lane(const Lane& lane)
 {
+	sections.reserve(lane.sections.capacity());
 	sections = lane.sections;
 	lDirection = lane.lDirection;
-	//vehicles = lane.vehicles;
+	
 	vehicles.reserve(lane.vehicles.capacity());
 	std::vector<Vehicle>::const_iterator it = lane.vehicles.cbegin();
 	while(it != lane.vehicles.cend())
@@ -17,6 +21,7 @@ Lane::Lane(const Lane& lane)
 		vehicles.push_back(*it);
 		it++;
 	}
+	occupied.reserve(lane.occupied.capacity());
 	occupied = lane.occupied;
 	indexFirstVehicle = lane.indexFirstVehicle;
 	indexLastVehicle = lane.indexLastVehicle;
@@ -28,11 +33,14 @@ Lane::Lane(const Lane& lane)
 	prob_right_turn_trucks = lane.prob_right_turn_trucks;
 }
 
-Lane::Lane(Direction dir, IntSection& one, IntSection& two, int numSections,
+Lane::Lane(Direction dir, int numSections,
 		   double prob_new, double proportion_cars, double proportion_SUVs,
 		   double prob_right_cars, double prob_right_SUVs,
 		   double prob_right_trucks)
 {
+	vehicles.reserve(2 * numSections + 2);
+	sections.reserve(2 * numSections);
+	occupied.reserve(2 * numSections + 2);
 	lDirection = dir; // assign the Lane a direction
 	prob_new_vehicle = prob_new;
 	proportion_of_cars = proportion_cars;
@@ -42,36 +50,37 @@ Lane::Lane(Direction dir, IntSection& one, IntSection& two, int numSections,
 	prob_right_turn_trucks = prob_right_trucks;
 	indexFirstVehicle = 0;
 	indexLastVehicle = 0;
-	vehicles.reserve(numSections + 2);
-	sections.reserve(2 * numSections + 2);
+}
+
+Section& Lane::link(int numSections, IntSection& one, IntSection& two)
+{
+	vehicles.reserve(2 * numSections + 2);
+	sections.reserve(2 * numSections);
 
 	for(int i = 0; i < numSections; i++) // create inbound sections 
 	{
-		Section sec(dir, i);
+		Section sec(lDirection, i);
 		sections.push_back(sec);
-		//sections.push_back(Section(dir, i));
 	}
-	sections.push_back(two); // add IntSection
-	sections.push_back(one); // add IntSection
 	for(int i = numSections + 2; i < 2 * numSections + 2; i++) // create outbound sections
 	{
-		Section sec(dir, i);
+		Section sec(lDirection, i);
 		sections.push_back(sec);
-		//sections.push_back(Section(dir, i));
 	}
 
-	for(int i = 0; i < numSections; i++) // now link sections together
+	for(int i = 0; i < numSections - 1; i++) // now link sections together
 	{
 		sections.at(i).setNext(sections.at(i + 1));
 	}
-	one.setExit(sections.at(numSections + 2));
-	for(int i = numSections + 2; i < 2 * numSections + 1; i++)
+	sections.at(numSections - 1).setNext(two);
+	for(int i = numSections; i < 2 * numSections - 1; i++)
 	{
 		sections.at(i).setNext(sections.at(i + 1));
 	}
+	return sections.at(numSections);
 }
 
-Lane::~Lane(){}
+Lane::~Lane() {}
 
 std::vector<Section*> Lane::advance()
 {
@@ -91,64 +100,48 @@ std::vector<Section*> Lane::advance()
 		}
 		temp.clear();
 	}
-	//std::list<Vehicle>::iterator it = vehicles.begin();
-	//while(it != vehicles.end()) // tell each vehicle in the list to move forward
-	//{
-	//	temp = (*it).proceed(*this);
-	//}
-	if(sections.front().isOpen())
+	
+	if(sections.front().isOpen(nullptr))
 	{
-		double random = randDouble(0.0, 1.0);
+		double random = randDouble();
 		if(random < prob_new_vehicle)
 		{
-			//std::vector<Vehicle>::iterator it = vehicles.begin() + indexLastVehicle;
-			double prob = randDouble(0.0, 1.0);
+			double prob = randDouble();
 			if(prob < proportion_of_cars)
 			{
-				//Vehicle veh = Car(sections.front(), assignDir(prob, prob_right_turn_cars));
-				//vehicles.insert(it, Car(sections.front(), assignDir(prob, prob_right_turn_cars)));
+				Vehicle car(sections.front(), assignDir(prob_right_turn_cars), VehicleBase::CAR);
 				if(indexLastVehicle < (int) vehicles.size())
 				{
-					Vehicle car = Car(sections.front(), assignDir(prob, prob_right_turn_cars));
 					vehicles.at(indexLastVehicle) = car;
 				}
 				else
 				{
-					Vehicle car = Car(sections.front(), assignDir(prob, prob_right_turn_cars));
 					vehicles.push_back(car);
-					//vehicles.push_back(Car(sections.front(), assignDir(prob, prob_right_turn_cars)));
 				}
 			}
 			else if(prob < proportion_of_cars + proportion_of_SUVs)
 			{
-				//vehicles.insert(it, SUV(sections.front(), assignDir(prob, prob_right_turn_SUVs)));
+				Vehicle suv(sections.front(), assignDir(prob_right_turn_SUVs), VehicleBase::SUV);
 				if(indexLastVehicle < (int) vehicles.size())
 				{
-					Vehicle suv = SUV(sections.front(), assignDir(prob, prob_right_turn_SUVs));
 					vehicles.at(indexLastVehicle) = suv;
 				}
 				else
 				{
-					Vehicle suv = SUV(sections.front(), assignDir(prob, prob_right_turn_SUVs));
 					vehicles.push_back(suv);
-					//vehicles.push_back(SUV(sections.front(), assignDir(prob, prob_right_turn_SUVs)));
 				}
 			}
 			else
 			{
+				Vehicle truck(sections.front(), assignDir(prob_right_turn_trucks), VehicleBase::TRUCK);
 				if(indexLastVehicle < (int) vehicles.size())
 				{
-					Vehicle truck = Truck(sections.front(), assignDir(prob, prob_right_turn_trucks));
 					vehicles.at(indexLastVehicle) = truck;
 				}
 				else
 				{
-					Vehicle truck = Truck(sections.front(), assignDir(prob, prob_right_turn_trucks));
 					vehicles.push_back(truck);
-					//vehicles.push_back(Truck(sections.front(), assignDir(prob, prob_right_turn_trucks)));
 				}
-				//vehicles.insert(it, Truck(sections.front(), assignDir(prob, prob_right_turn_trucks)));
-				//vehicles.push_back(Truck(sections.front(), assignDir(prob, prob_right_turn_trucks)));
 			}
 			indexLastVehicle = (indexLastVehicle + 1) % vehicles.capacity();
 			occupied.push_back(&(sections.front()));
@@ -159,14 +152,12 @@ std::vector<Section*> Lane::advance()
 
 void Lane::removeVehicle() // remove vehicle when it exits the lane
 {
-	//vehicles.pop_front();
 	indexFirstVehicle = (indexFirstVehicle + 1) % vehicles.capacity();
 }
 
-Lane::Direction Lane::assignDir(double prob, double prob_right_turn)
+Lane::Direction Lane::assignDir(double prob_right_turn)
 {
-	prob = randDouble(0.0, 1.0);
-	std::cout << randDouble(0.0, 1.0) << std::endl;
+	double prob = randDouble();
 	switch(prob < prob_right_turn)
 	{
 		case true:
@@ -186,14 +177,10 @@ Lane::Direction Lane::assignDir(double prob, double prob_right_turn)
 	}
 }
 
-Lane::Direction Lane::getDirection()
-{
-	return lDirection;
-}
 
-double Lane::randDouble(double low, double high) 
+double Lane::randDouble() 
 {
-	return ( ( double )rand() * ( high - low ) ) / ( double )RAND_MAX + low;
+	return rand_double(rng);
 }
 
 #endif

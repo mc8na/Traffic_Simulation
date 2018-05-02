@@ -10,7 +10,13 @@ class Clock
 	protected:
 		TrafficLight ns; // traffic light for north-south
 		TrafficLight ew; // traffic light for east-west
-		std::vector<Lane> lanes; // list of lanes
+		
+		IntSection ne;
+		IntSection nw;
+		IntSection se;
+		IntSection sw;
+		
+		std::vector<Lane> lanes;
 		std::vector<Section*> occupied;
 
 	public:

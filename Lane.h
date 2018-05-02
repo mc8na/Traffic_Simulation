@@ -18,15 +18,17 @@ class Lane
 	public:
 		enum Direction {NORTH, SOUTH, EAST, WEST};
 		Lane(const Lane& lane);
-		Lane(Direction dir, IntSection& one, IntSection& two, int numSections,
+		Lane(Direction dir, int numSections,
 			 double prob_new, double proportion_cars, double proportion_SUVs,
 			 double prob_right_cars, double prob_right_SUVs,
 			 double prob_right_trucks);
 		~Lane();
 		std::vector<Section*> advance();
 		void removeVehicle();
-		Lane::Direction getDirection();
-		double randDouble(double low, double high);
+		double randDouble();
+		Section& link(int numSections, IntSection& one, IntSection& two);
+		static std::mt19937 rng;
+		static std::uniform_real_distribution<double> rand_double;
 
 	protected:
 		std::vector<Section> sections;
@@ -41,7 +43,7 @@ class Lane
 		double prob_right_turn_cars;
 		double prob_right_turn_SUVs;
 		double prob_right_turn_trucks;
-		Lane::Direction assignDir(double prob, double prob_right_turn);
+		Lane::Direction assignDir(double prob_right_turn);
 };
 
 class Vehicle : public VehicleBase
@@ -57,43 +59,10 @@ class Vehicle : public VehicleBase
 
 	protected:
 		Lane::Direction vDirection;
-		std::vector<Section*> location; 
-};
-
-class Car : public Vehicle
-{
-	public:
-		//Car();
-		Car(const Car& car);
-		Car(Section& sec, Lane::Direction dir);
-		~Car();		
-};
-
-class SUV : public Vehicle
-{
-	public:
-		//SUV();
-		SUV(const SUV& suv);
-		SUV(Section& sec, Lane::Direction dir);
-		std::vector<Section*> proceed(Lane& lane);
-		~SUV();
-
-	protected:
-		//Section* mid;
-};
-
-class Truck : public Vehicle
-{
-	public:
-		//Truck();
-		Truck(const Truck& truck);
-		Truck(Section& sec, Lane::Direction dir);
-		std::vector<Section*> proceed(Lane& lane);
-		~Truck();
-
-	protected:
-		//Section* frontMid;
-		//Section* backMid;
+		std::vector<Section*> location;
+		std::vector<Section*> proceedCar(Lane& lane);
+		std::vector<Section*> proceedSUV(Lane& lane);
+		std::vector<Section*> proceedTruck(Lane& lane); 
 };
 
 class Section
@@ -102,8 +71,8 @@ class Section
 		Section(Lane::Direction l, int i);
 		Section(const Section& sec);
 		~Section();
-		bool isOpen();
-		Section* getNext(Lane::Direction dir);
+		virtual bool isOpen(Section* sec);
+		virtual Section* getNext(Lane::Direction dir);
 		void occupy(Vehicle& veh);
 		void leave();
 		void setNext(Section& sec);
@@ -125,14 +94,15 @@ class IntSection : public Section
 		IntSection(const IntSection& sec);
 		IntSection(TrafficLight& tl, Lane::Direction dir, int i);
 		void setExit(Section& sec);
+		void setBack(Section& sec);
 		Section* getNext(Lane::Direction dir);
-		bool isOpen();
+		bool isOpen(Section* sec);
 		~IntSection();
 
 	protected:
 		TrafficLight* traf;
 		Section* out;
-
+		Section* back;
 };
 
 #endif

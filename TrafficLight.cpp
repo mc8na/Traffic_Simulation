@@ -19,7 +19,7 @@ TrafficLight::~TrafficLight(){}
 void TrafficLight::advanceTick()
 {
 	time++; // advance time 
-	switch(getColor()) // see what color the traffic light is now
+	switch(color) // see what color the traffic light is now
 	{
 		case TrafficLight::RED:
 			if(time >= lengthRed) // if it is time to change color

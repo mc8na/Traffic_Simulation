@@ -7,16 +7,24 @@ IntSection::IntSection(const IntSection& sec) : Section(sec) // const copy const
 {
 	traf = sec.traf;
 	out = sec.out;
+	back = sec.back;
 }
 
 IntSection::IntSection(TrafficLight& tl, Lane::Direction dir, int i) : Section(dir, i) // constructor
 {
 	traf = &tl;
+	out = nullptr;
+	back = nullptr;
 }
 
 void IntSection::setExit(Section& sec) // out points to Section in outbound lane
 {
 	out = &sec;
+}
+
+void IntSection::setBack(Section& sec)
+{
+	back = &sec;
 }
 
 Section* IntSection::getNext(Lane::Direction dir) // returns correct Section based on direction Vehicle travels
@@ -28,9 +36,13 @@ Section* IntSection::getNext(Lane::Direction dir) // returns correct Section bas
 	return out; // out points to outbound lane
 }
 
-bool IntSection::isOpen()
+bool IntSection::isOpen(Section* sec)
 {
-	if((*traf).getColor() == TrafficLight::GREEN) // if the vehicle has a green light
+	if(sec == back)
+	{
+		return open;
+	}
+	else if((*traf).getColor() == TrafficLight::GREEN) // if the vehicle has a green light
 	{
 		return open; // return whether the IntSection is occupied
 	}

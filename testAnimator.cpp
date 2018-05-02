@@ -22,8 +22,8 @@ int main(int argc, char* argv[])
     }
 
     //Animator::MAX_VEHICLE_COUNT = 9999;  // vehicles will be displayed with four digits
-    //Animator::MAX_VEHICLE_COUNT = 999;  // vehicles will be displayed with three digits
-    Animator::MAX_VEHICLE_COUNT = 99;  // vehicles will be displayed with two digits
+    Animator::MAX_VEHICLE_COUNT = 999;  // vehicles will be displayed with three digits
+    //Animator::MAX_VEHICLE_COUNT = 99;  // vehicles will be displayed with two digits
 
     int maxTime;
     int halfSize;  // number of sections before intersection
