@@ -1,3 +1,4 @@
+// header file contains Clock class
 #ifndef __CLOCK_H__
 #define __CLOCK_H__
 

@@ -1,9 +1,11 @@
+// Implements Lane class: each Lane stores a vector of Sections and a vector of Vehicles
+// includes methods for advancing vehicles and linking Sections together
+
 #ifndef __LANE_CPP__
 #define __LANE_CPP__
 
 #include "Lane.h"
 #include <vector>
-#include <list>
 
 std::mt19937 Lane::rng = std::mt19937(8675306);
 std::uniform_real_distribution<double> Lane::rand_double = std::uniform_real_distribution<double>(0.0, 1.0);
@@ -88,7 +90,7 @@ std::vector<Section*> Lane::advance()
 	std::vector<Section*> temp;
 	for(int i = indexFirstVehicle; i != indexLastVehicle; i = (i + 1) % vehicles.capacity())
 	{
-		temp = vehicles.at(i).proceed(*this);
+		temp = vehicles.at(i).proceed(*this); // tell each vehicle to proceed
 		std::vector<Section*>::iterator it2 = temp.begin();
 		while(it2 != temp.end())
 		{
@@ -101,25 +103,25 @@ std::vector<Section*> Lane::advance()
 		temp.clear();
 	}
 	
-	if(sections.front().isOpen(nullptr))
+	if(sections.front().isOpen(nullptr)) // if first Section in the lane is open
 	{
 		double random = randDouble();
-		if(random < prob_new_vehicle)
+		if(random < prob_new_vehicle)    // test probability of creating new vehicle
 		{
 			double prob = randDouble();
-			if(prob < proportion_of_cars)
+			if(prob < proportion_of_cars) // creating a new car
 			{
 				Vehicle car(sections.front(), assignDir(prob_right_turn_cars), VehicleBase::CAR);
-				if(indexLastVehicle < (int) vehicles.size())
+				if(indexLastVehicle < (int) vehicles.size()) // reuse memory of vehicles that have exited the lane
 				{
 					vehicles.at(indexLastVehicle) = car;
 				}
 				else
 				{
-					vehicles.push_back(car);
+					vehicles.push_back(car); // still filling out vehicles vector
 				}
 			}
-			else if(prob < proportion_of_cars + proportion_of_SUVs)
+			else if(prob < proportion_of_cars + proportion_of_SUVs) // creating an SUV
 			{
 				Vehicle suv(sections.front(), assignDir(prob_right_turn_SUVs), VehicleBase::SUV);
 				if(indexLastVehicle < (int) vehicles.size())
@@ -143,8 +145,8 @@ std::vector<Section*> Lane::advance()
 					vehicles.push_back(truck);
 				}
 			}
-			indexLastVehicle = (indexLastVehicle + 1) % vehicles.capacity();
-			occupied.push_back(&(sections.front()));
+			indexLastVehicle = (indexLastVehicle + 1) % vehicles.capacity();  
+			occupied.push_back(&(sections.front())); // first Section is now occupied
 		}
 	}
 	return occupied;
@@ -155,7 +157,8 @@ void Lane::removeVehicle() // remove vehicle when it exits the lane
 	indexFirstVehicle = (indexFirstVehicle + 1) % vehicles.capacity();
 }
 
-Lane::Direction Lane::assignDir(double prob_right_turn)
+Lane::Direction Lane::assignDir(double prob_right_turn) // method returns a direction
+														// determining right turn or straight
 {
 	double prob = randDouble();
 	switch(prob < prob_right_turn)
@@ -178,7 +181,7 @@ Lane::Direction Lane::assignDir(double prob_right_turn)
 }
 
 
-double Lane::randDouble() 
+double Lane::randDouble() // returns a random double between 0.0 and 1.0
 {
 	return rand_double(rng);
 }

@@ -1,3 +1,4 @@
+// header file contains TrafficLight class
 #ifndef __TRAFFICLIGHT_H__
 #define __TRAFFICLIGHT_H__
 

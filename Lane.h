@@ -5,7 +5,6 @@
 #include "TrafficLight.h"
 #include "VehicleBase.h"
 #include <vector>
-#include <list>
 #include <iostream>
 #include <random>
 
