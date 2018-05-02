@@ -25,7 +25,6 @@ class Lane
 		~Lane();
 		std::vector<Section*> advance();
 		void removeVehicle();
-		//Lane::Direction getDirection();
 		double randDouble();
 		Section& link(int numSections, IntSection& one, IntSection& two);
 		static std::mt19937 rng;
@@ -54,7 +53,7 @@ class Vehicle : public VehicleBase
 		Vehicle(const Vehicle& veh);
 		Vehicle(Section& sec, Lane::Direction dir, VehicleBase::VehicleType type);
 		~Vehicle();
-		virtual std::vector<Section*> proceed(Lane& lane);
+		std::vector<Section*> proceed(Lane& lane);
 		Lane::Direction getDirection();
 		void operator=(const Vehicle& veh);
 
@@ -65,44 +64,7 @@ class Vehicle : public VehicleBase
 		std::vector<Section*> proceedSUV(Lane& lane);
 		std::vector<Section*> proceedTruck(Lane& lane); 
 };
-/*
-class Car : public Vehicle
-{
-	public:
-		//Car();
-		Car(const Car& car);
-		Car(Section& sec, Lane::Direction dir);
-		//std::vector<Section*> proceed(Lane& lane);
-		~Car();		
-};
 
-class SUV : public Vehicle
-{
-	public:
-		//SUV();
-		SUV(const SUV& suv);
-		SUV(Section& sec, Lane::Direction dir);
-		//std::vector<Section*> proceed(Lane& lane);
-		~SUV();
-
-	protected:
-		//Section* mid;
-};
-
-class Truck : public Vehicle
-{
-	public:
-		//Truck();
-		Truck(const Truck& truck);
-		Truck(Section& sec, Lane::Direction dir);
-		//std::vector<Section*> proceed(Lane& lane);
-		~Truck();
-
-	protected:
-		//Section* frontMid;
-		//Section* backMid;
-};
-*/
 class Section
 {
 	public:
@@ -141,7 +103,6 @@ class IntSection : public Section
 		TrafficLight* traf;
 		Section* out;
 		Section* back;
-
 };
 
 #endif

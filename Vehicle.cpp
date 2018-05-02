@@ -147,6 +147,7 @@ std::vector<Section*> Vehicle::proceedTruck(Lane& lane)
 		(*location.back()).leave();
 		location.back() = location.at(2);
 		location.at(2) = location.at(1);
+		location.at(1) = location.front();
 		location.front() = nullptr;
 	}
 	else if((*((*location.front()).getNext(vDirection))).isOpen(location.front()) == true) // if next Section is open

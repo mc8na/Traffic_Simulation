@@ -10,6 +10,7 @@ std::uniform_real_distribution<double> Lane::rand_double = std::uniform_real_dis
 
 Lane::Lane(const Lane& lane)
 {
+	sections.reserve(lane.sections.capacity());
 	sections = lane.sections;
 	lDirection = lane.lDirection;
 	
@@ -20,6 +21,7 @@ Lane::Lane(const Lane& lane)
 		vehicles.push_back(*it);
 		it++;
 	}
+	occupied.reserve(lane.occupied.capacity());
 	occupied = lane.occupied;
 	indexFirstVehicle = lane.indexFirstVehicle;
 	indexLastVehicle = lane.indexLastVehicle;
@@ -173,12 +175,7 @@ Lane::Direction Lane::assignDir(double prob_right_turn)
 			return lDirection;
 	}
 }
-/*
-Lane::Direction Lane::getDirection()
-{
-	return lDirection;
-}
-*/
+
 double Lane::randDouble() 
 {
 	return rand_double(rng);
