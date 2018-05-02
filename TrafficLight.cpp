@@ -45,7 +45,7 @@ void TrafficLight::advanceTick()
 	}
 }
 
-TrafficLight::Color TrafficLight::getColor()
+TrafficLight::Color TrafficLight::getColor() // returns what color the traffic light is
 {
 	return color;
 }

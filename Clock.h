@@ -17,7 +17,7 @@ class Clock
 		IntSection sw;
 		
 		std::vector<Lane> lanes;
-		std::vector<Section*> occupied;
+		std::vector<Section*> occupied; // stores pointers to occupied Sections
 
 	public:
 		Clock(int num, int green_north_south, int yellow_north_south, 

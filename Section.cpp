@@ -36,13 +36,13 @@ Section* Section::getNext(Lane::Direction dir) // returns the next Section in th
 	return next;
 }
 
-void Section::occupy(Vehicle& veh)
+void Section::occupy(Vehicle& veh) // this Section is now occupied by veh
 {
 	open = false;
 	vehicle = &veh;
 }
 
-void Section::leave()
+void Section::leave() // the vehicle is leaving this Section, it is now unoccupied
 {
 	open = true;
 	vehicle = nullptr;
@@ -53,17 +53,17 @@ void Section::setNext(Section& sec) // sets the Section to point to sec
 	next = &sec;
 }
 
-int Section::getIndex()
+int Section::getIndex() // returns the index of the lane where the Section is stored
 {
 	return index;
 }
 
-Vehicle* Section::getVehicle()
+Vehicle* Section::getVehicle() // returns a pointer to the vehicle occupying the Section
 {
 	return vehicle;
 }
 
-Lane::Direction Section::getLane()
+Lane::Direction Section::getLane() // returns which lane (direction) this Section is in
 {
 	return lane;
 }

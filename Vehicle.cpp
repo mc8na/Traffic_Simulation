@@ -3,7 +3,7 @@
 
 #include "Lane.h"
 
-Vehicle::Vehicle(const Vehicle& veh) : VehicleBase(veh)
+Vehicle::Vehicle(const Vehicle& veh) : VehicleBase(veh) // copy constructor
 {
 	location.reserve(4);
 	std::vector<Section*>::const_iterator it = veh.location.cbegin();
@@ -23,22 +23,24 @@ Vehicle::Vehicle(Section& sec, Lane::Direction dir, VehicleBase::VehicleType typ
 	location.reserve(4);
 	location.push_back(&sec);
 	location.push_back(&sec);
-	if(type == VehicleBase::SUV)
+	if(type == VehicleBase::SUV) // SUVs take up 3 Sections
 	{
 		location.push_back(&sec);
 	}
-	else if(type == VehicleBase::TRUCK)
+	else if(type == VehicleBase::TRUCK) // Trucks take up 4 Sections
 	{
 		location.push_back(&sec);
 		location.push_back(&sec);
 	}
-	(*location.front()).occupy(*this);
+	(*location.front()).occupy(*this); // front of vehicle occupies sec
 	vDirection = dir;
 }
 
-std::vector<Section*> Vehicle::proceed(Lane& lane)
+std::vector<Section*> Vehicle::proceed(Lane& lane) // method to tell vehicle to move forward
+												   // @return list of pointers to Sections occupied
+												   // by the vehicle after it moves
 {
-	switch(vehicleType)
+	switch(vehicleType) // different methods based on vehicleType
 	{
 		case VehicleBase::CAR:
 			return proceedCar(lane);
@@ -50,7 +52,7 @@ std::vector<Section*> Vehicle::proceed(Lane& lane)
 	return location;
 }
 
-std::vector<Section*> Vehicle::proceedCar(Lane& lane)
+std::vector<Section*> Vehicle::proceedCar(Lane& lane) // method to move a Car forward
 {
 	if (location.front() == nullptr) // if front of vehicle has exited the lane
 	{
@@ -78,7 +80,7 @@ std::vector<Section*> Vehicle::proceedCar(Lane& lane)
 	return location;
 }
 
-std::vector<Section*> Vehicle::proceedSUV(Lane& lane)
+std::vector<Section*> Vehicle::proceedSUV(Lane& lane) // method to move an SUV forward
 {
 	if (location.front() == nullptr) // if front of vehicle has exited the lane
 	{
@@ -97,10 +99,11 @@ std::vector<Section*> Vehicle::proceedSUV(Lane& lane)
 	}
 	else if ((*location.front()).getNext(vDirection) == nullptr) // if vehicle about to exit lane
 	{ 
+		// advance back sections forward
 		(*location.back()).leave();
 		location.back() = location.at(1);
 		location.at(1) = location.front();
-		location.front() = nullptr;
+		location.front() = nullptr; // front has exited the lane
 
 	}
 	else if((*((*location.front()).getNext(vDirection))).isOpen(location.front()) == true) // if next Section is open
@@ -117,7 +120,7 @@ std::vector<Section*> Vehicle::proceedSUV(Lane& lane)
 	return location;
 }
 
-std::vector<Section*> Vehicle::proceedTruck(Lane& lane)
+std::vector<Section*> Vehicle::proceedTruck(Lane& lane) // method to move Trucks forward
 {
 	if (location.front() == nullptr) // if vehicle has walked off end of lane
 	{
@@ -142,11 +145,12 @@ std::vector<Section*> Vehicle::proceedTruck(Lane& lane)
 	}
 	else if ((*location.front()).getNext(vDirection) == nullptr) // if truck about to walk off end of lane
 	{ 
+		// move back sections forward
 		(*location.back()).leave();
 		location.back() = location.at(2);
 		location.at(2) = location.at(1);
 		location.at(1) = location.front();
-		location.front() = nullptr;
+		location.front() = nullptr; // front has exited the lane
 	}
 	else if((*((*location.front()).getNext(vDirection))).isOpen(location.front()) == true) // if next Section is open
 	{
@@ -164,12 +168,12 @@ std::vector<Section*> Vehicle::proceedTruck(Lane& lane)
 	return location;
 }
 
-Lane::Direction Vehicle::getDirection() // returns direction vehicle is traveling
+Lane::Direction Vehicle::getDirection() // returns direction vehicle is headed
 {
 	return vDirection;
 }
 
-void Vehicle::operator=(const Vehicle& veh)
+void Vehicle::operator=(const Vehicle& veh) // operator overload, copies all information of veh
 {
 	location.clear();
 	location.reserve(4);
