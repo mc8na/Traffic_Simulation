@@ -53,7 +53,7 @@ class Vehicle : public VehicleBase
 		Vehicle(const Vehicle& veh);
 		Vehicle(Section& sec, Lane::Direction dir, VehicleBase::VehicleType type);
 		~Vehicle();
-		virtual std::vector<Section*> proceed(Lane& lane);
+		std::vector<Section*> proceed(Lane& lane);
 		Lane::Direction getDirection();
 		void operator=(const Vehicle& veh);
 
