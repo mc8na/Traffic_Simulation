@@ -1,3 +1,6 @@
+//This file implements the "sections" of a lane, the number of which depends on file input.
+//Key aspects include section occupancy and its "next" section.
+
 #ifndef __SECTION_CPP__
 #define __SECTION_CPP__
 

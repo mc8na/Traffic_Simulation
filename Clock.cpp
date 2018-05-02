@@ -3,8 +3,6 @@
 
 #include "Clock.h"
 
-//Clock::Clock(){}
-
 Clock::Clock(int num, int green_north_south, int yellow_north_south, 
 	         int green_east_west, int yellow_east_west, double prob_new_vehicle_north_south,
 			 double prob_new_vehicle_east_west, double proportion_of_cars,
@@ -76,8 +74,7 @@ std::vector<Section*> Clock::Tick()
 		}
 		temp.clear(); // get ready to read in more Sections
 		it++;
-	}	
-	
+	}		
 	return occupied; // return list of occupied Sections
 }
 
