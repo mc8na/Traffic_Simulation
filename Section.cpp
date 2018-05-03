@@ -48,12 +48,12 @@ void Section::leave() // the vehicle is leaving this Section, it is now unoccupi
 	vehicle = nullptr;
 }
 
-void Section::setNext(Section& sec) // sets the Section to point to sec
+void Section::setNext(Section& sec) // sets the Section to point to sec as next
 {
 	next = &sec;
 }
 
-int Section::getIndex() // returns the index of the lane where the Section is stored
+int Section::getIndex() // returns the index of the lane where the Section is stored (0 is first Section)
 {
 	return index;
 }

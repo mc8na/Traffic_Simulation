@@ -49,7 +49,6 @@ class Lane
 class Vehicle : public VehicleBase
 {
 	public:
-		//Vehicle();
 		Vehicle(const Vehicle& veh);
 		Vehicle(Section& sec, Lane::Direction dir, VehicleBase::VehicleType type);
 		~Vehicle();
