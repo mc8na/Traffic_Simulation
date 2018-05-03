@@ -96,7 +96,7 @@ std::vector<Section*> Lane::advance()
 		{
 			if(*it2 != nullptr)
 			{
-				occupied.push_back(*it2);
+				occupied.push_back(*it2); // gather up all occupied Sections
 			}
 			it2++;
 		}
@@ -161,23 +161,21 @@ Lane::Direction Lane::assignDir(double prob_right_turn) // method returns a dire
 														// determining right turn or straight
 {
 	double prob = randDouble();
-	switch(prob < prob_right_turn)
+	if (prob < prob_right_turn) // vehicle is turning right
 	{
-		case true:
-			switch(lDirection)
-			{
-				case Lane::NORTH:
-					return Lane::EAST;
-				case Lane::SOUTH:
-					return Lane::WEST;
-				case Lane::EAST:
-					return Lane::SOUTH;
-				case Lane::WEST:
-					return Lane::NORTH;
-			}
-		case false:
-			return lDirection;
+		switch(lDirection)
+		{
+			case Lane::NORTH:
+				return Lane::EAST;
+			case Lane::SOUTH:
+				return Lane::WEST;
+			case Lane::EAST:
+				return Lane::SOUTH;
+			case Lane::WEST:
+				return Lane::NORTH;
+		}
 	}
+	return lDirection; // vehicle is going straight
 }
 
 
