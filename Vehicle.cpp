@@ -77,7 +77,7 @@ std::vector<Section*> Vehicle::proceedCar(Lane& lane) // method to move a Car fo
 		location.front() = (*location.front()).getNext(vDirection); // move front to next Section
 		(*location.front()).occupy(*this); // front occupies the new Section
 	} 
-	return location;
+	return location; // return occupied Sections
 }
 
 std::vector<Section*> Vehicle::proceedSUV(Lane& lane) // method to move an SUV forward
@@ -117,7 +117,7 @@ std::vector<Section*> Vehicle::proceedSUV(Lane& lane) // method to move an SUV f
 		location.front() = (*location.front()).getNext(vDirection); // move front forward
 		(*location.front()).occupy(*this); // front occupies Section
 	}
-	return location;
+	return location; // return occupied Sections
 }
 
 std::vector<Section*> Vehicle::proceedTruck(Lane& lane) // method to move Trucks forward
@@ -165,7 +165,7 @@ std::vector<Section*> Vehicle::proceedTruck(Lane& lane) // method to move Trucks
 		location.front() = (*location.front()).getNext(vDirection);
 		(*location.front()).occupy(*this); // front occupies new Section
 	}
-	return location;
+	return location; // return occupied Sections
 }
 
 Lane::Direction Vehicle::getDirection() // returns direction vehicle is headed
